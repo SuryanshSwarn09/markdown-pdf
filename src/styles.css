@@ -1,0 +1,526 @@
+/* --- MODERN THEME VARIABLES --- */
+:root {
+  /* Sleek Light Theme */
+  --bg-body: #f3f4f6;
+  --bg-pane: #ffffff;
+  --bg-header: #ffffff;
+  --border-color: #e5e7eb;
+  
+  --text-main: #111827;
+  --text-muted: #4b5563;
+  --text-blockquote: #6b7280;
+  
+  --accent-color: #3b82f6; /* Modern primary blue */
+  --danger-color: #ef4444; /* Clean red */
+  
+  --btn-bg: #f3f4f6;
+  --btn-text: #374151;
+  --btn-hover-bg: #e5e7eb;
+  --btn-hover-text: #111827;
+  
+  --code-bg: #f1f5f9;
+  --code-block-bg: #f8fafc;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --radius-lg: 16px;
+  --radius-md: 8px;
+}
+
+[data-theme="dark"] {
+  /* Deep, Professional Dark Theme */
+  --bg-body: #0f172a; /* Slate 900 */
+  --bg-pane: #1e293b; /* Slate 800 */
+  --bg-header: #1e293b;
+  --border-color: #334155; /* Slate 700 */
+  
+  --text-main: #f8fafc;
+  --text-muted: #cbd5e1;
+  --text-blockquote: #94a3b8;
+  
+  --accent-color: #3b82f6;
+  --danger-color: #f87171;
+  
+  --btn-bg: #334155;
+  --btn-text: #e2e8f0;
+  --btn-hover-bg: #475569;
+  --btn-hover-text: #ffffff;
+  
+  --code-bg: #0f172a;
+  --code-block-bg: #0b1120;
+  
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* --- CUSTOM MODERN SCROLLBARS --- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* --- MAIN LAYOUT --- */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 24px 32px;
+  gap: 24px;
+  max-width: 1600px;
+  margin: 0 auto; /* Centers the app on ultra-wide screens */
+}
+
+/* --- TOP BAR & TOOLBAR --- */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-pane);
+  padding: 12px 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s ease;
+}
+
+.toolbar {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.toolbar button {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-family: 'Fira Code', monospace;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toolbar button:hover {
+  background-color: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
+  transform: translateY(-1px);
+}
+
+.toolbar button:active {
+  transform: translateY(1px);
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: var(--border-color);
+  margin: 0 8px;
+}
+
+/* --- ACTION BUTTONS --- */
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.print-btn, .clear-btn {
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+}
+
+.print-btn { background-color: var(--accent-color); }
+.print-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.print-btn:active { transform: translateY(1px); }
+
+.clear-btn { background-color: var(--danger-color); }
+.clear-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.clear-btn:active { transform: translateY(1px); }
+
+/* --- SPLIT PANES --- */
+.split-layout {
+  display: flex;
+  flex: 1;
+  gap: 24px;
+  min-height: 0;
+}
+
+.pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-pane);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.pane-header {
+  padding: 16px 24px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-header);
+  transition: all 0.4s ease;
+}
+
+.editor-input {
+  flex: 1;
+  width: 100%;
+  padding: 24px;
+  background-color: transparent;
+  color: var(--text-main);
+  border: none;
+  resize: none;
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  line-height: 1.6;
+  outline: none;
+}
+
+.preview-output {
+  flex: 1;
+  padding: 24px 32px;
+  overflow-y: auto;
+  line-height: 1.7;
+  color: var(--text-main);
+  font-size: 1.05rem;
+}
+
+/* --- TYPOGRAPHY & RENDERED HTML --- */
+.preview-output h1, .preview-output h2, .preview-output h3 { 
+  margin-bottom: 16px; 
+  color: var(--text-main); 
+  font-weight: 700;
+}
+.preview-output h1 { font-size: 2rem; margin-top: 8px; }
+.preview-output h2 { 
+  font-size: 1.5rem; 
+  border-bottom: 1px solid var(--border-color); 
+  padding-bottom: 10px; 
+  margin-top: 32px; 
+}
+.preview-output p { margin-bottom: 16px; color: var(--text-muted); }
+.preview-output ul, .preview-output ol { margin-left: 24px; margin-bottom: 16px; color: var(--text-muted); }
+.preview-output li { margin-bottom: 6px; }
+
+.preview-output code { 
+  background-color: var(--code-bg); 
+  padding: 4px 6px; 
+  border-radius: 6px; 
+  font-family: 'Fira Code', monospace; 
+  font-size: 0.85em; 
+  color: var(--accent-color); 
+}
+
+.preview-output pre code { 
+  display: block; 
+  padding: 20px; 
+  background-color: var(--code-block-bg); 
+  color: var(--text-main);
+  overflow-x: auto; 
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 0.9em;
+}
+
+.preview-output blockquote { 
+  border-left: 4px solid var(--accent-color); 
+  padding-left: 20px; 
+  color: var(--text-blockquote); 
+  font-style: italic; 
+  margin-bottom: 16px; 
+  background-color: var(--bg-body);
+  padding: 16px 20px;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.preview-output a { 
+  color: var(--accent-color); 
+  text-decoration: none; 
+  font-weight: 500;
+}
+.preview-output a:hover { text-decoration: underline; }
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+  /* 1. Unlock the body so the user can scroll down the page */
+  body {
+    overflow: auto;
+  }
+  
+  .app-container {
+    height: auto;
+    min-height: 100vh;
+    padding: 16px;
+  }
+  
+  /* 2. Stack the top bar elements */
+  .top-bar {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  
+  /* 3. Make the formatting buttons horizontally scrollable! */
+  .toolbar {
+    overflow-x: auto;
+    padding-bottom: 8px; /* Breathing room */
+  }
+  
+  /* Make the action buttons stretch across the screen */
+  .action-buttons {
+    justify-content: space-between;
+  }
+  .print-btn, .clear-btn {
+    flex: 1; 
+  }
+  
+  /* 4. Stack the Editor and Preview vertically */
+  .split-layout {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  /* Give each pane a solid height so there is plenty of room to type */
+  .pane {
+    min-height: 60vh; 
+    flex: none; 
+  }
+}
+
+/* --- FLOATING SIGNATURE BUTTON --- */
+.floating-signature {
+  /* 1. Positioning: Centered and stationary */
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  /* Fixed centering without animation */
+  transform: translateX(-50%); 
+  z-index: 1000;
+  
+  /* 2. Styling: Charcoal & Light Grey */
+  background-color: #171626; /* Charcoal Black */
+  color: #d1d1d1;            /* Light Grey text */
+  
+  /* Sizing */
+  padding: 6px 16px; 
+  border-radius: 999px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 300;
+  font-size: 0.75rem;
+  text-decoration: none;
+  
+  /* Subtle depth */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.floating-signature:hover {
+  /* Slight highlight on hover for interactivity */
+  background-color: #2f2f44; 
+  color: #ffffff;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+/* --- FOOTER LINKS --- */
+.footer-links {
+  display: flex;
+  gap: 24px;
+  padding-left: 8px;
+  margin-top: -8px; /* Pulls it slightly closer to the editor above it */
+  
+  /* We removed position: fixed, bottom, and left! 
+     Now it sits naturally in the document flow below the text area. */
+}
+
+.footer-links button {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+}
+
+.footer-links button:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+/* --- MODAL OVERLAY --- */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px); /* Fancy blurred background effect */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* Puts it above everything else */
+  padding: 24px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-window {
+  background-color: var(--bg-pane);
+  color: var(--text-main);
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  max-width: 700px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-color);
+}
+
+.modal-window h2 {
+  margin-bottom: 24px;
+  color: var(--text-main);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 12px;
+}
+
+.modal-window p {
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.modal-window strong {
+  color: var(--text-main);
+}
+
+.modal-close-btn {
+  margin-top: 32px;
+  width: 100%;
+  background-color: var(--accent-color);
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  opacity: 0.9;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+
+/* Keep Print Styles Intact */
+/* --- PRINT & PDF STYLES --- */
+@media print {
+  /* 1. Hide UI elements */
+  /* Update your first print rule to look like this: */
+   .top-bar, .editor-pane, .preview-pane .pane-header, .floating-signature, .footer-links, .modal-overlay { 
+    display: none !important;  
+  }
+
+  /* 2. Reset backgrounds and containers for a clean white page */
+  body, .app-container, .split-layout, .pane, .preview-output { 
+    background-color: white !important; 
+    height: auto !important; 
+    padding: 0 !important; 
+    margin: 0 !important; 
+    border: none !important; 
+    overflow: visible !important; 
+    box-shadow: none !important;
+  }
+
+  /* 3. Force ALL text elements to be pure black */
+  .preview-output, 
+  .preview-output p, 
+  .preview-output ul, 
+  .preview-output ol, 
+  .preview-output li, 
+  .preview-output blockquote, 
+  .preview-output a,
+  .preview-output h1, 
+  .preview-output h2, 
+  .preview-output h3 { 
+    color: #000000 !important; 
+  }
+
+  /* 4. Layout AND NEW TYPOGRAPHY for paper */
+  .preview-output { 
+    max-width: 100%; 
+    column-count: var(--print-cols, 1); 
+    column-gap: 40px; 
+    
+    /* NEW: Larger, print-specific font settings */
+    font-size: 16pt !important; 
+    line-height: 1.8 !important; 
+  }
+
+  /* 5. Prevent awkward page breaks */
+  .preview-output pre, 
+  .preview-output code, 
+  .preview-output img, 
+  .preview-output h1, 
+  .preview-output h2, 
+  .preview-output h3, 
+  .preview-output .katex-display { 
+    page-break-inside: avoid; 
+    break-inside: avoid; 
+  }
+
+  /* 6. Refine headings and code blocks for paper */
+  .preview-output h2 { 
+    border-bottom-color: #ccc !important; 
+  }
+
+  .preview-output pre code { 
+    background-color: #f5f5f5 !important; 
+    color: #333333 !important; 
+    border: 1px solid #dddddd !important; 
+    
+    /* NEW: Bump up code block size to match the new body text */
+    font-size: 14pt !important; 
+  }
+}
