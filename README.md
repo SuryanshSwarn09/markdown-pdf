@@ -2,7 +2,7 @@
 
 A beautiful, premium, and fully responsive Markdown editor built with React and Vite. It features real-time parsing, full LaTeX math support, and a suite of quality-of-life tools designed for students, developers, and writers.
 
-**[View Live Demo](https://markdown-pdf-self.vercel.app/)** *(← Replace with your actual Vercel link!)*
+**[View Live Demo](https://markdown-pdf-self.vercel.app/)** 
 
 ---
 
