@@ -40,7 +40,7 @@
 }
 
 [data-theme="dark"] {
-  --card: #0a0a0a;
+  --card: #111111;
   --ring: #525252;
   --input: #262626;
   --muted: #262626;
@@ -55,7 +55,7 @@
   --primary: #fafafa;
   --sidebar: #0a0a0a;
   --secondary: #262626;
-  --background: #0a0a0a;
+  --background: #050505;
   --foreground: #fafafa;
   --destructive: #e7000b;
   --sidebar-ring: #525252;

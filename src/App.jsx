@@ -5,7 +5,7 @@ import 'katex/dist/katex.min.css';
 
 marked.use(markedKatex({ throwOnError: false }));
 
-const EXAMPLE_MD = `this app is vibecoded by @SuryanshSwarn`;
+const EXAMPLE_MD = `this app is coded by @SuryanshSwarn`;
 
 function App() {
   const [markdown, setMarkdown] = useState(EXAMPLE_MD);
