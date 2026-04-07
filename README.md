@@ -1,70 +1,63 @@
-# 📝 Modern Markdown & LaTeX Previewer
-
-A beautiful, premium, and fully responsive Markdown editor built with React and Vite. It features real-time parsing, full LaTeX math support, and a suite of quality-of-life tools designed for students, developers, and writers.
+Responsive Markdown editor built with React and Vite.Minimal web app to preview Markdown and LaTeX math instantly. No signup. No API. Just write, format, and print.
 
 **[View Live Demo](https://markdown-pdf-self.vercel.app/)** 
 
----
+Features
 
-## ✨ Features
+Live preview – see rendered output as you type
+Full Math Support – render complex LaTeX equations using KaTeX
+AI Auto-Formatter – automatically corrects mismatched AI math brackets (like `\[` and `\]`)
+Formatting toolbar – one-click insert for:
+  H1, H2, H3 headings
+  Bold, Italic, Strikethrough
+  Inline code
+  Blockquote, List Item, Link
+  Math Equations
+Print to PDF – optimized print stylesheets with readable `pt` font sizing
+N-up Printing – save paper by splitting output into multiple columns
+Light / Dark Mode – smooth, animated theme toggling
+Clear – reset the editor instantly
+Clean, responsive UI – Shadcn-inspired neutral aesthetics
+No authentication
+No ads
+No watermarks
 
-* **⚡ Real-Time Live Preview:** See your Markdown rendered instantly as you type.
-* **🧮 Full Math Support (KaTeX):** Write complex equations using standard `$` and `$$` syntax. 
-* **🤖 AI Auto-Formatter:** Seamlessly paste AI-generated math formulas. The app automatically detects and corrects mismatched bracket syntax (`\[`, `\]`, `\(`, `\)`) into renderable LaTeX.
-* **🌗 Dark & Light Mode:** A sleek, animated theme toggle that smoothly transitions the entire UI.
-* **🖨️ Native PDF Printing:** A custom-engineered CSS print layout that strips away the UI, adjusts typography to standard `pt` sizes, and enables multi-column "N-up" printing to save paper.
-* **📱 Mobile Responsive:** The UI intelligently stacks into a vertical layout with a scrollable toolbar for writing on smartphones.
-* **🛠️ Rich Formatting Toolbar:** Instantly wrap selected text in bold, italics, headings, code blocks, blockquotes, and math blocks.
-* **⚖️ Built-in Legal Modals:** Clean, blur-backed overlay modals for Privacy Policies and Terms & Conditions.
+Tech Stack
 
----
+React (Vite)
+marked.js (Markdown parser)
+KaTeX (Math rendering)
+Vanilla CSS (Shadcn-inspired theme)
+Vercel (static deploy)
 
-## 🛠️ Tech Stack
+How It Works
 
-* **Frontend:** [React.js](https://reactjs.org/)
-* **Build Tool:** [Vite](https://vitejs.dev/)
-* **Markdown Parser:** [marked](https://marked.js.org/)
-* **Math Renderer:** [KaTeX](https://katex.org/) & `marked-katex-extension`
-* **Styling:** Pure, modern CSS3 with CSS Variables for theming.
+Write Markdown and LaTeX in the editor on the left
+See the rendered preview update live on the right
+Use the toolbar to insert formatting without typing syntax
+Click "Print PDF" to save a perfectly formatted document
+Everything is processed client-side. Nothing is uploaded.
 
----
+Privacy
 
-## 🚀 Getting Started (Local Development)
-
-Want to run this project on your own machine? Follow these simple steps:
+All processing happens locally in your browser. No data is sent to any server.
 
 ### Prerequisites
 Make sure you have [Node.js](https://nodejs.org/) installed on your computer.
 
-### Installation
+Installation
 
-1. **Clone the repository:**
-   \`\`\`bash
-   git clone https://github.com/SuryanshSwarn09/markdown-pdf.git
-   \`\`\`
+# Clone the repo
+git clone https://github.com/SuryanshSwarn09/markdown-pdf.git
 
-2. **Navigate into the directory:**
-   \`\`\`bash
-   cd markdown-pdf
-   \`\`\`
+# Navigate to directory and install dependencies
+cd markdown-previewer
+npm install
 
-3. **Install the dependencies:**
-   \`\`\`bash
-   npm install
-   \`\`\`
+# Run locally
+npm run dev
+Open your browser and visit `http://localhost:5173` to see the app running!
 
-4. **Start the development server:**
-   \`\`\`bash
-   npm run dev
-   \`\`\`
-
-5. Open your browser and visit `http://localhost:5173` to see the app running!
-
----
-
-## 🎨 Design Philosophy
-This app was "vibecoded" with a focus on modern UI/UX principles. It moves away from standard harsh borders and relies on soft shadows, pill-shaped buttons, semantic spacing, and deep slate colors inspired by top-tier professional IDEs and writing tools.
-
----
 
 **Coded by [@SuryanshSwarn](https://github.com/SuryanshSwarn09)**
+currently v.2(UI chnage)
