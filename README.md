@@ -1,60 +1,64 @@
-Responsive Markdown editor built with React and Vite. A minimal web app to preview Markdown and LaTeX math instantly. No signup. No API. Just write, format, and print.
-`v.2 (UI Change)` | Coded by @SuryanshSwarn
+# Markdown & LaTeX Previewer
 
-**[View Live Demo](https://markdown-pdf-self.vercel.app/)** 
+Responsive Markdown editor built with React and Vite. A minimal web app to preview Markdown and LaTeX math instantly. No signup. No API. Just write, format, and print.
+
+**[View Live Demo](https://markdown-pdf-self.vercel.app/)**
+
+v.1.3 | Coded by [@SuryanshSwarn](https://github.com/SuryanshSwarn09)
 
 ---
 
 ## Features
 
-* **Live preview** – see rendered output as you type.
-* **Full Math Support** – render complex LaTeX equations using KaTeX.
-* **AI Auto-Formatter** – automatically corrects mismatched AI math brackets (like `\[` and `\]`).
-* **Formatting toolbar** – one-click insert for:
+* **Live Preview** – See rendered output instantly as you type.
+* **Code Syntax Highlighting** – Automatic, language-detected syntax highlighting for code blocks via Highlight.js (Atom One Dark theme).
+* **Full Math Support** – Render complex LaTeX equations seamlessly using KaTeX.
+* **AI Auto-Formatter** – Automatically detects and corrects mismatched AI math brackets (e.g., converting `\[` and `\]` into renderable syntax).
+* **Formatting Toolbar** – One-click insertion for:
   * H1, H2, H3 headings
   * Bold, Italic, Strikethrough
-  * Inline code
+  * Code blocks
   * Blockquote, List Item, Link
   * Math Equations
-* **Print to PDF** – optimized print stylesheets with readable `pt` font sizing.
-* **N-up Printing** – save paper by splitting output into multiple columns.
-* **Light / Dark Mode** – smooth, animated theme toggling.
-* **Clear** – reset the editor instantly.
-* **Clean, responsive UI** – Shadcn-inspired neutral aesthetics.
-* **Zero friction** – No authentication, no ads, no watermarks.
+* **Print to PDF** – Engineered with optimized `@media print` stylesheets featuring readable `pt` font sizing.
+* **N-up Printing** – Save paper by splitting output into multiple columns during print.
+* **Light / Dark Mode** – Smooth, animated theme toggling with persistent local storage.
+* **Clean, Responsive UI** – Custom CSS architecture featuring a Shadcn-inspired neutral palette and Apple "Liquid Glass" backdrop filters.
+* **Zero Friction** – No authentication, no ads, no watermarks.
 
 ---
 
 ## Tech Stack
 
-* **React (Vite)**
-* **marked.js** (Markdown parser)
-* **KaTeX** (Math rendering)
-* **Vanilla CSS** (Shadcn-inspired theme)
-* **Vercel** (Static deploy)
+* **React (Vite)** – Frontend framework and build tool
+* **marked.js** – Extensible Markdown parser
+* **KaTeX** – High-performance math rendering
+* **Highlight.js** – Code syntax highlighting
+* **Vanilla CSS** – Zero-dependency custom styling and animations
+* **Vercel** – Static deployment and hosting
 
 ---
 
 ## How It Works
 
-1. **Write Markdown and LaTeX** in the editor on the left.
-2. **See the rendered preview** update live on the right.
-3. **Use the toolbar** to insert formatting without typing syntax.
-4. **Click "Print PDF"** to save a perfectly formatted document.
-5. *Everything is processed client-side. Nothing is uploaded.*
+1. **Write Markdown and LaTeX** in the editor pane on the left.
+2. **Observe the rendered preview** update live in the right pane.
+3. **Utilize the toolbar** to quickly insert formatting without manually typing syntax.
+4. **Click "Print PDF"** to export or print a perfectly formatted document.
+5. *Note: Everything is processed client-side. No data is ever uploaded or stored externally.*
 
 ---
 
 ## Privacy
 
-All processing happens locally in your browser. No data is sent to any server.
+This application operates entirely within your browser. All text processing and rendering happens locally on your device. No analytics are collected, and no data is sent to any server.
 
 ---
 
 ## Getting Started
 
 ### Prerequisites
-Make sure you have [Node.js](https://nodejs.org/) installed on your computer.
+Ensure you have [Node.js](https://nodejs.org/) installed on your local machine.
 
 ### Installation
   ```bash
@@ -71,4 +75,3 @@ Make sure you have [Node.js](https://nodejs.org/) installed on your computer.
   npm run dev
 
   Open your browser and visit http://localhost:5173 to see the app running!
-  

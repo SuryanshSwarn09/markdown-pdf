@@ -1,9 +1,24 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
-import { marked } from 'marked';
+import { Marked } from 'marked'; // CHANGED: We now import the Marked class
 import markedKatex from 'marked-katex-extension';
+import { markedHighlight } from 'marked-highlight';
+import hljs from 'highlight.js';
 import 'katex/dist/katex.min.css';
+import 'highlight.js/styles/atom-one-dark.css';
 
-marked.use(markedKatex({ throwOnError: false }));
+
+const markedParser = new Marked();
+
+markedParser.use({ breaks: true });
+markedParser.use(markedKatex({ throwOnError: false }));
+markedParser.use(markedHighlight({
+  emptyLangClass: 'hljs',
+  langPrefix: 'hljs language-',
+  highlight(code, lang) {
+    const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+    return hljs.highlight(code, { language }).value;
+  }
+}));
 
 const EXAMPLE_MD = `this app is coded by @SuryanshSwarn`;
 
@@ -11,7 +26,7 @@ function App() {
   const [markdown, setMarkdown] = useState(EXAMPLE_MD);
   const [theme, setTheme] = useState('dark');
   
-  // NEW: State to track which modal is currently open ('privacy', 'terms', or null)
+  // State to track which modal is currently open ('privacy', 'terms', or null)
   const [activeModal, setActiveModal] = useState(null);
   
   const editorRef = useRef(null);
@@ -70,6 +85,7 @@ function App() {
   const parsedHTML = useMemo(() => {
     let processedMarkdown = markdown;
 
+    // AI Math Bracket fix
     processedMarkdown = processedMarkdown
       .replace(/\\\[/g, '$$$$') 
       .replace(/\\\]/g, '$$$$') 
@@ -80,8 +96,8 @@ function App() {
       .replace(/^\s*\[\s*$/gm, '$$$$') 
       .replace(/^\s*\]\s*$/gm, '$$$$');
 
-    marked.setOptions({ breaks: true });
-    return marked.parse(processedMarkdown);
+    // CHANGED: We now use our local markedParser instead of the global marked object
+    return markedParser.parse(processedMarkdown);
   }, [markdown]);
 
   return (
@@ -96,7 +112,7 @@ function App() {
           <button onClick={() => handleFormat('**', '**')} title="Bold">B</button>
           <button onClick={() => handleFormat('_', '_')} title="Italic">I</button>
           <button onClick={() => handleFormat('~~', '~~')} title="Strikethrough">~~</button>
-          <button onClick={() => handleFormat('`', '`')} title="Inline Code">`</button>
+          <button onClick={() => handleFormat('```\n', '\n```')} title="Code Block">`</button>
           <div className="divider"></div>
           <button onClick={() => handleFormat('> ', '')} title="Blockquote">&gt;</button>
           <button onClick={() => handleFormat('- ', '')} title="List Item">—</button>
@@ -145,7 +161,7 @@ function App() {
         </div>
       </div>
 
-      {/* NEW: Footer Links for the Legal Pages */}
+      {/* Footer Links for the Legal Pages */}
       <div className="footer-links">
         <button onClick={() => setActiveModal('privacy')}>Privacy Policy</button>
         <button onClick={() => setActiveModal('terms')}>Terms & Conditions</button>
@@ -161,7 +177,7 @@ function App() {
         Coded by @Suryansh
       </a>
 
-      {/* NEW: The Modal Overlay System */}
+      {/* The Modal Overlay System */}
       {activeModal && (
         <div className="modal-overlay" onClick={() => setActiveModal(null)}>
           <div className="modal-window" onClick={(e) => e.stopPropagation()}>
