@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
-import { Marked } from 'marked'; // CHANGED: We now import the Marked class
+import { Marked } from 'marked'; // import the Marked class
 import markedKatex from 'marked-katex-extension';
 import { markedHighlight } from 'marked-highlight';
 import hljs from 'highlight.js';
@@ -167,15 +167,26 @@ function App() {
         <button onClick={() => setActiveModal('terms')}>Terms & Conditions</button>
       </div>
 
-      <a 
-        href="https://github.com/SuryanshSwarn09" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        className="floating-signature"
-        title="Visit my GitHub!"
-      >
-        Coded by @Suryansh
-      </a>
+      {/* GitHub Profile Button */}
+      <div className="github-profile-wrapper">
+        <a
+          href="https://github.com/SuryanshSwarn09"
+          target="_blank"
+          rel="noreferrer"
+          className="github-profile-btn"
+        >
+          {/* My pfp Icon */}
+          <img
+            src="pfp.png" 
+            alt="GitHub Profile"
+          />
+
+          {/* Tooltip / Label */}
+          <div className="github-profile-tooltip">
+            <p>CODED BY SURYANSH</p>
+          </div>
+        </a>
+      </div>
 
       {/* The Modal Overlay System */}
       {activeModal && (

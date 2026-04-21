@@ -364,33 +364,80 @@ body {
   to { opacity: 1; transform: scale(1); }
 }
 
-/* --- STATIC SIGNATURE BUTTON --- */
-.floating-signature {
+/* --- GITHUB PROFILE TOOLTIP BUTTON --- */
+.github-profile-wrapper {
   position: fixed;
-  bottom: 24px;
+  bottom: 32px;
   left: 50%;
-  transform: translateX(-50%); 
-  z-index: 1000; 
-  background-color: var(--glass-bg); 
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  color: var(--text-main);
-  padding: 6px 16px; 
-  border-radius: 999px;
-  font-family: inherit;
-  font-weight: 600;
-  font-size: 0.75rem; 
-  text-decoration: none;
-  box-shadow: var(--glass-shadow);
-  border: 1px solid var(--glass-border);
-  transition: all 0.2s ease;
+  transform: translateX(-50%);
+  z-index: 2000;
+  pointer-events: auto;
 }
 
-.floating-signature:hover {
-  background-color: var(--accent);
-  color: white;
-  border-color: var(--accent);
-  transform: translateX(-50%) scale(1.05); 
+.github-profile-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(37, 37, 42, 0.8);
+  border: 1px solid rgba(11, 11, 11, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  position: relative;
+  text-decoration: none;
+}
+
+.github-profile-btn:hover {
+  background-color: rgba(240, 240, 250, 0.2);
+}
+
+.github-profile-btn img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.github-profile-tooltip {
+  position: absolute;
+  bottom: 64px;
+  left: 50%;
+  /* This centers the tooltip and pushes it down slightly for the animation */
+  transform: translateX(-50%) translateY(8px);
+  padding: 8px 16px;
+  background-color: rgba(37, 37, 42, 0.95);
+  border: 1px solid rgba(240, 240, 250, 0.2);
+  border-radius: 4px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.github-profile-tooltip p {
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1.17px;
+  color: #f0f0fa;
+  margin: 0;
+}
+
+/* The Hover Animation Trigger */
+.github-profile-btn:hover .github-profile-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Hide it when printing! */
+@media print {
+  .github-profile-wrapper { display: none !important; }
 }
 
 /* --- MOBILE RESPONSIVENESS --- */
