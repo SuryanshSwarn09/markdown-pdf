@@ -20,6 +20,7 @@ _React, Vite, marked.js, higlight.js, KaTex_
 * **Smart Toolbar:** One-click insertion for formatting, code blocks, and equations.
 * **PDF Export:** Optimized `@media print` stylesheets for perfect document saving.
 * **Liquid Glass UI:** Responsive, Apple-inspired frosted glass aesthetic with persistent Light/Dark modes.
+* **Progressive Web App (PWA):** _(10 May 26)_ Look at the far right side of the URL address bar. You should now see a little screen icon with a down arrow. If you hover over it, it will say "Install markdown-pdf".
 
 ---
 
