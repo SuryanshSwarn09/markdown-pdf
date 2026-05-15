@@ -1,10 +1,11 @@
 # MARKDOWN LATEX PDF GENERATOR
 *A minimal web app to preview Markdown and LaTeX math instantly.*
 
-**[Project:01]**
+**Project:01**
 _March 2026_
 
 ### Live demo: [Markdown Latex Pdf](https://markdown-pdf-self.vercel.app/)
+---
 
 ![Article cover](https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fc8v4m7qd6tv1drasw3il.png)
 
@@ -13,7 +14,7 @@ _March 2026_
 > This project is developed throughout march 2026 to achieve practical fluency, increase my learning and getting comfortable with the framework and language also i am writing every update i have done with dates in this webapp.
 
 ### Tech stack 
-_React, Vite, marked.js, higlight.js, KaTex_
+_`React` `Vite` `marked.js` `higlight.js` `KaTex`_
 
 ---
 ### Features:
@@ -24,7 +25,7 @@ _React, Vite, marked.js, higlight.js, KaTex_
 * **Smart Toolbar:** One-click insertion for formatting, code blocks, and equations.
 * **PDF Export:** Optimized `@media print` stylesheets for perfect document saving.
 * **Liquid Glass UI:** Responsive, Apple-inspired frosted glass aesthetic with persistent Light/Dark modes.
-* **Progressive Web App (PWA):** _(10 May 26)_ Look at the far right side of the URL address bar. You should now see a little screen icon with a down arrow. If you hover over it, it will say "Install markdown-pdf".
+* **PWA:** _`10 May 26`_ Look at the far right side of the URL address bar. You should now see a little screen icon with a down arrow. If you hover over it, it will say "Install markdown-pdf".
 
 ---
 
