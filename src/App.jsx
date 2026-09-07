@@ -21,6 +21,17 @@ markedParser.use(markedHighlight({
   }
 }));
 
+// Automatically open external links in a new tab safely with noopener noreferrer
+DOMPurify.addHook('afterSanitizeAttributes', (node) => {
+  if (node.tagName === 'A' && node.hasAttribute('href')) {
+    const href = node.getAttribute('href') || '';
+    if (/^https?:\/\//i.test(href) || href.startsWith('//')) {
+      node.setAttribute('target', '_blank');
+      node.setAttribute('rel', 'noopener noreferrer');
+    }
+  }
+});
+
 const EXAMPLE_MD = `this app is coded by @SuryanshSwarn`;
 
 function App() {
@@ -175,7 +186,7 @@ function App() {
         <a
           href="https://github.com/SuryanshSwarn09"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="github-profile-btn"
         >
           {/* My pfp Icon */}
