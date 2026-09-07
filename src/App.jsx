@@ -3,6 +3,7 @@ import { Marked } from 'marked'; // import the Marked class
 import markedKatex from 'marked-katex-extension';
 import { markedHighlight } from 'marked-highlight';
 import hljs from 'highlight.js';
+import DOMPurify from 'dompurify';
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/atom-one-dark.css';
 
@@ -96,8 +97,10 @@ function App() {
       .replace(/^\s*\[\s*$/gm, '$$$$') 
       .replace(/^\s*\]\s*$/gm, '$$$$');
 
-    // CHANGED: We now use our local markedParser instead of the global marked object
-    return markedParser.parse(processedMarkdown);
+    const rawHTML = markedParser.parse(processedMarkdown);
+    return DOMPurify.sanitize(rawHTML, {
+      USE_PROFILES: { html: true, mathMl: true, svg: true },
+    });
   }, [markdown]);
 
   return (
