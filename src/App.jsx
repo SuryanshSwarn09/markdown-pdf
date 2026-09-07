@@ -4,6 +4,7 @@ import markedKatex from 'marked-katex-extension';
 import { markedHighlight } from 'marked-highlight';
 import hljs from 'highlight.js';
 import DOMPurify from 'dompurify';
+import { sanitizeAIMath } from './utils/mathSanitizer.js';
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/atom-one-dark.css';
 
@@ -95,19 +96,7 @@ function App() {
   };
 
   const parsedHTML = useMemo(() => {
-    let processedMarkdown = markdown;
-
-    // AI Math Bracket fix
-    processedMarkdown = processedMarkdown
-      .replace(/\\\[/g, '$$$$') 
-      .replace(/\\\]/g, '$$$$') 
-      .replace(/\\\(/g, '$')    
-      .replace(/\\\)/g, '$');   
-
-    processedMarkdown = processedMarkdown
-      .replace(/^\s*\[\s*$/gm, '$$$$') 
-      .replace(/^\s*\]\s*$/gm, '$$$$');
-
+    const processedMarkdown = sanitizeAIMath(markdown);
     const rawHTML = markedParser.parse(processedMarkdown);
     return DOMPurify.sanitize(rawHTML, {
       USE_PROFILES: { html: true, mathMl: true, svg: true },
