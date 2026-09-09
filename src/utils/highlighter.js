@@ -31,6 +31,25 @@ hljs.registerLanguage('sql', sql);
 hljs.registerLanguage('markdown', markdown);
 hljs.registerLanguage('md', markdown);
 
+// 3. Compiled & Systems Languages
+import c from 'highlight.js/lib/languages/c';
+import cpp from 'highlight.js/lib/languages/cpp';
+import java from 'highlight.js/lib/languages/java';
+import rust from 'highlight.js/lib/languages/rust';
+import go from 'highlight.js/lib/languages/go';
+import yaml from 'highlight.js/lib/languages/yaml';
+
+hljs.registerLanguage('c', c);
+hljs.registerLanguage('cpp', cpp);
+hljs.registerLanguage('c++', cpp);
+hljs.registerLanguage('java', java);
+hljs.registerLanguage('rust', rust);
+hljs.registerLanguage('rs', rust);
+hljs.registerLanguage('go', go);
+hljs.registerLanguage('golang', go);
+hljs.registerLanguage('yaml', yaml);
+hljs.registerLanguage('yml', yaml);
+
 /**
  * Highlights a block of code using registered languages with a safe fallback to plaintext.
  *
