@@ -38,6 +38,7 @@ import java from 'highlight.js/lib/languages/java';
 import rust from 'highlight.js/lib/languages/rust';
 import go from 'highlight.js/lib/languages/go';
 import yaml from 'highlight.js/lib/languages/yaml';
+import plaintext from 'highlight.js/lib/languages/plaintext';
 
 hljs.registerLanguage('c', c);
 hljs.registerLanguage('cpp', cpp);
@@ -49,6 +50,9 @@ hljs.registerLanguage('go', go);
 hljs.registerLanguage('golang', go);
 hljs.registerLanguage('yaml', yaml);
 hljs.registerLanguage('yml', yaml);
+hljs.registerLanguage('plaintext', plaintext);
+hljs.registerLanguage('txt', plaintext);
+hljs.registerLanguage('text', plaintext);
 
 /**
  * Highlights a block of code using registered languages with a safe fallback to plaintext.
