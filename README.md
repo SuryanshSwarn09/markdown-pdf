@@ -20,13 +20,25 @@ _`React` `Vite` `marked.js` `highlight.js` `KaTeX` `DOMPurify`_
 ### Features:
 
 * **Live Rendering:** Real-time Markdown and KaTeX math preview.
-* **Code Highlighting:** Automatic syntax color-coding via Highlight.js.
+* **Modular Code Highlighting:** Fast, lightweight syntax color-coding via modular Highlight.js core supporting Web, Scripting, Backend, and Systems languages with graceful fallback.
 * **AI Auto-Formatter:** Safely sanitizes AI-generated LaTeX math delimiters (`\[...\]` and `\(...\)`) while preserving code blocks, inline code, and JSON structures.
 * **XSS Defense:** Full DOMPurify sanitization pipeline securing rendered preview output.
+* **Zero-Lag Typing:** React 19 `useDeferredValue` decoupling keystroke input from math parsing and syntax rendering.
+* **Code-Split Architecture:** Main app entry trimmed to <10 kB with isolated vendor bundles for React, KaTeX, Markdown, and Highlighting.
 * **Smart Toolbar:** One-click insertion for formatting, code blocks, and equations.
 * **PDF Export:** Optimized `@media print` stylesheets for clean document saving.
 * **Liquid Glass UI:** Responsive, Apple-inspired frosted glass aesthetic with Light/Dark modes.
 * **PWA:** _`10 May 26`_ Look at the far right side of the URL address bar. You should now see a little screen icon with a down arrow. If you hover over it, it will say "Install markdown-pdf".
+* **Automated Test Suite:** Comprehensive unit tests (`npm test`) covering math sanitization and syntax highlighting.
+
+---
+
+### Scripts
+
+* `npm run dev` - Start local development server
+* `npm run build` - Produce code-split production bundle
+* `npm test` - Run full unit test suite
+* `npm run lint` - Run ESLint checks
 
 ---
 
