@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect } from 'react';
+import { useState, useMemo, useRef, useEffect, useDeferredValue } from 'react';
 import { Marked } from 'marked'; // import the Marked class
 import markedKatex from 'marked-katex-extension';
 import { markedHighlight } from 'marked-highlight';
@@ -36,6 +36,7 @@ const EXAMPLE_MD = `this app is coded by @SuryanshSwarn`;
 
 function App() {
   const [markdown, setMarkdown] = useState(EXAMPLE_MD);
+  const deferredMarkdown = useDeferredValue(markdown);
   const [theme, setTheme] = useState('dark');
   
   // State to track which modal is currently open ('privacy', 'terms', or null)
@@ -95,12 +96,12 @@ function App() {
   };
 
   const parsedHTML = useMemo(() => {
-    const processedMarkdown = sanitizeAIMath(markdown);
+    const processedMarkdown = sanitizeAIMath(deferredMarkdown);
     const rawHTML = markedParser.parse(processedMarkdown);
     return DOMPurify.sanitize(rawHTML, {
       USE_PROFILES: { html: true, mathMl: true, svg: true },
     });
-  }, [markdown]);
+  }, [deferredMarkdown]);
 
   return (
     <div className="app-container">
