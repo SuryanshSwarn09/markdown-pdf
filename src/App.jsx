@@ -2,7 +2,7 @@ import { useState, useMemo, useRef, useEffect } from 'react';
 import { Marked } from 'marked'; // import the Marked class
 import markedKatex from 'marked-katex-extension';
 import { markedHighlight } from 'marked-highlight';
-import hljs from 'highlight.js';
+import { highlightCode } from './utils/highlighter.js';
 import DOMPurify from 'dompurify';
 import { sanitizeAIMath } from './utils/mathSanitizer.js';
 import 'katex/dist/katex.min.css';
@@ -17,8 +17,7 @@ markedParser.use(markedHighlight({
   emptyLangClass: 'hljs',
   langPrefix: 'hljs language-',
   highlight(code, lang) {
-    const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-    return hljs.highlight(code, { language }).value;
+    return highlightCode(code, lang);
   }
 }));
 
