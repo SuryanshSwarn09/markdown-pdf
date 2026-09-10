@@ -6,6 +6,7 @@ import { highlightCode } from './utils/highlighter.js';
 import DOMPurify from 'dompurify';
 import { sanitizeAIMath } from './utils/mathSanitizer.js';
 import { getDocumentStats } from './utils/documentStats.js';
+import { handleTabIndentation } from './utils/editorKeyHandlers.js';
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/atom-one-dark.css';
 
@@ -90,6 +91,29 @@ function App() {
 
   const handleEditorChange = (event) => {
     setMarkdown(event.target.value);
+  };
+
+  const handleEditorKeyDown = (event) => {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      const textarea = editorRef.current;
+      if (!textarea) return;
+
+      const { newText, newSelectionStart, newSelectionEnd, handled } = handleTabIndentation({
+        value: markdown,
+        selectionStart: textarea.selectionStart,
+        selectionEnd: textarea.selectionEnd,
+        shiftKey: event.shiftKey,
+      });
+
+      if (handled) {
+        setMarkdown(newText);
+        setTimeout(() => {
+          textarea.focus();
+          textarea.setSelectionRange(newSelectionStart, newSelectionEnd);
+        }, 0);
+      }
+    }
   };
 
   const handleFormat = (prefix, suffix = '') => {
@@ -224,6 +248,7 @@ function App() {
             className="editor-input"
             value={markdown}
             onChange={handleEditorChange}
+            onKeyDown={handleEditorKeyDown}
             placeholder="Type your markdown here..."
           />
         </div>
