@@ -49,14 +49,26 @@ function App() {
   const [saveStatus, setSaveStatus] = useState('Saved');
   const [theme, setTheme] = useState('dark');
   
-  // State to track which modal is currently open ('privacy', 'terms', or null)
+  // State to track which modal is currently open ('privacy', 'terms', 'clear', or null)
   const [activeModal, setActiveModal] = useState(null);
+  const [lastClearedContent, setLastClearedContent] = useState(null);
   
   const editorRef = useRef(null);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
+
+  // Handle Escape key to dismiss modals
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && activeModal) {
+        setActiveModal(null);
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [activeModal]);
 
   // Auto-save draft to localStorage whenever markdown changes (debounced)
   useEffect(() => {
@@ -109,9 +121,26 @@ function App() {
   };
 
   const handleClear = () => {
-    setMarkdown('');
+    if (!markdown.trim()) return;
+    setActiveModal('clear');
+  };
+
+  const handleConfirmClear = (restoreDefault = false) => {
+    setLastClearedContent(markdown);
+    setMarkdown(restoreDefault ? EXAMPLE_MD : '');
+    setActiveModal(null);
     if (editorRef.current) {
       editorRef.current.focus();
+    }
+  };
+
+  const handleRestoreCleared = () => {
+    if (lastClearedContent !== null) {
+      setMarkdown(lastClearedContent);
+      setLastClearedContent(null);
+      if (editorRef.current) {
+        editorRef.current.focus();
+      }
     }
   };
 
@@ -156,10 +185,20 @@ function App() {
         </div>
         
         <div className="action-buttons">
+          {lastClearedContent && markdown === '' && (
+            <button className="restore-btn" onClick={handleRestoreCleared} title="Restore cleared text">
+              ↩ Undo Clear
+            </button>
+          )}
           <button className="print-btn" onClick={handlePrint} title="Print or Save as PDF">
             Print PDF
           </button>
-          <button className="clear-btn" onClick={handleClear} title="Clear Editor">
+          <button 
+            className="clear-btn" 
+            onClick={handleClear} 
+            title={markdown.trim() ? "Clear Editor" : "Editor is empty"}
+            disabled={!markdown.trim()}
+          >
             Clear
           </button>
         </div>
@@ -260,7 +299,31 @@ function App() {
               </>
             )}
 
-            <button className="modal-close-btn" onClick={() => setActiveModal(null)}>Close</button>
+            {activeModal === 'clear' && (
+              <>
+                <h2>Clear Document?</h2>
+                <p>Are you sure you want to clear your current document? All unprinted or uncopied text in the editor will be removed.</p>
+                <br/>
+                <div className="modal-actions">
+                  <button 
+                    className="modal-danger-btn" 
+                    onClick={() => handleConfirmClear(false)}
+                  >
+                    Clear Everything
+                  </button>
+                  <button 
+                    className="modal-secondary-btn" 
+                    onClick={() => handleConfirmClear(true)}
+                  >
+                    Reset to Default Example
+                  </button>
+                </div>
+              </>
+            )}
+
+            <button className="modal-close-btn" onClick={() => setActiveModal(null)}>
+              {activeModal === 'clear' ? 'Cancel' : 'Close'}
+            </button>
           </div>
         </div>
       )}

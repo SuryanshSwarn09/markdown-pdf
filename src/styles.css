@@ -162,8 +162,23 @@ body {
 .print-btn:active { transform: translateY(1px); }
 
 .clear-btn { background-color: #ff3b30; } /* Apple Red */
-.clear-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
-.clear-btn:active { transform: translateY(1px); }
+.clear-btn:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
+.clear-btn:active:not(:disabled) { transform: translateY(1px); }
+.clear-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.restore-btn {
+  background-color: #34c759;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  transition: all 0.2s ease;
+}
+.restore-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.restore-btn:active { transform: translateY(1px); }
 
 /* --- SPLIT PANES --- */
 .split-layout {
@@ -384,12 +399,42 @@ body {
 
 .modal-window strong { color: var(--text-main); }
 
-.modal-close-btn {
-  margin-top: 32px;
-  width: 100%;
-  background-color: var(--accent);
-  color: white;
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.modal-danger-btn, .modal-secondary-btn {
+  flex: 1;
   border: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-danger-btn {
+  background-color: #ff3b30;
+  color: white;
+}
+.modal-danger-btn:hover { filter: brightness(1.1); transform: scale(1.02); }
+
+.modal-secondary-btn {
+  background-color: var(--btn-bg);
+  color: var(--text-main);
+  border: 1px solid var(--glass-border);
+}
+.modal-secondary-btn:hover { background-color: var(--btn-hover); transform: scale(1.02); }
+
+.modal-close-btn {
+  margin-top: 16px;
+  width: 100%;
+  background-color: var(--btn-bg);
+  color: var(--text-main);
+  border: 1px solid var(--glass-border);
   padding: 12px;
   border-radius: 12px;
   font-weight: 600;
