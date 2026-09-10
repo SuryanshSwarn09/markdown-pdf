@@ -20,6 +20,11 @@ _`React` `Vite` `marked.js` `highlight.js` `KaTeX` `DOMPurify`_
 ### Features:
 
 * **Live Rendering:** Real-time Markdown and KaTeX math preview.
+* **Auto-Save & Recovery:** Continuous `localStorage` persistence with a visual `✓ Saved` indicator; drafts seamlessly restore across refreshes and restarts.
+* **Accidental Clear Protection:** Two-step confirmation modal on Clear and an instant `↩ Undo Clear` restore action to prevent data loss.
+* **Preserved Undo History (`Ctrl+Z` / `Cmd+Z`):** Toolbar formatting preserves the browser's native `<textarea>` undo/redo history.
+* **Tab & Shift+Tab Indentation:** Indent and unindent code and text by 2 spaces (supporting multi-line blocks) without losing editor focus.
+* **Live Document Metrics:** Real-time word count, character count, and estimated reading time badges in the editor header.
 * **Modular Code Highlighting:** Fast, lightweight syntax color-coding via modular Highlight.js core supporting Web, Scripting, Backend, and Systems languages with graceful fallback.
 * **AI Auto-Formatter:** Safely sanitizes AI-generated LaTeX math delimiters (`\[...\]` and `\(...\)`) while preserving code blocks, inline code, and JSON structures.
 * **XSS Defense:** Full DOMPurify sanitization pipeline securing rendered preview output.
@@ -29,7 +34,7 @@ _`React` `Vite` `marked.js` `highlight.js` `KaTeX` `DOMPurify`_
 * **PDF Export:** Optimized `@media print` stylesheets for clean document saving.
 * **Liquid Glass UI:** Responsive, Apple-inspired frosted glass aesthetic with Light/Dark modes.
 * **PWA:** _`10 May 26`_ Look at the far right side of the URL address bar. You should now see a little screen icon with a down arrow. If you hover over it, it will say "Install markdown-pdf".
-* **Automated Test Suite:** Comprehensive unit tests (`npm test`) covering math sanitization and syntax highlighting.
+* **Comprehensive Test Suite:** 4 unit test suites (`npm test`) covering math sanitization, syntax highlighting, document metrics, and keyboard indentation.
 
 ---
 
