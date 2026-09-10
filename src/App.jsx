@@ -34,10 +34,19 @@ DOMPurify.addHook('afterSanitizeAttributes', (node) => {
 });
 
 const EXAMPLE_MD = `this app is coded by @SuryanshSwarn`;
+const DRAFT_STORAGE_KEY = 'markdown-pdf:draft';
 
 function App() {
-  const [markdown, setMarkdown] = useState(EXAMPLE_MD);
+  const [markdown, setMarkdown] = useState(() => {
+    try {
+      const saved = localStorage.getItem(DRAFT_STORAGE_KEY);
+      return saved !== null ? saved : EXAMPLE_MD;
+    } catch {
+      return EXAMPLE_MD;
+    }
+  });
   const deferredMarkdown = useDeferredValue(markdown);
+  const [saveStatus, setSaveStatus] = useState('Saved');
   const [theme, setTheme] = useState('dark');
   
   // State to track which modal is currently open ('privacy', 'terms', or null)
@@ -48,6 +57,20 @@ function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
+
+  // Auto-save draft to localStorage whenever markdown changes (debounced)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      try {
+        localStorage.setItem(DRAFT_STORAGE_KEY, markdown);
+        setSaveStatus('Saved');
+      } catch {
+        setSaveStatus('Unsaved');
+      }
+    }, 250);
+
+    return () => clearTimeout(timer);
+  }, [markdown]);
 
   const toggleTheme = () => {
     setTheme(prevTheme => (prevTheme === 'dark' ? 'light' : 'dark'));
@@ -145,7 +168,12 @@ function App() {
       <div className="split-layout">
         <div className="pane editor-pane">
           <div className="pane-header">
-            <span className="pane-title">Markdown Editor</span>
+            <div className="pane-title-group">
+              <span className="pane-title">Markdown Editor</span>
+              <span className="save-status-pill" title="Saved locally in browser storage">
+                ✓ {saveStatus}
+              </span>
+            </div>
             <div className="doc-stats">
               <span className="stat-pill" title="Word count">{stats.words} words</span>
               <span className="stat-pill" title="Character count">{stats.characters} chars</span>

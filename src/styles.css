@@ -194,6 +194,27 @@ body {
   background: rgba(0, 0, 0, 0.02);
 }
 
+.pane-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.save-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #34c759;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(52, 199, 89, 0.12);
+  border: 1px solid rgba(52, 199, 89, 0.25);
+}
+
 .doc-stats {
   display: flex;
   gap: 8px;
