@@ -120,20 +120,25 @@ function App() {
     const textarea = editorRef.current;
     if (!textarea) return;
 
+    textarea.focus();
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
     const selectedText = markdown.substring(start, end);
 
     const fallbackText = selectedText.length === 0 && suffix !== '' ? 'text' : selectedText;
-    
-    const newText = 
-      markdown.substring(0, start) + 
-      prefix + 
-      fallbackText + 
-      suffix + 
-      markdown.substring(end);
+    const replacement = prefix + fallbackText + suffix;
 
-    setMarkdown(newText);
+    // Preserve native browser Undo/Redo stack (Ctrl+Z / Cmd+Z) via insertText command
+    const inserted = document.execCommand ? document.execCommand('insertText', false, replacement) : false;
+
+    if (!inserted) {
+      // Fallback to React state update if execCommand is unsupported in the current environment
+      const newText = 
+        markdown.substring(0, start) + 
+        replacement + 
+        markdown.substring(end);
+      setMarkdown(newText);
+    }
 
     setTimeout(() => {
       textarea.focus();
