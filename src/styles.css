@@ -181,7 +181,10 @@ body {
 }
 
 .pane-header {
-  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -189,6 +192,24 @@ body {
   color: var(--text-muted);
   border-bottom: 1px solid var(--glass-border);
   background: rgba(0, 0, 0, 0.02);
+}
+
+.doc-stats {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  text-transform: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.stat-pill {
+  background: var(--btn-bg);
+  padding: 2px 8px;
+  border-radius: 6px;
+  color: var(--text-muted);
+  border: 1px solid var(--glass-border);
+  letter-spacing: 0;
 }
 
 .editor-input {

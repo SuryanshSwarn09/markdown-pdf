@@ -5,6 +5,7 @@ import { markedHighlight } from 'marked-highlight';
 import { highlightCode } from './utils/highlighter.js';
 import DOMPurify from 'dompurify';
 import { sanitizeAIMath } from './utils/mathSanitizer.js';
+import { getDocumentStats } from './utils/documentStats.js';
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/atom-one-dark.css';
 
@@ -103,6 +104,8 @@ function App() {
     });
   }, [deferredMarkdown]);
 
+  const stats = useMemo(() => getDocumentStats(markdown), [markdown]);
+
   return (
     <div className="app-container">
       
@@ -143,6 +146,11 @@ function App() {
         <div className="pane editor-pane">
           <div className="pane-header">
             <span className="pane-title">Markdown Editor</span>
+            <div className="doc-stats">
+              <span className="stat-pill" title="Word count">{stats.words} words</span>
+              <span className="stat-pill" title="Character count">{stats.characters} chars</span>
+              <span className="stat-pill stat-time" title="Estimated reading time">{stats.readingTime}</span>
+            </div>
           </div>
           <textarea
             ref={editorRef}
