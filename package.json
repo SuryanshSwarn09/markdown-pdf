@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "test": "node src/utils/mathSanitizer.test.js && node src/utils/highlighter.test.js && node src/utils/documentStats.test.js && node src/utils/editorKeyHandlers.test.js",
+    "test": "node src/utils/mathSanitizer.test.js && node src/utils/highlighter.test.js && node src/utils/documentStats.test.js && node src/utils/editorKeyHandlers.test.js && node src/utils/exportUtils.test.js",
     "preview": "vite preview"
   },
   "dependencies": {

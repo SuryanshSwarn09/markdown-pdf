@@ -36,10 +36,18 @@ export function extractDocTitle(markdown) {
     }
   }
 
-  // 3. Fallback to first non-empty, non-fence line
+  // 3. Fallback to first non-empty line outside of code blocks and frontmatter
+  let inCodeFence = false;
   for (const line of lines) {
     const trimmed = line.trim();
-    if (trimmed && !trimmed.startsWith('```') && !trimmed.startsWith('---')) {
+    if (trimmed.startsWith('```')) {
+      inCodeFence = !inCodeFence;
+      continue;
+    }
+    if (inCodeFence || trimmed.startsWith('---')) {
+      continue;
+    }
+    if (trimmed) {
       return cleanTitleString(trimmed);
     }
   }
