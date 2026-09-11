@@ -540,12 +540,36 @@ body {
 }
 
 /* --- PRINT & PDF STYLES --- */
+@page {
+  margin: 15mm 15mm 20mm 15mm;
+  size: auto;
+}
+
 @media print {
-  .top-bar, .editor-pane, .preview-pane .pane-header, .floating-signature, .footer-links, .modal-overlay { 
+  /* Hide interactive application UI */
+  .top-bar, 
+  .editor-pane, 
+  .preview-pane .pane-header, 
+  .floating-signature, 
+  .footer-links, 
+  .modal-overlay,
+  .github-profile-wrapper { 
     display: none !important; 
   }
-  body, .app-container, .split-layout, .pane, .preview-output { 
-    background: white !important; 
+
+  /* Reset layout containers for clean document printing */
+  html, body {
+    background: #ffffff !important;
+    height: auto !important;
+    overflow: visible !important;
+    font-size: 10.5pt !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  .app-container, .split-layout, .pane, .preview-output { 
+    background: #ffffff !important; 
     height: auto !important; 
     padding: 0 !important; 
     margin: 0 !important; 
@@ -553,27 +577,157 @@ body {
     overflow: visible !important; 
     box-shadow: none !important;
     backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
-  .preview-output, .preview-output p, .preview-output ul, .preview-output ol, .preview-output li, .preview-output blockquote, .preview-output a, .preview-output h1, .preview-output h2, .preview-output h3 { 
-    color: #000000 !important; 
-  }
+
+  /* Publication Typography (Standard 10.5pt body text) */
   .preview-output { 
-    max-width: 100%; 
+    max-width: 100% !important; 
     column-count: var(--print-cols, 1); 
     column-gap: 40px; 
-    font-size: 16pt !important; 
-    line-height: 1.8 !important; 
+    font-size: 10.5pt !important; 
+    line-height: 1.55 !important; 
+    color: #1a1a1a !important;
   }
-  .preview-output pre, .preview-output code, .preview-output img, .preview-output h1, .preview-output h2, .preview-output h3, .preview-output .katex-display { 
-    page-break-inside: avoid; 
-    break-inside: avoid; 
+
+  .preview-output p,
+  .preview-output ul,
+  .preview-output ol,
+  .preview-output li {
+    color: #1a1a1a !important;
+    font-size: 10.5pt !important;
+    line-height: 1.55 !important;
+    margin-bottom: 0.6em;
   }
-  .preview-output h2 { border-bottom-color: #ccc !important; }
+
+  /* Scaled publication headings */
+  .preview-output h1 {
+    font-size: 18pt !important;
+    line-height: 1.25 !important;
+    margin-top: 0 !important;
+    margin-bottom: 8pt !important;
+    color: #111111 !important;
+  }
+
+  .preview-output h2 {
+    font-size: 14pt !important;
+    line-height: 1.3 !important;
+    margin-top: 14pt !important;
+    margin-bottom: 6pt !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    padding-bottom: 3pt !important;
+    color: #111111 !important;
+  }
+
+  .preview-output h3 {
+    font-size: 12pt !important;
+    line-height: 1.35 !important;
+    margin-top: 12pt !important;
+    margin-bottom: 4pt !important;
+    color: #111111 !important;
+  }
+
+  .preview-output h4,
+  .preview-output h5,
+  .preview-output h6 {
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+    margin-top: 10pt !important;
+    margin-bottom: 4pt !important;
+    color: #222222 !important;
+  }
+
+  /* Avoid orphaned headings at the bottom of pages */
+  .preview-output h1,
+  .preview-output h2,
+  .preview-output h3,
+  .preview-output h4,
+  .preview-output h5,
+  .preview-output h6 {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* Prevent awkward breaks inside atomic elements */
+  .preview-output pre,
+  .preview-output code,
+  .preview-output img,
+  .preview-output table,
+  .preview-output tr,
+  .preview-output blockquote,
+  .preview-output figure,
+  .preview-output .katex-display { 
+    page-break-inside: avoid !important; 
+    break-inside: avoid !important; 
+  }
+
+  /* Standard Publication Code Typography (9.5pt) */
+  .preview-output pre {
+    background-color: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+    padding: 10px 14px !important;
+    margin: 10pt 0 !important;
+  }
+
   .preview-output pre code { 
-    background-color: #f5f5f5 !important; 
-    color: #040404 !important; 
-    border: 1px solid #dddddd !important; 
-    font-size: 14pt !important; 
-    
+    background-color: transparent !important; 
+    border: none !important; 
+    padding: 0 !important;
+    font-size: 9.5pt !important; 
+    line-height: 1.45 !important; 
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  }
+
+  /* Inline Code */
+  .preview-output code:not(pre code) {
+    font-size: 9.5pt !important;
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+    padding: 1px 4px !important;
+    border-radius: 4px !important;
+    border: 1px solid #e2e8f0 !important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  }
+
+  /* Blockquotes */
+  .preview-output blockquote {
+    background-color: #f8fafc !important;
+    border-left: 3.5px solid #0071e3 !important;
+    color: #475569 !important;
+    padding: 8pt 12pt !important;
+    margin: 8pt 0 !important;
+    font-style: italic !important;
+  }
+
+  /* Links with publication blue and underlines */
+  .preview-output a {
+    color: #0056b3 !important;
+    text-decoration: underline !important;
+  }
+
+  /* Tables in print */
+  .preview-output table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 10pt 0 !important;
+    font-size: 9.5pt !important;
+  }
+
+  .preview-output th,
+  .preview-output td {
+    border: 1px solid #cbd5e1 !important;
+    padding: 6pt 8pt !important;
+    text-align: left !important;
+  }
+
+  .preview-output th {
+    background-color: #f1f5f9 !important;
+    font-weight: 600 !important;
+  }
+
+  /* KaTeX Math Equations in print */
+  .preview-output .katex {
+    font-size: 1.05em !important;
   }
 }
