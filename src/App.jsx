@@ -7,7 +7,7 @@ import DOMPurify from 'dompurify';
 import { sanitizeAIMath } from './utils/mathSanitizer.js';
 import { getDocumentStats } from './utils/documentStats.js';
 import { handleTabIndentation } from './utils/editorKeyHandlers.js';
-import { extractDocTitle, slugifyTitle, generateStandaloneHTML, downloadBlob } from './utils/exportUtils.js';
+import { extractDocTitle, slugifyTitle, generateStandaloneHTML, downloadBlob, copyRichHTML } from './utils/exportUtils.js';
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/atom-one-dark.css';
 
@@ -50,6 +50,7 @@ function App() {
   const deferredMarkdown = useDeferredValue(markdown);
   const [saveStatus, setSaveStatus] = useState('Saved');
   const [theme, setTheme] = useState('dark');
+  const [copiedHTML, setCopiedHTML] = useState(false);
   
   // State to track which modal is currently open ('privacy', 'terms', 'clear', or null)
   const [activeModal, setActiveModal] = useState(null);
@@ -204,6 +205,17 @@ function App() {
     });
   };
 
+  const handleCopyHTML = async () => {
+    if (!markdown.trim()) return;
+    const success = await copyRichHTML(parsedHTML);
+    if (success) {
+      setCopiedHTML(true);
+      setTimeout(() => {
+        setCopiedHTML(false);
+      }, 2000);
+    }
+  };
+
   const parsedHTML = useMemo(() => {
     const processedMarkdown = sanitizeAIMath(deferredMarkdown);
     const rawHTML = markedParser.parse(processedMarkdown);
@@ -261,6 +273,14 @@ function App() {
             disabled={!markdown.trim()}
           >
             🌐 .html
+          </button>
+          <button 
+            className={`action-btn ${copiedHTML ? 'copy-success' : ''}`}
+            onClick={handleCopyHTML} 
+            title="Copy rich HTML to clipboard (paste into Medium, Dev.to, Google Docs, or email)"
+            disabled={!markdown.trim()}
+          >
+            {copiedHTML ? '✓ Copied!' : '📋 Copy HTML'}
           </button>
           <button className="print-btn" onClick={handlePrint} title="Print or Save as PDF">
             Print PDF
