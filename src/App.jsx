@@ -7,7 +7,7 @@ import DOMPurify from 'dompurify';
 import { sanitizeAIMath } from './utils/mathSanitizer.js';
 import { getDocumentStats } from './utils/documentStats.js';
 import { handleTabIndentation } from './utils/editorKeyHandlers.js';
-import { extractDocTitle, slugifyTitle, downloadBlob } from './utils/exportUtils.js';
+import { extractDocTitle, slugifyTitle, generateStandaloneHTML, downloadBlob } from './utils/exportUtils.js';
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/atom-one-dark.css';
 
@@ -189,6 +189,21 @@ function App() {
     });
   };
 
+  const handleDownloadHTML = () => {
+    if (!markdown.trim()) return;
+    const title = extractDocTitle(markdown);
+    const slug = slugifyTitle(title);
+    const htmlDocument = generateStandaloneHTML({
+      title,
+      contentHTML: parsedHTML,
+    });
+    downloadBlob({
+      content: htmlDocument,
+      filename: `${slug}.html`,
+      mimeType: 'text/html;charset=utf-8',
+    });
+  };
+
   const parsedHTML = useMemo(() => {
     const processedMarkdown = sanitizeAIMath(deferredMarkdown);
     const rawHTML = markedParser.parse(processedMarkdown);
@@ -238,6 +253,14 @@ function App() {
             disabled={!markdown.trim()}
           >
             📥 .md
+          </button>
+          <button 
+            className="action-btn" 
+            onClick={handleDownloadHTML} 
+            title="Export standalone self-contained HTML (.html) with KaTeX math"
+            disabled={!markdown.trim()}
+          >
+            🌐 .html
           </button>
           <button className="print-btn" onClick={handlePrint} title="Print or Save as PDF">
             Print PDF
