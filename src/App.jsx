@@ -179,6 +179,14 @@ function App() {
     window.print();
   };
 
+  const parsedHTML = useMemo(() => {
+    const processedMarkdown = sanitizeAIMath(deferredMarkdown);
+    const rawHTML = markedParser.parse(processedMarkdown);
+    return DOMPurify.sanitize(rawHTML, {
+      USE_PROFILES: { html: true, mathMl: true, svg: true },
+    });
+  }, [deferredMarkdown]);
+
   const handleDownloadMarkdown = () => {
     if (!markdown.trim()) return;
     const title = extractDocTitle(markdown);
@@ -215,14 +223,6 @@ function App() {
       }, 2000);
     }
   };
-
-  const parsedHTML = useMemo(() => {
-    const processedMarkdown = sanitizeAIMath(deferredMarkdown);
-    const rawHTML = markedParser.parse(processedMarkdown);
-    return DOMPurify.sanitize(rawHTML, {
-      USE_PROFILES: { html: true, mathMl: true, svg: true },
-    });
-  }, [deferredMarkdown]);
 
   const stats = useMemo(() => getDocumentStats(markdown), [markdown]);
 
