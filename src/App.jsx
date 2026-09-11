@@ -7,6 +7,7 @@ import DOMPurify from 'dompurify';
 import { sanitizeAIMath } from './utils/mathSanitizer.js';
 import { getDocumentStats } from './utils/documentStats.js';
 import { handleTabIndentation } from './utils/editorKeyHandlers.js';
+import { extractDocTitle, slugifyTitle, downloadBlob } from './utils/exportUtils.js';
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/atom-one-dark.css';
 
@@ -177,6 +178,17 @@ function App() {
     window.print();
   };
 
+  const handleDownloadMarkdown = () => {
+    if (!markdown.trim()) return;
+    const title = extractDocTitle(markdown);
+    const slug = slugifyTitle(title);
+    downloadBlob({
+      content: markdown,
+      filename: `${slug}.md`,
+      mimeType: 'text/markdown;charset=utf-8',
+    });
+  };
+
   const parsedHTML = useMemo(() => {
     const processedMarkdown = sanitizeAIMath(deferredMarkdown);
     const rawHTML = markedParser.parse(processedMarkdown);
@@ -219,6 +231,14 @@ function App() {
               ↩ Undo Clear
             </button>
           )}
+          <button 
+            className="action-btn" 
+            onClick={handleDownloadMarkdown} 
+            title="Download active document as Markdown (.md)"
+            disabled={!markdown.trim()}
+          >
+            📥 .md
+          </button>
           <button className="print-btn" onClick={handlePrint} title="Print or Save as PDF">
             Print PDF
           </button>
