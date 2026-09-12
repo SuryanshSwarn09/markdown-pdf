@@ -382,25 +382,87 @@ body {
   color: var(--accent); 
 }
 
-/* Updated for Highlight.js Support */
+/* Adaptive Code Block Styling */
 .preview-output pre {
-  background-color: #111112; /* Keep your sleek dark background */
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
   border-radius: 12px;
   margin-bottom: 16px;
   overflow-x: auto;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .preview-output pre code { 
   display: block; 
-  padding: 20px; 
+  padding: 18px 22px; 
   background-color: transparent; 
-  
-  /* THE FIX: Force the text to stay light grey, ignoring the Light/Dark app theme */
-  color: #dbdfe8 !important; 
-  
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
+  color: var(--code-text);
+  border: none;
+  border-radius: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.9em;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+/* Adaptive Syntax Highlighting Tokens */
+.preview-output .hljs-keyword,
+.preview-output .hljs-selector-tag,
+.preview-output .hljs-subst {
+  color: var(--syntax-keyword);
+  font-weight: 600;
+}
+
+.preview-output .hljs-string,
+.preview-output .hljs-doctag,
+.preview-output .hljs-template-variable {
+  color: var(--syntax-string);
+}
+
+.preview-output .hljs-comment,
+.preview-output .hljs-quote {
+  color: var(--syntax-comment);
+  font-style: italic;
+}
+
+.preview-output .hljs-number,
+.preview-output .hljs-literal {
+  color: var(--syntax-number);
+}
+
+.preview-output .hljs-title,
+.preview-output .hljs-section,
+.preview-output .hljs-function {
+  color: var(--syntax-title);
+  font-weight: 600;
+}
+
+.preview-output .hljs-built_in,
+.preview-output .hljs-builtin-name {
+  color: var(--syntax-built_in);
+}
+
+.preview-output .hljs-attr,
+.preview-output .hljs-attribute,
+.preview-output .hljs-variable {
+  color: var(--syntax-attr);
+}
+
+.preview-output .hljs-type,
+.preview-output .hljs-class {
+  color: var(--syntax-type);
+}
+
+.preview-output .hljs-meta {
+  color: var(--syntax-meta);
+}
+
+.preview-output .hljs-emphasis {
+  font-style: italic;
+}
+
+.preview-output .hljs-strong {
+  font-weight: bold;
 }
 
 .preview-output blockquote { 
