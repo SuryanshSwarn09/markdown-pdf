@@ -24,12 +24,14 @@ markedParser.use(markedHighlight({
   }
 }));
 
-// Automatically open external links in a new tab safely with noopener noreferrer
+// Automatically open external links in a new tab safely and enforce noopener noreferrer on all target="_blank"
 DOMPurify.addHook('afterSanitizeAttributes', (node) => {
-  if (node.tagName === 'A' && node.hasAttribute('href')) {
+  if (node.tagName === 'A') {
     const href = node.getAttribute('href') || '';
     if (/^https?:\/\//i.test(href) || href.startsWith('//')) {
       node.setAttribute('target', '_blank');
+    }
+    if (node.getAttribute('target') === '_blank') {
       node.setAttribute('rel', 'noopener noreferrer');
     }
   }
