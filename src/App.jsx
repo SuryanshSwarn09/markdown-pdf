@@ -8,7 +8,7 @@ import { sanitizeAIMath } from './utils/mathSanitizer.js';
 import { getDocumentStats } from './utils/documentStats.js';
 import { handleTabIndentation } from './utils/editorKeyHandlers.js';
 import { extractDocTitle, slugifyTitle, generateStandaloneHTML, downloadBlob, copyRichHTML } from './utils/exportUtils.js';
-import { getInitialTheme, saveTheme } from './utils/themeUtils.js';
+import { getInitialTheme, saveTheme, listenToSystemTheme, THEME_KEY } from './utils/themeUtils.js';
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/atom-one-dark.css';
 
@@ -63,6 +63,21 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme);
     saveTheme(theme);
   }, [theme]);
+
+  // Synchronize with OS color scheme changes if user has not explicitly set a manual preference
+  useEffect(() => {
+    const unsubscribe = listenToSystemTheme((systemTheme) => {
+      try {
+        const userOverride = localStorage.getItem(THEME_KEY);
+        if (!userOverride) {
+          setTheme(systemTheme);
+        }
+      } catch {
+        setTheme(systemTheme);
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   // Handle Escape key to dismiss modals
   useEffect(() => {
