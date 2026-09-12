@@ -28,8 +28,8 @@ export function sanitizeAIMath(markdown) {
     return token;
   });
 
-  // 2. Mask inline code spans (`...` or ``...``)
-  text = text.replace(/(`+[\s\S]*?`+)/g, (match) => {
+  // 2. Mask inline code spans (`...` or ``...``), isolated within paragraph boundaries
+  text = text.replace(/(?<!`)(`+)(?:(?!\n\s*\n)[\s\S])*?\1(?!`)/g, (match) => {
     const token = `${tokenPrefix}${codeTokens.length}@@`;
     codeTokens.push(match);
     return token;
