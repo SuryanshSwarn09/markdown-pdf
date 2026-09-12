@@ -21,6 +21,23 @@
   /* Controls */
   --btn-bg: rgba(0, 0, 0, 0.04);
   --btn-hover: rgba(0, 0, 0, 0.08);
+
+  /* Code & Syntax Highlighting (Light Theme) */
+  --code-bg: rgba(0, 0, 0, 0.035);
+  --code-border: rgba(0, 0, 0, 0.09);
+  --code-text: #24292f;
+  --code-inline-bg: rgba(0, 0, 0, 0.05);
+  --code-inline-text: #0550ae;
+  --syntax-keyword: #cf222e;
+  --syntax-string: #0a3069;
+  --syntax-comment: #6e7781;
+  --syntax-number: #0550ae;
+  --syntax-title: #953800;
+  --syntax-built_in: #116329;
+  --syntax-attr: #8250df;
+  --syntax-type: #953800;
+  --syntax-literal: #0550ae;
+  --syntax-meta: #57606a;
 }
 
 [data-theme="dark"] {
@@ -43,6 +60,23 @@
   /* Controls */
   --btn-bg: rgba(255, 255, 255, 0.08);
   --btn-hover: rgba(255, 255, 255, 0.15);
+
+  /* Code & Syntax Highlighting (Dark Theme - Atom One Dark style) */
+  --code-bg: rgba(18, 18, 20, 0.75);
+  --code-border: rgba(255, 255, 255, 0.12);
+  --code-text: #abb2bf;
+  --code-inline-bg: rgba(255, 255, 255, 0.08);
+  --code-inline-text: #409cff;
+  --syntax-keyword: #c678dd;
+  --syntax-string: #98c379;
+  --syntax-comment: #5c6370;
+  --syntax-number: #d19a66;
+  --syntax-title: #61afef;
+  --syntax-built_in: #e5c07b;
+  --syntax-attr: #d19a66;
+  --syntax-type: #e5c07b;
+  --syntax-literal: #56b6c2;
+  --syntax-meta: #7f848e;
 }
 
 /* --- BASE STYLES --- */
