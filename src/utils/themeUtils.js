@@ -59,3 +59,32 @@ export function saveTheme(theme) {
   }
   return false;
 }
+
+/**
+ * Listens for OS color-scheme preference changes (e.g. user toggles dark/light mode in OS settings).
+ *
+ * @param {(theme: 'light' | 'dark') => void} callback
+ * @returns {() => void} Unsubscribe cleanup function
+ */
+export function listenToSystemTheme(callback) {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+    return () => {};
+  }
+
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  const handler = (e) => {
+    const newTheme = e.matches ? 'dark' : 'light';
+    callback(newTheme);
+  };
+
+  if (typeof mediaQuery.addEventListener === 'function') {
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  } else if (typeof mediaQuery.addListener === 'function') {
+    // Safari / legacy browser fallback
+    mediaQuery.addListener(handler);
+    return () => mediaQuery.removeListener(handler);
+  }
+
+  return () => {};
+}
