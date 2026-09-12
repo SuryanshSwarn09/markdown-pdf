@@ -19,6 +19,9 @@ _`React` `Vite` `marked.js` `highlight.js` `KaTeX` `DOMPurify`_
 ---
 ### Features:
 
+* **Hardened Content Security Policy:** Strict HTTP CSP headers prohibiting `'unsafe-inline'` script execution.
+* **Export Sandbox Protection:** Standalone `.html` exports embed an isolated CSP (`default-src 'none'`) preventing arbitrary script execution.
+* **Universal Tabnabbing Defense:** Automatic `rel="noopener noreferrer"` enforcement across all external and user-supplied `target="_blank"` anchors.
 * **Theme Persistence & OS Auto-Detection:** Automatically detects system color preference (`prefers-color-scheme`) and persists user theme choices to `localStorage`.
 * **Adaptive Code Highlighting:** Code blocks and syntax tokens adapt seamlessly to Light and Dark themes via CSS variables—eliminating clashing dark boxes in light mode with zero stylesheet load latency.
 * **Publication Print Typography:** Optimized `@media print` layout replacing bulky fonts with standard publication sizing (10.5pt body, 9.5pt code), page-break avoidance on headings and blocks, and syntax color preservation.
