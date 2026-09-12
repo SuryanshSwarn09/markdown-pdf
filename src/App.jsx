@@ -8,7 +8,7 @@ import { sanitizeAIMath } from './utils/mathSanitizer.js';
 import { getDocumentStats } from './utils/documentStats.js';
 import { handleTabIndentation } from './utils/editorKeyHandlers.js';
 import { extractDocTitle, slugifyTitle, generateStandaloneHTML, downloadBlob, copyRichHTML } from './utils/exportUtils.js';
-import { getInitialTheme } from './utils/themeUtils.js';
+import { getInitialTheme, saveTheme } from './utils/themeUtils.js';
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/atom-one-dark.css';
 
@@ -61,6 +61,7 @@ function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+    saveTheme(theme);
   }, [theme]);
 
   // Handle Escape key to dismiss modals
