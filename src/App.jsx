@@ -8,6 +8,7 @@ import { sanitizeAIMath } from './utils/mathSanitizer.js';
 import { getDocumentStats } from './utils/documentStats.js';
 import { handleTabIndentation } from './utils/editorKeyHandlers.js';
 import { extractDocTitle, slugifyTitle, generateStandaloneHTML, downloadBlob, copyRichHTML } from './utils/exportUtils.js';
+import { getInitialTheme } from './utils/themeUtils.js';
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/atom-one-dark.css';
 
@@ -49,7 +50,7 @@ function App() {
   });
   const deferredMarkdown = useDeferredValue(markdown);
   const [saveStatus, setSaveStatus] = useState('Saved');
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState(getInitialTheme);
   const [copiedHTML, setCopiedHTML] = useState(false);
   
   // State to track which modal is currently open ('privacy', 'terms', 'clear', or null)
