@@ -108,6 +108,10 @@ export function generateStandaloneHTML({ title, contentHTML, customStyles = '' }
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 
+  const safeStyles = typeof customStyles === 'string'
+    ? customStyles.replace(/<\/style>/gi, '')
+    : '';
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -272,7 +276,7 @@ export function generateStandaloneHTML({ title, contentHTML, customStyles = '' }
       h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
       pre, table, blockquote, .katex-display { page-break-inside: avoid; break-inside: avoid; }
     }
-    ${customStyles}
+    ${safeStyles}
   </style>
 </head>
 <body>
