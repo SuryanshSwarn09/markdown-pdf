@@ -10,7 +10,6 @@ import { handleTabIndentation } from './utils/editorKeyHandlers.js';
 import { extractDocTitle, slugifyTitle, generateStandaloneHTML, downloadBlob, copyRichHTML } from './utils/exportUtils.js';
 import { getInitialTheme, saveTheme, listenToSystemTheme, THEME_KEY } from './utils/themeUtils.js';
 import 'katex/dist/katex.min.css';
-import 'highlight.js/styles/atom-one-dark.css';
 
 
 const markedParser = new Marked();
