@@ -373,13 +373,15 @@ body {
 .preview-output ul, .preview-output ol { margin-left: 24px; }
 .preview-output li { margin-bottom: 6px; }
 
-.preview-output code { 
-  background-color: var(--btn-bg); 
-  padding: 4px 6px; 
+.preview-output code:not(pre code) { 
+  background-color: var(--code-inline-bg); 
+  color: var(--code-inline-text);
+  padding: 3px 6px; 
   border-radius: 6px; 
-  font-family: ui-monospace, SFMono-Regular, Monaco, monospace; 
-  font-size: 0.85em; 
-  color: var(--accent); 
+  border: 1px solid var(--code-border);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; 
+  font-size: 0.88em; 
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Adaptive Code Block Styling */
