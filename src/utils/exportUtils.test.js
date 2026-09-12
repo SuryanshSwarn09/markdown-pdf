@@ -70,6 +70,10 @@ assert.ok(standaloneHTML.startsWith('<!DOCTYPE html>'));
 assert.ok(standaloneHTML.includes('<meta charset="UTF-8">'));
 assert.ok(standaloneHTML.includes('<meta name="viewport" content="width=device-width, initial-scale=1.0">'));
 
+// Checks for strict standalone CSP meta tag
+assert.ok(standaloneHTML.includes('http-equiv="Content-Security-Policy"'));
+assert.ok(standaloneHTML.includes("default-src 'none'"));
+
 // Checks title escaping
 assert.ok(standaloneHTML.includes('<title>Quantum &amp; Math: &quot;Preview&quot;</title>'));
 
@@ -80,6 +84,14 @@ assert.ok(standaloneHTML.includes('katex@0.16.22/dist/katex.min.css'));
 assert.ok(standaloneHTML.includes('font-family: var(--font-main);'));
 assert.ok(standaloneHTML.includes('@media print'));
 assert.ok(standaloneHTML.includes('.hljs-keyword'));
+
+// Checks customStyles sanitization against style breakout
+const sanitizedStylesHTML = generateStandaloneHTML({
+  title: 'Style Injection Test',
+  contentHTML: '<p>text</p>',
+  customStyles: 'body { color: red; }</style><script>alert(1)</script>',
+});
+assert.ok(!sanitizedStylesHTML.includes('</style><script>'));
 
 // Checks rendered content container
 assert.ok(standaloneHTML.includes('<main class="markdown-container">'));
