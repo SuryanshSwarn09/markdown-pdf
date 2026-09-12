@@ -84,4 +84,18 @@ assert.strictEqual(sanitizeAIMath(undefined), '');
 const multiInline = 'Code `[1]` and code `[2]` and `(3)`.';
 assert.strictEqual(sanitizeAIMath(multiInline), multiInline);
 
+// Test 10: Paragraph boundary isolation (stray backticks across blank lines do not swallow equations)
+const strayBacktickInput = `Here is a stray \` backtick in paragraph 1.
+
+\\[
+  E = mc^2
+\\]
+
+Another stray \` backtick in paragraph 3.`;
+
+const strayBacktickOutput = sanitizeAIMath(strayBacktickInput);
+assert.ok(strayBacktickOutput.includes('$$\nE = mc^2\n$$'), 'Equation between paragraph breaks should be converted despite stray backticks');
+assert.ok(strayBacktickOutput.includes('stray ` backtick in paragraph 1'));
+assert.ok(strayBacktickOutput.includes('stray ` backtick in paragraph 3'));
+
 console.log('All sanitizeAIMath tests passed successfully!');
