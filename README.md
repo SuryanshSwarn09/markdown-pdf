@@ -19,6 +19,8 @@ _`React` `Vite` `marked.js` `highlight.js` `KaTeX` `DOMPurify`_
 ---
 ### Features:
 
+* **Theme Persistence & OS Auto-Detection:** Automatically detects system color preference (`prefers-color-scheme`) and persists user theme choices to `localStorage`.
+* **Adaptive Code Highlighting:** Code blocks and syntax tokens adapt seamlessly to Light and Dark themes via CSS variables—eliminating clashing dark boxes in light mode with zero stylesheet load latency.
 * **Publication Print Typography:** Optimized `@media print` layout replacing bulky fonts with standard publication sizing (10.5pt body, 9.5pt code), page-break avoidance on headings and blocks, and syntax color preservation.
 * **One-Click Markdown Download (`.md`):** Instant download of the active document with smart filename slugification derived from the top heading.
 * **Standalone HTML Export (`.html`):** Export complete, self-contained HTML documents with inlined KaTeX math stylesheets and publication typography for offline reading and sharing.
@@ -36,7 +38,7 @@ _`React` `Vite` `marked.js` `highlight.js` `KaTeX` `DOMPurify`_
 * **Smart Toolbar:** One-click insertion for formatting, code blocks, and equations.
 * **Liquid Glass UI:** Responsive, Apple-inspired frosted glass aesthetic with Light/Dark modes.
 * **PWA:** _`10 May 26`_ Look at the far right side of the URL address bar. You should now see a little screen icon with a down arrow. If you hover over it, it will say "Install markdown-pdf".
-* **Comprehensive Test Suite:** 5 unit test suites (`npm test`) covering math sanitization, syntax highlighting, document metrics, keyboard indentation, and export utilities.
+* **Comprehensive Test Suite:** 6 unit test suites (`npm test`) covering math sanitization, syntax highlighting, document metrics, keyboard indentation, export utilities, and theme persistence.
 
 ---
 
