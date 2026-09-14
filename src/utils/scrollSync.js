@@ -37,3 +37,41 @@ export function calculateTargetScrollTop(percentage, targetScrollHeight, targetC
   const clampedPercentage = Math.min(Math.max(percentage, 0), 1);
   return Math.round(clampedPercentage * maxTargetScroll);
 }
+
+export const SYNC_SCROLL_KEY = 'markdown-pdf:sync-scroll';
+
+/**
+ * Retrieves the user's sync scroll preference from localStorage.
+ * Defaults to true if unconfigured or inaccessible.
+ * 
+ * @returns {boolean} Whether synchronized scrolling is enabled
+ */
+export function getSyncScrollPreference() {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      const stored = window.localStorage.getItem(SYNC_SCROLL_KEY);
+      if (stored !== null) {
+        return stored === 'true';
+      }
+    } catch {
+      // LocalStorage access restricted (e.g. private browsing)
+    }
+  }
+  return true;
+}
+
+/**
+ * Persists the user's sync scroll preference to localStorage.
+ * 
+ * @param {boolean} enabled - Whether synchronized scrolling is enabled
+ */
+export function saveSyncScrollPreference(enabled) {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      window.localStorage.setItem(SYNC_SCROLL_KEY, String(Boolean(enabled)));
+    } catch {
+      // Ignore quota/security errors
+    }
+  }
+}
+
