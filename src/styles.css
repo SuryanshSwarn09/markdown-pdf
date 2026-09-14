@@ -794,8 +794,72 @@ body {
   }
 }
 
-/* --- MOBILE RESPONSIVENESS --- */
-@media (max-width: 768px) {
+/* Tier 3: Tablet Portrait (640px - 879px) */
+@media (max-width: 879px) and (min-width: 640px) {
+  body {
+    overflow: auto;
+  }
+
+  .app-container {
+    height: auto;
+    min-height: 100vh;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    padding: 12px 16px;
+  }
+
+  .toolbar {
+    justify-content: center;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .action-btn, .print-btn, .clear-btn, .restore-btn {
+    flex: 1 1 auto;
+    min-width: 80px;
+    max-width: 160px;
+    height: 36px;
+    padding: 0 10px;
+    font-size: 0.82rem;
+  }
+
+  .btn-label-full {
+    display: none;
+  }
+
+  .btn-label-short {
+    display: inline;
+  }
+
+  .split-layout {
+    flex-direction: column;
+    height: auto;
+    gap: 16px;
+  }
+
+  .pane {
+    min-height: 45vh;
+    flex: none;
+  }
+}
+
+/* --- MOBILE RESPONSIVENESS (< 640px) --- */
+@media (max-width: 639px) {
   body { overflow: auto; }
   .app-container { height: auto; min-height: 100vh; padding: 16px; }
   .top-bar { flex-direction: column; gap: 16px; align-items: stretch; }
