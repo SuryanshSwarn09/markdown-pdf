@@ -9,7 +9,7 @@ import { getDocumentStats } from './utils/documentStats.js';
 import { handleTabIndentation } from './utils/editorKeyHandlers.js';
 import { extractDocTitle, slugifyTitle, generateStandaloneHTML, downloadBlob, copyRichHTML } from './utils/exportUtils.js';
 import { getInitialTheme, saveTheme, listenToSystemTheme, THEME_KEY } from './utils/themeUtils.js';
-import { DownloadIcon, FileCodeIcon, CopyIcon, CheckIcon, PrinterIcon, TrashIcon, UndoIcon } from './components/Icons.jsx';
+import { SunIcon, MoonIcon, DownloadIcon, FileCodeIcon, CopyIcon, CheckIcon, PrinterIcon, TrashIcon, UndoIcon } from './components/Icons.jsx';
 import 'katex/dist/katex.min.css';
 
 
@@ -266,8 +266,13 @@ function App() {
           <button onClick={() => handleFormat('$$ \n', '\n$$')} title="Math Equation">Σ</button>
           
           <div className="divider"></div>
-          <button onClick={toggleTheme} title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}>
-            {theme === 'dark' ? '☀️' : '🌙'}
+          <button 
+            className="theme-toggle-btn"
+            onClick={toggleTheme} 
+            title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+            aria-label={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+          >
+            {theme === 'dark' ? <SunIcon size={16} /> : <MoonIcon size={16} />}
           </button>
         </div>
         
