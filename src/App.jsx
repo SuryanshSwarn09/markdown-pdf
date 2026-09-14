@@ -9,7 +9,25 @@ import { getDocumentStats } from './utils/documentStats.js';
 import { handleTabIndentation } from './utils/editorKeyHandlers.js';
 import { extractDocTitle, slugifyTitle, generateStandaloneHTML, downloadBlob, copyRichHTML } from './utils/exportUtils.js';
 import { getInitialTheme, saveTheme, listenToSystemTheme, THEME_KEY } from './utils/themeUtils.js';
-import { SunIcon, MoonIcon, DownloadIcon, FileCodeIcon, CopyIcon, CheckIcon, PrinterIcon, TrashIcon, UndoIcon } from './components/Icons.jsx';
+import { 
+  SunIcon, 
+  MoonIcon, 
+  DownloadIcon, 
+  FileCodeIcon, 
+  CopyIcon, 
+  CheckIcon, 
+  PrinterIcon, 
+  TrashIcon, 
+  UndoIcon,
+  BoldIcon,
+  ItalicIcon,
+  StrikethroughIcon,
+  CodeIcon,
+  QuoteIcon,
+  ListIcon,
+  LinkIcon,
+  MathIcon
+} from './components/Icons.jsx';
 import 'katex/dist/katex.min.css';
 
 
@@ -249,31 +267,53 @@ function App() {
     <div className="app-container">
       
       <div className="top-bar">
-        <div className="toolbar">
-          <button onClick={() => handleFormat('# ', '')} title="Heading 1">H1</button>
-          <button onClick={() => handleFormat('## ', '')} title="Heading 2">H2</button>
-          <button onClick={() => handleFormat('### ', '')} title="Heading 3">H3</button>
+        <div className="toolbar" role="toolbar" aria-label="Markdown formatting toolbar">
+          <div className="toolbar-group" aria-label="Headings">
+            <button className="format-btn format-btn-text" onClick={() => handleFormat('# ', '')} title="Heading 1" aria-label="Heading 1">H1</button>
+            <button className="format-btn format-btn-text" onClick={() => handleFormat('## ', '')} title="Heading 2" aria-label="Heading 2">H2</button>
+            <button className="format-btn format-btn-text" onClick={() => handleFormat('### ', '')} title="Heading 3" aria-label="Heading 3">H3</button>
+          </div>
           <div className="divider"></div>
-          <button onClick={() => handleFormat('**', '**')} title="Bold">B</button>
-          <button onClick={() => handleFormat('_', '_')} title="Italic">I</button>
-          <button onClick={() => handleFormat('~~', '~~')} title="Strikethrough">~~</button>
-          <button onClick={() => handleFormat('```\n', '\n```')} title="Code Block">`</button>
+          <div className="toolbar-group" aria-label="Text Formatting">
+            <button className="format-btn" onClick={() => handleFormat('**', '**')} title="Bold" aria-label="Bold">
+              <BoldIcon size={15} />
+            </button>
+            <button className="format-btn" onClick={() => handleFormat('_', '_')} title="Italic" aria-label="Italic">
+              <ItalicIcon size={15} />
+            </button>
+            <button className="format-btn" onClick={() => handleFormat('~~', '~~')} title="Strikethrough" aria-label="Strikethrough">
+              <StrikethroughIcon size={15} />
+            </button>
+            <button className="format-btn" onClick={() => handleFormat('```\n', '\n```')} title="Code Block" aria-label="Code Block">
+              <CodeIcon size={15} />
+            </button>
+          </div>
           <div className="divider"></div>
-          <button onClick={() => handleFormat('> ', '')} title="Blockquote">&gt;</button>
-          <button onClick={() => handleFormat('- ', '')} title="List Item">—</button>
-          <button onClick={() => handleFormat('[', '](https://url.com)')} title="Link">[]</button>
+          <div className="toolbar-group" aria-label="Lists and Inserts">
+            <button className="format-btn" onClick={() => handleFormat('> ', '')} title="Blockquote" aria-label="Blockquote">
+              <QuoteIcon size={15} />
+            </button>
+            <button className="format-btn" onClick={() => handleFormat('- ', '')} title="List Item" aria-label="List Item">
+              <ListIcon size={15} />
+            </button>
+            <button className="format-btn" onClick={() => handleFormat('[', '](https://url.com)')} title="Link" aria-label="Insert Link">
+              <LinkIcon size={15} />
+            </button>
+            <button className="format-btn" onClick={() => handleFormat('$$ \n', '\n$$')} title="Math Equation" aria-label="Math Equation">
+              <MathIcon size={15} />
+            </button>
+          </div>
           <div className="divider"></div>
-          <button onClick={() => handleFormat('$$ \n', '\n$$')} title="Math Equation">Σ</button>
-          
-          <div className="divider"></div>
-          <button 
-            className="theme-toggle-btn"
-            onClick={toggleTheme} 
-            title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
-            aria-label={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
-          >
-            {theme === 'dark' ? <SunIcon size={16} /> : <MoonIcon size={16} />}
-          </button>
+          <div className="toolbar-group" aria-label="Theme">
+            <button 
+              className="theme-toggle-btn format-btn"
+              onClick={toggleTheme} 
+              title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+              aria-label={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+            >
+              {theme === 'dark' ? <SunIcon size={16} /> : <MoonIcon size={16} />}
+            </button>
+          </div>
         </div>
         
         <div className="action-buttons">
