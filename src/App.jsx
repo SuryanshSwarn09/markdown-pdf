@@ -28,7 +28,8 @@ import {
   ListIcon,
   LinkIcon,
   MathIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  SyncScrollIcon
 } from './components/Icons.jsx';
 import 'katex/dist/katex.min.css';
 
@@ -441,6 +442,17 @@ function App() {
                 <CheckCircleIcon size={12} />
                 <span>{saveStatus}</span>
               </span>
+              <button
+                type="button"
+                className={`sync-scroll-btn ${syncScroll ? 'active' : ''}`}
+                onClick={() => setSyncScroll(prev => !prev)}
+                title={`Synchronized Scrolling: ${syncScroll ? 'ON' : 'OFF'} (Click to toggle)`}
+                aria-pressed={syncScroll}
+                aria-label="Toggle synchronized scrolling"
+              >
+                <SyncScrollIcon size={13} />
+                <span>Sync Scroll: {syncScroll ? 'ON' : 'OFF'}</span>
+              </button>
             </div>
             <div className="doc-stats">
               <span className="stat-pill" title="Word count">{stats.words} words</span>
