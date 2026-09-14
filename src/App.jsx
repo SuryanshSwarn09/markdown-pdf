@@ -26,7 +26,8 @@ import {
   QuoteIcon,
   ListIcon,
   LinkIcon,
-  MathIcon
+  MathIcon,
+  CheckCircleIcon
 } from './components/Icons.jsx';
 import 'katex/dist/katex.min.css';
 
@@ -392,7 +393,8 @@ function App() {
             <div className="pane-title-group">
               <span className="pane-title">Markdown Editor</span>
               <span className="save-status-pill" title="Saved locally in browser storage">
-                ✓ {saveStatus}
+                <CheckCircleIcon size={12} />
+                <span>{saveStatus}</span>
               </span>
             </div>
             <div className="doc-stats">
