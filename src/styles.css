@@ -173,61 +173,68 @@ body {
   margin: 0 8px;
 }
 
-/* --- ACTION BUTTONS --- */
+/* --- ACTION BUTTONS & HIERARCHY --- */
 .action-buttons {
   display: flex;
-  gap: 12px;
+  gap: 8px;
   align-items: center;
 }
 
-.print-btn, .clear-btn {
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  font-size: 0.85rem;
+.action-btn, .print-btn, .clear-btn, .restore-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 13px;
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 0.84rem;
   font-weight: 600;
+  line-height: 1;
   cursor: pointer;
-  transition: all 0.2s ease;
-  color: white;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
 }
 
-.print-btn { background-color: var(--accent); }
-.print-btn:hover { background-color: var(--accent-hover); transform: translateY(-1px); }
-.print-btn:active { transform: translateY(1px); }
-
-.clear-btn { background-color: #ff3b30; } /* Apple Red */
-.clear-btn:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
-.clear-btn:active:not(:disabled) { transform: translateY(1px); }
-.clear-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-.restore-btn {
-  background-color: #34c759;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  color: white;
-  transition: all 0.2s ease;
+.action-btn svg, .print-btn svg, .clear-btn svg, .restore-btn svg {
+  flex-shrink: 0;
+  display: inline-flex;
 }
-.restore-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
-.restore-btn:active { transform: translateY(1px); }
 
-/* Multi-Format Export Buttons */
+.btn-label-full {
+  display: inline;
+}
+
+.btn-label-short {
+  display: none;
+}
+
+/* Primary Action: Print PDF */
+.print-btn {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 113, 227, 0.28);
+}
+
+.print-btn:hover {
+  box-shadow: 0 4px 14px rgba(0, 113, 227, 0.42);
+  transform: translateY(-1px);
+}
+
+.print-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 1px 4px rgba(0, 113, 227, 0.2);
+}
+
+/* Secondary Actions: Multi-Format Export (.md, .html, Copy) */
 .action-btn {
   background-color: var(--btn-bg);
   color: var(--text-main);
   border: 1px solid var(--glass-border);
-  border-radius: 8px;
-  padding: 8px 13px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -239,19 +246,58 @@ body {
 }
 
 .action-btn:active:not(:disabled) {
-  transform: translateY(1px);
+  transform: scale(0.97);
 }
 
 .action-btn:disabled {
-  opacity: 0.38;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
 .action-btn.copy-success {
-  background-color: rgba(52, 199, 89, 0.18);
+  background-color: rgba(52, 199, 89, 0.16);
   color: #34c759;
-  border-color: #34c759;
+  border-color: rgba(52, 199, 89, 0.38);
   animation: pulseSuccess 0.35s ease;
+}
+
+/* Destructive Action: Clear (Subtle Frosted Red on Hover) */
+.clear-btn {
+  background-color: var(--btn-bg);
+  color: var(--text-muted);
+  border: 1px solid var(--glass-border);
+}
+
+.clear-btn:hover:not(:disabled) {
+  background-color: rgba(255, 59, 48, 0.12);
+  color: #ff3b30;
+  border-color: rgba(255, 59, 48, 0.3);
+  transform: translateY(-1px);
+}
+
+.clear-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.clear-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Restore Action: Undo Clear */
+.restore-btn {
+  background-color: rgba(52, 199, 89, 0.14);
+  color: #34c759;
+  border: 1px solid rgba(52, 199, 89, 0.3);
+}
+
+.restore-btn:hover {
+  background-color: rgba(52, 199, 89, 0.24);
+  transform: translateY(-1px);
+}
+
+.restore-btn:active {
+  transform: scale(0.97);
 }
 
 @keyframes pulseSuccess {
