@@ -750,6 +750,50 @@ body {
   .github-profile-wrapper { display: none !important; }
 }
 
+/* --- RESPONSIVE LAYOUT ENGINE --- */
+
+/* Tier 2: Compact Desktop & Landscape Tablet (880px - 1200px) */
+@media (max-width: 1200px) and (min-width: 880px) {
+  .app-container {
+    padding: 18px 24px;
+    gap: 18px;
+  }
+
+  .top-bar {
+    padding: 8px 14px;
+    gap: 10px;
+  }
+
+  .action-buttons {
+    gap: 6px;
+  }
+
+  .action-btn, .print-btn, .clear-btn, .restore-btn {
+    height: 34px;
+    padding: 0 10px;
+    font-size: 0.81rem;
+    gap: 5px;
+  }
+
+  /* Switch from full labels ("Export .html", "Copy HTML") to compact labels (".html", "Copy") */
+  .btn-label-full {
+    display: none;
+  }
+
+  .btn-label-short {
+    display: inline;
+  }
+
+  .format-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .divider {
+    margin: 0 2px;
+  }
+}
+
 /* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 768px) {
   body { overflow: auto; }
