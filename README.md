@@ -19,6 +19,8 @@ _`React` `Vite` `marked.js` `highlight.js` `KaTeX` `DOMPurify`_
 ---
 ### Features:
 
+* **Multi-Tiered Responsive Layout Engine:** Fluid responsiveness across all viewports (Desktops, Compact Laptops, Tablets, and Mobile phones). Automatically adapts top-bar controls—from full-width single-line on 1200px+ down to compact labels on 880px–1200px, 2-tier stacked layouts on tablets, and horizontal scrollable ribbons with balanced action grids on mobile—eliminating button collision and cramped UI.
+* **Professional SVG Iconography & Liquid Glass Hierarchy:** Replaced OS-inconsistent emojis with crisp, zero-dependency SVG vector icons (`viewBox="0 0 24 24"`, 1.75px stroke, inheriting `currentColor`) coupled with Apple Liquid Glass micro-interactions, primary accent glow, and subtle danger hover states.
 * **Hardened Content Security Policy:** Strict HTTP CSP headers prohibiting `'unsafe-inline'` script execution.
 * **Export Sandbox Protection:** Standalone `.html` exports embed an isolated CSP (`default-src 'none'`) preventing arbitrary script execution.
 * **Universal Tabnabbing Defense:** Automatic `rel="noopener noreferrer"` enforcement across all external and user-supplied `target="_blank"` anchors.
