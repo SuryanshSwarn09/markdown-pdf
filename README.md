@@ -19,6 +19,7 @@ _`React` `Vite` `marked.js` `highlight.js` `KaTeX` `DOMPurify`_
 ---
 ### Features:
 
+* **Synchronized Dual-Pane Scrolling (Scroll-Sync):** Real-time proportional scrolling between the Markdown editor and live preview pane with mutual recursion lock and a convenient `[⇕ Sync Scroll: ON / OFF]` header toggle persisted in `localStorage`.
 * **Multi-Tiered Responsive Layout Engine:** Fluid responsiveness across all viewports (Desktops, Compact Laptops, Tablets, and Mobile phones). Automatically adapts top-bar controls—from full-width single-line on 1200px+ down to compact labels on 880px–1200px, 2-tier stacked layouts on tablets, and horizontal scrollable ribbons with balanced action grids on mobile—eliminating button collision and cramped UI.
 * **Professional SVG Iconography & Liquid Glass Hierarchy:** Replaced OS-inconsistent emojis with crisp, zero-dependency SVG vector icons (`viewBox="0 0 24 24"`, 1.75px stroke, inheriting `currentColor`) coupled with Apple Liquid Glass micro-interactions, primary accent glow, and subtle danger hover states.
 * **Hardened Content Security Policy:** Strict HTTP CSP headers prohibiting `'unsafe-inline'` script execution.
@@ -43,7 +44,7 @@ _`React` `Vite` `marked.js` `highlight.js` `KaTeX` `DOMPurify`_
 * **Smart Toolbar:** One-click insertion for formatting, code blocks, and equations.
 * **Liquid Glass UI:** Responsive, Apple-inspired frosted glass aesthetic with Light/Dark modes.
 * **PWA:** _`10 May 26`_ Look at the far right side of the URL address bar. You should now see a little screen icon with a down arrow. If you hover over it, it will say "Install markdown-pdf".
-* **Comprehensive Test Suite:** 6 unit test suites (`npm test`) covering math sanitization, syntax highlighting, document metrics, keyboard indentation, export utilities, and theme persistence.
+* **Comprehensive Test Suite:** 7 unit test suites (`npm test`) covering math sanitization, syntax highlighting, document metrics, keyboard indentation, export utilities, theme persistence, and scroll synchronization.
 
 ---
 
