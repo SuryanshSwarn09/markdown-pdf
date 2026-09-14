@@ -79,6 +79,7 @@ function App() {
   const [lastClearedContent, setLastClearedContent] = useState(null);
   
   const editorRef = useRef(null);
+  const previewRef = useRef(null);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -418,6 +419,7 @@ function App() {
             <span className="pane-title">Live Preview</span>
           </div>
           <div 
+            ref={previewRef}
             className="preview-output" 
             dangerouslySetInnerHTML={{ __html: parsedHTML }} 
           />
