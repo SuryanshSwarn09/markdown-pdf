@@ -9,6 +9,7 @@ import { getDocumentStats } from './utils/documentStats.js';
 import { handleTabIndentation } from './utils/editorKeyHandlers.js';
 import { extractDocTitle, slugifyTitle, generateStandaloneHTML, downloadBlob, copyRichHTML } from './utils/exportUtils.js';
 import { getInitialTheme, saveTheme, listenToSystemTheme, THEME_KEY } from './utils/themeUtils.js';
+import { DownloadIcon, FileCodeIcon, CopyIcon, CheckIcon, PrinterIcon, TrashIcon, UndoIcon } from './components/Icons.jsx';
 import 'katex/dist/katex.min.css';
 
 
@@ -272,44 +273,70 @@ function App() {
         
         <div className="action-buttons">
           {lastClearedContent && markdown === '' && (
-            <button className="restore-btn" onClick={handleRestoreCleared} title="Restore cleared text">
-              ↩ Undo Clear
+            <button 
+              className="restore-btn" 
+              onClick={handleRestoreCleared} 
+              title="Restore cleared text"
+              aria-label="Undo Clear"
+            >
+              <UndoIcon size={15} />
+              <span className="btn-label-full">Undo Clear</span>
+              <span className="btn-label-short">Undo</span>
             </button>
           )}
           <button 
             className="action-btn" 
             onClick={handleDownloadMarkdown} 
             title="Download active document as Markdown (.md)"
+            aria-label="Download Markdown (.md)"
             disabled={!markdown.trim()}
           >
-            📥 .md
+            <DownloadIcon size={15} />
+            <span className="btn-label-full">Export .md</span>
+            <span className="btn-label-short">.md</span>
           </button>
           <button 
             className="action-btn" 
             onClick={handleDownloadHTML} 
             title="Export standalone self-contained HTML (.html) with KaTeX math"
+            aria-label="Export standalone HTML (.html)"
             disabled={!markdown.trim()}
           >
-            🌐 .html
+            <FileCodeIcon size={15} />
+            <span className="btn-label-full">Export .html</span>
+            <span className="btn-label-short">.html</span>
           </button>
           <button 
             className={`action-btn ${copiedHTML ? 'copy-success' : ''}`}
             onClick={handleCopyHTML} 
             title="Copy rich HTML to clipboard (paste into Medium, Dev.to, Google Docs, or email)"
+            aria-label={copiedHTML ? "Copied HTML to clipboard" : "Copy rich HTML"}
             disabled={!markdown.trim()}
           >
-            {copiedHTML ? '✓ Copied!' : '📋 Copy HTML'}
+            {copiedHTML ? <CheckIcon size={15} /> : <CopyIcon size={15} />}
+            <span className="btn-label-full">{copiedHTML ? 'Copied!' : 'Copy HTML'}</span>
+            <span className="btn-label-short">{copiedHTML ? 'Copied' : 'Copy'}</span>
           </button>
-          <button className="print-btn" onClick={handlePrint} title="Print or Save as PDF">
-            Print PDF
+          <button 
+            className="print-btn" 
+            onClick={handlePrint} 
+            title="Print or Save as PDF"
+            aria-label="Print or Save as PDF"
+          >
+            <PrinterIcon size={15} />
+            <span className="btn-label-full">Print PDF</span>
+            <span className="btn-label-short">Print</span>
           </button>
           <button 
             className="clear-btn" 
             onClick={handleClear} 
             title={markdown.trim() ? "Clear Editor" : "Editor is empty"}
+            aria-label="Clear Editor"
             disabled={!markdown.trim()}
           >
-            Clear
+            <TrashIcon size={15} />
+            <span className="btn-label-full">Clear</span>
+            <span className="btn-label-short">Clear</span>
           </button>
         </div>
       </div>
