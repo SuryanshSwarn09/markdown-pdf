@@ -9,6 +9,7 @@ import { getDocumentStats } from './utils/documentStats.js';
 import { handleTabIndentation } from './utils/editorKeyHandlers.js';
 import { extractDocTitle, slugifyTitle, generateStandaloneHTML, downloadBlob, copyRichHTML } from './utils/exportUtils.js';
 import { getInitialTheme, saveTheme, listenToSystemTheme, THEME_KEY } from './utils/themeUtils.js';
+import { calculateScrollPercentage, calculateTargetScrollTop, getSyncScrollPreference, saveSyncScrollPreference } from './utils/scrollSync.js';
 import { 
   SunIcon, 
   MoonIcon, 
@@ -80,6 +81,13 @@ function App() {
   
   const editorRef = useRef(null);
   const previewRef = useRef(null);
+  const [syncScroll, setSyncScroll] = useState(getSyncScrollPreference);
+  const isScrollingRef = useRef(null);
+  const scrollTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    saveSyncScrollPreference(syncScroll);
+  }, [syncScroll]);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -132,6 +140,42 @@ function App() {
 
   const handleEditorChange = (event) => {
     setMarkdown(event.target.value);
+  };
+
+  const handleEditorScroll = () => {
+    if (!syncScroll) return;
+    if (isScrollingRef.current === 'preview') return;
+    isScrollingRef.current = 'editor';
+
+    const editor = editorRef.current;
+    const preview = previewRef.current;
+    if (editor && preview) {
+      const percentage = calculateScrollPercentage(editor.scrollTop, editor.scrollHeight, editor.clientHeight);
+      preview.scrollTop = calculateTargetScrollTop(percentage, preview.scrollHeight, preview.clientHeight);
+    }
+
+    clearTimeout(scrollTimeoutRef.current);
+    scrollTimeoutRef.current = setTimeout(() => {
+      isScrollingRef.current = null;
+    }, 50);
+  };
+
+  const handlePreviewScroll = () => {
+    if (!syncScroll) return;
+    if (isScrollingRef.current === 'editor') return;
+    isScrollingRef.current = 'preview';
+
+    const editor = editorRef.current;
+    const preview = previewRef.current;
+    if (editor && preview) {
+      const percentage = calculateScrollPercentage(preview.scrollTop, preview.scrollHeight, preview.clientHeight);
+      editor.scrollTop = calculateTargetScrollTop(percentage, editor.scrollHeight, editor.clientHeight);
+    }
+
+    clearTimeout(scrollTimeoutRef.current);
+    scrollTimeoutRef.current = setTimeout(() => {
+      isScrollingRef.current = null;
+    }, 50);
   };
 
   const handleEditorKeyDown = (event) => {
@@ -410,6 +454,7 @@ function App() {
             value={markdown}
             onChange={handleEditorChange}
             onKeyDown={handleEditorKeyDown}
+            onScroll={handleEditorScroll}
             placeholder="Type your markdown here..."
           />
         </div>
@@ -421,6 +466,7 @@ function App() {
           <div 
             ref={previewRef}
             className="preview-output" 
+            onScroll={handlePreviewScroll}
             dangerouslySetInnerHTML={{ __html: parsedHTML }} 
           />
         </div>
