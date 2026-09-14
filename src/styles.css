@@ -858,16 +858,124 @@ body {
   }
 }
 
-/* --- MOBILE RESPONSIVENESS (< 640px) --- */
+/* Tier 4: Mobile Viewport (< 640px) */
 @media (max-width: 639px) {
-  body { overflow: auto; }
-  .app-container { height: auto; min-height: 100vh; padding: 16px; }
-  .top-bar { flex-direction: column; gap: 16px; align-items: stretch; }
-  .toolbar { overflow-x: auto; padding-bottom: 8px; }
-  .action-buttons { justify-content: flex-start; flex-wrap: wrap; gap: 8px; }
-  .action-btn, .print-btn, .clear-btn, .restore-btn { flex: 1 1 calc(50% - 8px); justify-content: center; text-align: center; }
-  .split-layout { flex-direction: column; height: auto; }
-  .pane { min-height: 50vh; flex: none; }
+  body { 
+    overflow: auto; 
+  }
+
+  .app-container { 
+    height: auto; 
+    min-height: 100vh; 
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .top-bar { 
+    flex-direction: column; 
+    gap: 10px; 
+    align-items: stretch;
+    padding: 10px 12px;
+    border-radius: 12px;
+  }
+
+  /* Smooth horizontal scroll ribbon for toolbar */
+  .toolbar { 
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 2px 2px 4px 2px;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  .toolbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .toolbar-group {
+    flex-shrink: 0;
+  }
+
+  .format-btn {
+    min-width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  /* Balanced responsive grid for action buttons */
+  .action-buttons { 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    width: 100%;
+  }
+
+  .action-btn, .print-btn, .clear-btn, .restore-btn { 
+    width: 100%;
+    height: 36px;
+    padding: 0 6px;
+    font-size: 0.78rem;
+    gap: 5px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .btn-label-full {
+    display: none;
+  }
+
+  .btn-label-short {
+    display: inline;
+  }
+
+  .split-layout { 
+    flex-direction: column; 
+    height: auto; 
+    gap: 12px;
+  }
+
+  .pane { 
+    min-height: 48vh; 
+    flex: none;
+    border-radius: 12px;
+  }
+
+  .pane-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 14px;
+  }
+
+  .pane-title-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .doc-stats {
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 0.7rem;
+  }
+
+  .editor-input {
+    padding: 16px;
+    font-size: 0.95rem;
+  }
+
+  .preview-output {
+    padding: 16px 20px;
+    font-size: 0.98rem;
+  }
+}
+
+/* Extra-narrow devices (< 380px) */
+@media (max-width: 379px) {
+  .action-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* --- PRINT & PDF STYLES --- */
