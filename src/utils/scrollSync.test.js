@@ -1,4 +1,10 @@
-import { calculateScrollPercentage, calculateTargetScrollTop } from './scrollSync.js';
+import { 
+  calculateScrollPercentage, 
+  calculateTargetScrollTop,
+  SYNC_SCROLL_KEY,
+  getSyncScrollPreference,
+  saveSyncScrollPreference
+} from './scrollSync.js';
 import assert from 'node:assert';
 
 console.log('Running test suite for scrollSync...');
@@ -38,4 +44,39 @@ assert.strictEqual(calculateScrollPercentage(1200, 1500, 500), 1);
 assert.strictEqual(calculateTargetScrollTop(-0.5, 2500, 500), 0);
 assert.strictEqual(calculateTargetScrollTop(1.5, 2500, 500), 2000);
 
-console.log('All scrollSync math tests passed successfully!');
+// 5. Persistence and constants
+assert.strictEqual(SYNC_SCROLL_KEY, 'markdown-pdf:sync-scroll');
+assert.strictEqual(getSyncScrollPreference(), true);
+
+// Mock localStorage environment
+const mockStorage = new Map();
+globalThis.window = {
+  localStorage: {
+    getItem: (key) => mockStorage.get(key) ?? null,
+    setItem: (key, val) => mockStorage.set(key, String(val)),
+    removeItem: (key) => mockStorage.delete(key),
+  },
+};
+
+// With clean storage, default is true
+assert.strictEqual(getSyncScrollPreference(), true);
+
+// Save false
+saveSyncScrollPreference(false);
+assert.strictEqual(mockStorage.get(SYNC_SCROLL_KEY), 'false');
+assert.strictEqual(getSyncScrollPreference(), false);
+
+// Save true
+saveSyncScrollPreference(true);
+assert.strictEqual(mockStorage.get(SYNC_SCROLL_KEY), 'true');
+assert.strictEqual(getSyncScrollPreference(), true);
+
+// Handles throws gracefully
+globalThis.window.localStorage.getItem = () => { throw new Error('SecurityError'); };
+assert.strictEqual(getSyncScrollPreference(), true);
+
+globalThis.window.localStorage.setItem = () => { throw new Error('QuotaExceeded'); };
+assert.doesNotThrow(() => saveSyncScrollPreference(false));
+
+console.log('All scrollSync math & persistence tests passed successfully!');
+
