@@ -389,6 +389,62 @@ body {
   border: 1px solid rgba(52, 199, 89, 0.25);
 }
 
+.sync-scroll-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  height: 22px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  border: 1px solid var(--glass-border);
+  background: var(--btn-bg);
+  color: var(--text-muted);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sync-scroll-btn svg {
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.sync-scroll-btn:hover {
+  background: var(--btn-hover);
+  color: var(--text-main);
+  transform: translateY(-0.5px);
+}
+
+.sync-scroll-btn:active {
+  transform: scale(0.96);
+}
+
+.sync-scroll-btn.active {
+  color: var(--accent);
+  background: rgba(0, 113, 227, 0.1);
+  border-color: rgba(0, 113, 227, 0.28);
+}
+
+[data-theme="dark"] .sync-scroll-btn.active {
+  color: #409cff;
+  background: rgba(10, 132, 255, 0.15);
+  border-color: rgba(10, 132, 255, 0.35);
+}
+
+.sync-scroll-btn.active:hover {
+  background: rgba(0, 113, 227, 0.16);
+}
+
+[data-theme="dark"] .sync-scroll-btn.active:hover {
+  background: rgba(10, 132, 255, 0.22);
+}
+
 .doc-stats {
   display: flex;
   gap: 8px;
@@ -951,7 +1007,10 @@ body {
 
   .pane-title-group {
     width: 100%;
-    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
   }
 
   .doc-stats {
