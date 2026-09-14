@@ -386,5 +386,27 @@ export function MathIcon({ size = 16, className = '', ...props }) {
   );
 }
 
+export function SyncScrollIcon({ size = 14, className = '', ...props }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M7 3v14M7 3l-3 3M7 3l3 3" />
+      <path d="M17 21V7M17 21l-3-3M17 21l3-3" />
+    </svg>
+  );
+}
+
+
 
 
