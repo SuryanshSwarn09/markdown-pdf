@@ -28,9 +28,16 @@ import {
   ListIcon,
   LinkIcon,
   MathIcon,
-  CheckCircleIcon,
-  SyncScrollIcon
+  CheckCircleIcon, 
+  SyncScrollIcon 
 } from './components/Icons.jsx';
+import PrintModal from './components/PrintModal.jsx';
+import { 
+  getStoredPrintOptions, 
+  saveStoredPrintOptions, 
+  generatePrintCSS, 
+  PRINT_PRESETS 
+} from './utils/printOptions.js';
 import 'katex/dist/katex.min.css';
 
 
@@ -76,9 +83,16 @@ function App() {
   const [theme, setTheme] = useState(getInitialTheme);
   const [copiedHTML, setCopiedHTML] = useState(false);
   
-  // State to track which modal is currently open ('privacy', 'terms', 'clear', or null)
+  // State to track which modal is currently open ('privacy', 'terms', 'clear', 'print', or null)
   const [activeModal, setActiveModal] = useState(null);
   const [lastClearedContent, setLastClearedContent] = useState(null);
+  
+  // Interactive print layout options state (columns, paper size, margins, heading numbering)
+  const [printOptions, setPrintOptions] = useState(getStoredPrintOptions);
+
+  useEffect(() => {
+    saveStoredPrintOptions(printOptions);
+  }, [printOptions]);
   
   const editorRef = useRef(null);
   const previewRef = useRef(null);
@@ -260,7 +274,59 @@ function App() {
   };
 
   const handlePrint = () => {
-    window.print();
+    setActiveModal('print');
+  };
+
+  const handleSelectPrintPreset = (presetKey) => {
+    const preset = PRINT_PRESETS[presetKey];
+    if (preset) {
+      setPrintOptions({
+        columns: preset.columns,
+        paperSize: preset.paperSize,
+        margins: preset.margins,
+        numberedHeadings: preset.numberedHeadings,
+        preset: presetKey,
+      });
+    }
+  };
+
+  const handleExecutePrint = () => {
+    setActiveModal(null);
+
+    // 1. Toggle data-print-numbered attribute on body for hierarchical CSS counter numbering
+    if (printOptions.numberedHeadings) {
+      document.body.setAttribute('data-print-numbered', 'true');
+    } else {
+      document.body.removeAttribute('data-print-numbered');
+    }
+    document.documentElement.style.setProperty('--print-cols', String(printOptions.columns));
+
+    // 2. Inject dynamic @page size, margins, and column styling CSS
+    let dynamicStyle = document.getElementById('dynamic-print-page');
+    if (!dynamicStyle) {
+      dynamicStyle = document.createElement('style');
+      dynamicStyle.id = 'dynamic-print-page';
+      document.head.appendChild(dynamicStyle);
+    }
+    dynamicStyle.textContent = generatePrintCSS(printOptions);
+
+    // 3. Clean up dynamic print styles on print completion or cancellation
+    const cleanupPrint = () => {
+      document.body.removeAttribute('data-print-numbered');
+      document.documentElement.style.removeProperty('--print-cols');
+      const styleEl = document.getElementById('dynamic-print-page');
+      if (styleEl) {
+        styleEl.remove();
+      }
+      window.removeEventListener('afterprint', cleanupPrint);
+    };
+
+    window.addEventListener('afterprint', cleanupPrint);
+
+    // Small delay ensures layout updates and styles are applied before browser print dialog triggers
+    setTimeout(() => {
+      window.print();
+    }, 50);
   };
 
   const parsedHTML = useMemo(() => {
@@ -512,7 +578,7 @@ function App() {
       </div>
 
       {/* The Modal Overlay System */}
-      {activeModal && (
+      {activeModal && activeModal !== 'print' && (
         <div className="modal-overlay" onClick={() => setActiveModal(null)}>
           <div className="modal-window" onClick={(e) => e.stopPropagation()}>
             
@@ -572,6 +638,16 @@ function App() {
           </div>
         </div>
       )}
+
+      {/* Interactive Print & PDF Options Modal */}
+      <PrintModal
+        isOpen={activeModal === 'print'}
+        onClose={() => setActiveModal(null)}
+        onConfirmPrint={handleExecutePrint}
+        options={printOptions}
+        onOptionsChange={setPrintOptions}
+        onSelectPreset={handleSelectPrintPreset}
+      />
       
     </div>
   );
