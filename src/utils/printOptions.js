@@ -76,3 +76,64 @@ export function validatePrintOptions(options = {}) {
     preset,
   };
 }
+
+/**
+ * Generates dynamic @page and column styling CSS for the customized print job.
+ * 
+ * @param {Partial<typeof DEFAULT_PRINT_OPTIONS>} options
+ * @returns {string} Clean CSS string for @page and print layout
+ */
+export function generatePrintCSS(options) {
+  const valid = validatePrintOptions(options);
+  const pageSize = PAPER_SIZE_CSS[valid.paperSize] || 'letter';
+  const marginValue = MARGIN_CSS[valid.margins] || MARGIN_CSS.normal;
+  const columns = valid.columns;
+
+  return `
+@page {
+  size: ${pageSize};
+  margin: ${marginValue};
+}
+@media print {
+  .preview-output {
+    column-count: ${columns} !important;
+  }
+}
+`.trim();
+}
+
+/**
+ * Retrieves the stored print options from localStorage or falls back to DEFAULT_PRINT_OPTIONS.
+ * 
+ * @returns {typeof DEFAULT_PRINT_OPTIONS}
+ */
+export function getStoredPrintOptions() {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      const raw = window.localStorage.getItem(PRINT_STORAGE_KEY);
+      if (raw) {
+        return validatePrintOptions(JSON.parse(raw));
+      }
+    } catch {
+      // Ignore JSON parse or storage access errors
+    }
+  }
+  return { ...DEFAULT_PRINT_OPTIONS };
+}
+
+/**
+ * Persists the user's customized print options to localStorage.
+ * 
+ * @param {Partial<typeof DEFAULT_PRINT_OPTIONS>} options
+ */
+export function saveStoredPrintOptions(options) {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      const valid = validatePrintOptions(options);
+      window.localStorage.setItem(PRINT_STORAGE_KEY, JSON.stringify(valid));
+    } catch {
+      // Ignore quota/security errors
+    }
+  }
+}
+
