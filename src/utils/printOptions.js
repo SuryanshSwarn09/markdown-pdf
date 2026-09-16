@@ -60,13 +60,18 @@ export const DEFAULT_PRINT_OPTIONS = {
  * @returns {typeof DEFAULT_PRINT_OPTIONS}
  */
 export function validatePrintOptions(options = {}) {
-  const columns = options && (options.columns === 2 || options.columns === '2') ? 2 : 1;
-  const paperSize = options && options.paperSize === 'a4' ? 'a4' : 'letter';
-  const margins = options && (options.margins === 'compact' || options.margins === 'wide') 
+  if (!options || typeof options !== 'object') {
+    return { ...DEFAULT_PRINT_OPTIONS };
+  }
+  const columns = options.columns === 2 || options.columns === '2' ? 2 : 1;
+  const paperSize = options.paperSize === 'a4' ? 'a4' : 'letter';
+  const margins = options.margins === 'compact' || options.margins === 'wide' 
     ? options.margins 
     : 'normal';
-  const numberedHeadings = Boolean(options && options.numberedHeadings);
-  const preset = options && PRINT_PRESETS[options.preset] ? options.preset : 'custom';
+  const numberedHeadings = Boolean(options.numberedHeadings);
+  const preset = options.preset && PRINT_PRESETS[options.preset] 
+    ? options.preset 
+    : (options.preset ? 'custom' : DEFAULT_PRINT_OPTIONS.preset);
 
   return {
     columns,
