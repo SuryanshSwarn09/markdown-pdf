@@ -730,6 +730,341 @@ body {
   to { opacity: 1; transform: scale(1); }
 }
 
+/* --- PRINT OPTIONS MODAL (LIQUID GLASS DESIGN) --- */
+.print-modal-window {
+  max-width: 580px;
+  padding: 28px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.print-modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.print-modal-icon-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  color: #ffffff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.28);
+}
+
+.print-modal-title-group {
+  flex: 1;
+}
+
+.print-modal-title-group h2 {
+  margin: 0 0 4px 0;
+  padding: 0;
+  border: none;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+}
+
+.print-modal-subtitle {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.print-modal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.print-section-label,
+.print-control-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.section-label-icon,
+.control-label-icon {
+  color: var(--accent);
+}
+
+/* Preset Cards Grid */
+.print-preset-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.print-preset-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--btn-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 80px;
+}
+
+.print-preset-card:hover {
+  background: var(--btn-hover);
+  border-color: rgba(0, 113, 227, 0.35);
+  transform: translateY(-1px);
+}
+
+.print-preset-card.selected {
+  background: rgba(0, 113, 227, 0.08);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+[data-theme="dark"] .print-preset-card.selected {
+  background: rgba(41, 151, 255, 0.15);
+  border-color: var(--accent);
+}
+
+.preset-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.preset-name {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.preset-check {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.preset-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+/* Print Controls */
+.print-modal-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.print-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.segmented-control {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--btn-bg);
+  border: 1px solid var(--glass-border);
+}
+
+.segment-btn {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.segment-btn:hover {
+  color: var(--text-main);
+}
+
+.segment-btn.active {
+  background: #ffffff;
+  color: #000000;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] .segment-btn.active {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* Numbering Toggle Switch Group */
+.print-toggle-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--btn-bg);
+  border: 1px solid var(--glass-border);
+  gap: 16px;
+}
+
+.print-toggle-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.print-toggle-title {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.print-toggle-subtitle {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+/* iOS-style toggle switch */
+.print-switch-btn {
+  position: relative;
+  width: 44px;
+  height: 26px;
+  border-radius: 13px;
+  background-color: var(--glass-border);
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+.print-switch-btn.checked {
+  background-color: #34c759;
+}
+
+.print-switch-thumb {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.print-switch-btn.checked .print-switch-thumb {
+  transform: translateX(18px);
+}
+
+/* Summary Bar */
+.print-summary-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(0, 113, 227, 0.05);
+  border: 1px dashed rgba(0, 113, 227, 0.25);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .print-summary-bar {
+  background: rgba(41, 151, 255, 0.08);
+  border-color: rgba(41, 151, 255, 0.28);
+}
+
+.summary-tag {
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.summary-dot {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* Modal Actions */
+.print-modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.print-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1.4;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 113, 227, 0.35);
+  transition: all 0.2s ease;
+}
+
+.print-submit-btn:hover {
+  box-shadow: 0 6px 18px rgba(0, 113, 227, 0.48);
+  transform: translateY(-1px);
+}
+
+.print-submit-btn:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 639px) {
+  .print-preset-grid {
+    grid-template-columns: 1fr;
+  }
+  .print-modal-window {
+    padding: 20px;
+    max-height: 90vh;
+  }
+  .segment-btn {
+    font-size: 0.75rem;
+    padding: 7px 8px;
+  }
+}
+
+
+
 /* --- GITHUB PROFILE TOOLTIP BUTTON --- */
 .github-profile-wrapper {
   position: fixed;
