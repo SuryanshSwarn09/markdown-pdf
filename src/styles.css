@@ -1078,11 +1078,12 @@ body {
     -webkit-backdrop-filter: none !important;
   }
 
-  /* Publication Typography (Standard 10.5pt body text) */
+  /* Publication Typography (Standard 10.5pt body text & academic multi-column) */
   .preview-output { 
     max-width: 100% !important; 
     column-count: var(--print-cols, 1); 
-    column-gap: 40px; 
+    column-gap: 36px; 
+    column-rule: 1px solid #e5e7eb;
     font-size: 10.5pt !important; 
     line-height: 1.55 !important; 
     color: #1a1a1a !important;
@@ -1103,8 +1104,10 @@ body {
     font-size: 18pt !important;
     line-height: 1.25 !important;
     margin-top: 0 !important;
-    margin-bottom: 8pt !important;
+    margin-bottom: 12pt !important;
     color: #111111 !important;
+    column-span: all;
+    -webkit-column-span: all;
   }
 
   .preview-output h2 {
