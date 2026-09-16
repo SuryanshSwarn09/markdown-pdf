@@ -1228,4 +1228,38 @@ body {
   .preview-output .katex {
     font-size: 1.05em !important;
   }
+
+  /* Hierarchical Heading Numbering (Formal & Academic papers) */
+  body[data-print-numbered="true"] .preview-output {
+    counter-reset: print-h1-counter;
+  }
+
+  body[data-print-numbered="true"] .preview-output h1 {
+    counter-reset: print-h2-counter;
+  }
+
+  body[data-print-numbered="true"] .preview-output h1::before {
+    counter-increment: print-h1-counter;
+    content: counter(print-h1-counter) ".0 ";
+    font-weight: 700;
+    margin-right: 6px;
+  }
+
+  body[data-print-numbered="true"] .preview-output h2 {
+    counter-reset: print-h3-counter;
+  }
+
+  body[data-print-numbered="true"] .preview-output h2::before {
+    counter-increment: print-h2-counter;
+    content: counter(print-h1-counter) "." counter(print-h2-counter) " ";
+    font-weight: 700;
+    margin-right: 6px;
+  }
+
+  body[data-print-numbered="true"] .preview-output h3::before {
+    counter-increment: print-h3-counter;
+    content: counter(print-h1-counter) "." counter(print-h2-counter) "." counter(print-h3-counter) " ";
+    font-weight: 600;
+    margin-right: 6px;
+  }
 }
