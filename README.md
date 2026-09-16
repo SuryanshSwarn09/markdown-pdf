@@ -19,6 +19,11 @@ _`React` `Vite` `marked.js` `highlight.js` `KaTeX` `DOMPurify`_
 ---
 ### Features:
 
+* **Interactive Print Layout Customizer (Academic vs Minimalist):** Pre-print modal before `window.print()` allowing dynamic publication formatting:
+  * **Multi-Column Flow:** Toggle between 1-Column standard and 2-Column academic paper format with vertical column rule separators and span-all paper titles.
+  * **Paper Size & Margins:** Toggle between US Letter and A4 page sizing with Normal (15mm), Compact (10mm), and Wide (25mm) page margins dynamically injected into `@page` rules.
+  * **Hierarchical Heading Numbering:** Automatically prefixes headings (`1.0`, `1.1`, `1.2`, `2.0`) with CSS counters for IEEE/ACM academic or technical reports without altering source Markdown.
+  * **Curated Presets & Persistence:** One-click presets ("Standard Document", "Academic Paper", "Technical Report") with automatic `localStorage` persistence.
 * **Synchronized Dual-Pane Scrolling (Scroll-Sync):** Real-time proportional scrolling between the Markdown editor and live preview pane with mutual recursion lock and a convenient `[⇕ Sync Scroll: ON / OFF]` header toggle persisted in `localStorage`.
 * **Multi-Tiered Responsive Layout Engine:** Fluid responsiveness across all viewports (Desktops, Compact Laptops, Tablets, and Mobile phones). Automatically adapts top-bar controls—from full-width single-line on 1200px+ down to compact labels on 880px–1200px, 2-tier stacked layouts on tablets, and horizontal scrollable ribbons with balanced action grids on mobile—eliminating button collision and cramped UI.
 * **Professional SVG Iconography & Liquid Glass Hierarchy:** Replaced OS-inconsistent emojis with crisp, zero-dependency SVG vector icons (`viewBox="0 0 24 24"`, 1.75px stroke, inheriting `currentColor`) coupled with Apple Liquid Glass micro-interactions, primary accent glow, and subtle danger hover states.
@@ -44,7 +49,7 @@ _`React` `Vite` `marked.js` `highlight.js` `KaTeX` `DOMPurify`_
 * **Smart Toolbar:** One-click insertion for formatting, code blocks, and equations.
 * **Liquid Glass UI:** Responsive, Apple-inspired frosted glass aesthetic with Light/Dark modes.
 * **PWA:** _`10 May 26`_ Look at the far right side of the URL address bar. You should now see a little screen icon with a down arrow. If you hover over it, it will say "Install markdown-pdf".
-* **Comprehensive Test Suite:** 7 unit test suites (`npm test`) covering math sanitization, syntax highlighting, document metrics, keyboard indentation, export utilities, theme persistence, and scroll synchronization.
+* **Comprehensive Test Suite:** 8 unit test suites (`npm test`) covering math sanitization, syntax highlighting, document metrics, keyboard indentation, export utilities, theme persistence, scroll synchronization, and print layout customizer options.
 
 ---
 
