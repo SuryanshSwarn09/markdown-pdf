@@ -449,6 +449,33 @@ export function LayoutIcon({ size = 16, className = '', ...props }) {
   );
 }
 
+export function TocIcon({ size = 15, className = '', ...props }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <line x1="3" x2="21" y1="5" y2="5" />
+      <line x1="8" x2="21" y1="10" y2="10" />
+      <line x1="8" x2="21" y1="15" y2="15" />
+      <line x1="8" x2="21" y1="20" y2="20" />
+      <circle cx="4" cy="10" r="1" fill="currentColor" />
+      <circle cx="4" cy="15" r="1" fill="currentColor" />
+      <circle cx="4" cy="20" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
+
 
 
 
