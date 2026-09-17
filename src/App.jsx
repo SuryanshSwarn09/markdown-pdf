@@ -38,10 +38,13 @@ import {
   generatePrintCSS, 
   PRINT_PRESETS 
 } from './utils/printOptions.js';
+import { slugifyHeading } from './utils/tocGenerator.js';
 import 'katex/dist/katex.min.css';
 
 
 const markedParser = new Marked();
+
+let headingSlugCounts = new Map();
 
 markedParser.use({ breaks: true });
 markedParser.use(markedKatex({ throwOnError: false }));
@@ -52,6 +55,21 @@ markedParser.use(markedHighlight({
     return highlightCode(code, lang);
   }
 }));
+markedParser.use({
+  hooks: {
+    preprocess(markdown) {
+      headingSlugCounts = new Map();
+      return markdown;
+    }
+  },
+  renderer: {
+    heading(item) {
+      const text = this.parser.parseInline(item.tokens);
+      const slug = slugifyHeading(item.text, headingSlugCounts);
+      return `<h${item.depth} id="${slug}">${text}</h${item.depth}>\n`;
+    }
+  }
+});
 
 // Automatically open external links in a new tab safely and enforce noopener noreferrer on all target="_blank"
 DOMPurify.addHook('afterSanitizeAttributes', (node) => {
