@@ -19,6 +19,7 @@ _`React` `Vite` `marked.js` `highlight.js` `KaTeX` `DOMPurify`_
 ---
 ### Features:
 
+* **Automatic Table of Contents (TOC) Generator:** One-click toolbar button `[TOC]` that parses all `#`, `##`, and `###` headings across the document (safely ignoring code blocks and LaTeX math formulas), generates a nested, hyperlinked Markdown list with GitHub-compatible anchor slugs, and enables instant smooth-scrolling anchor navigation in the live preview pane. Intelligently updates existing TOC blocks in place and preserves browser `Ctrl+Z` undo history.
 * **Interactive Print Layout Customizer (Academic vs Minimalist):** Pre-print modal before `window.print()` allowing dynamic publication formatting:
   * **Multi-Column Flow:** Toggle between 1-Column standard and 2-Column academic paper format with vertical column rule separators and span-all paper titles.
   * **Paper Size & Margins:** Toggle between US Letter and A4 page sizing with Normal (15mm), Compact (10mm), and Wide (25mm) page margins dynamically injected into `@page` rules.
@@ -49,7 +50,7 @@ _`React` `Vite` `marked.js` `highlight.js` `KaTeX` `DOMPurify`_
 * **Smart Toolbar:** One-click insertion for formatting, code blocks, and equations.
 * **Liquid Glass UI:** Responsive, Apple-inspired frosted glass aesthetic with Light/Dark modes.
 * **PWA:** _`10 May 26`_ Look at the far right side of the URL address bar. You should now see a little screen icon with a down arrow. If you hover over it, it will say "Install markdown-pdf".
-* **Comprehensive Test Suite:** 8 unit test suites (`npm test`) covering math sanitization, syntax highlighting, document metrics, keyboard indentation, export utilities, theme persistence, scroll synchronization, and print layout customizer options.
+* **Comprehensive Test Suite:** 9 unit test suites (`npm test`) covering math sanitization, syntax highlighting, document metrics, keyboard indentation, export utilities, theme persistence, scroll synchronization, print layout customizer options, and automatic Table of Contents generation.
 
 ---
 
