@@ -312,6 +312,26 @@ function App() {
     }
   };
 
+  const handlePreviewClick = (e) => {
+    const anchor = e.target.closest('a');
+    if (!anchor) return;
+    const href = anchor.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      const targetId = href.slice(1);
+      if (previewRef.current) {
+        try {
+          const targetEl = previewRef.current.querySelector(`[id="${CSS.escape(targetId)}"]`);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        } catch {
+          // Ignore invalid selector if any
+        }
+      }
+    }
+  };
+
   const handleClear = () => {
     if (!markdown.trim()) return;
     setActiveModal('clear');
@@ -616,6 +636,7 @@ function App() {
             ref={previewRef}
             className="preview-output" 
             onScroll={handlePreviewScroll}
+            onClick={handlePreviewClick}
             dangerouslySetInnerHTML={{ __html: parsedHTML }} 
           />
         </div>

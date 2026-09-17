@@ -481,17 +481,24 @@ body {
   flex: 1;
   padding: 24px 32px;
   overflow-y: auto;
+  scroll-behavior: smooth;
   line-height: 1.7;
   color: var(--text-main);
   font-size: 1.05rem;
 }
 
 /* --- TYPOGRAPHY & RENDERED HTML --- */
-.preview-output h1, .preview-output h2, .preview-output h3 { 
+.preview-output h1, 
+.preview-output h2, 
+.preview-output h3,
+.preview-output h4,
+.preview-output h5,
+.preview-output h6 { 
   margin-bottom: 16px; 
   color: var(--text-main); 
   font-weight: 700;
   letter-spacing: -0.5px;
+  scroll-margin-top: 18px;
 }
 .preview-output h1 { font-size: 2rem; margin-top: 8px; }
 .preview-output h2 { 
@@ -617,6 +624,19 @@ body {
   text-decoration: none; 
 }
 .preview-output a:hover { text-decoration: underline; }
+
+/* In-page Anchor Links (TOC Navigation) */
+.preview-output a[href^="#"] {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease, text-decoration 0.15s ease;
+}
+
+.preview-output a[href^="#"]:hover {
+  text-decoration: underline;
+  color: var(--accent-hover);
+}
 
 /* --- FOOTER LINKS --- */
 .footer-links {
