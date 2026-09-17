@@ -195,3 +195,100 @@ export function generateTOCMarkdown(headingsOrMarkdown, options = {}) {
 
   return `${listBody}\n`;
 }
+
+export const TOC_START_COMMENT = '<!-- toc -->';
+export const TOC_END_COMMENT = '<!-- /toc -->';
+
+/**
+ * Inserts a new Table of Contents or updates an existing TOC block in markdown.
+ *
+ * @param {string} currentMarkdown - Current document content.
+ * @param {string} tocContent - TOC markdown string to insert.
+ * @param {Object} [selection] - User's current cursor or selection range.
+ * @param {number} [selection.start]
+ * @param {number} [selection.end]
+ * @returns {{ text: string, start: number, end: number, updated: boolean }}
+ */
+export function insertOrUpdateTOC(currentMarkdown, tocContent, selection = {}) {
+  if (!tocContent || !tocContent.trim()) {
+    return {
+      text: currentMarkdown,
+      start: selection.start || 0,
+      end: selection.end || 0,
+      updated: false,
+    };
+  }
+
+  const wrappedTOC = `${TOC_START_COMMENT}\n${tocContent.trim()}\n${TOC_END_COMMENT}`;
+
+  // 1. Check for comment-delimited TOC block
+  const commentRegex = /<!--\s*toc\s*-->[\s\S]*?<!--\s*\/toc\s*-->/i;
+  const commentMatch = currentMarkdown.match(commentRegex);
+  if (commentMatch && commentMatch.index !== undefined) {
+    const startIndex = commentMatch.index;
+    const endIndex = startIndex + commentMatch[0].length;
+    const newText = currentMarkdown.slice(0, startIndex) + wrappedTOC + currentMarkdown.slice(endIndex);
+    return {
+      text: newText,
+      start: startIndex,
+      end: startIndex + wrappedTOC.length,
+      updated: true,
+    };
+  }
+
+  // 2. Check for heading-based TOC block (e.g. ## Table of Contents\n\n- [Heading]...)
+  const headingTocRegex = /(^|\n)(#{1,3}\s+(?:Table of Contents|Contents)\s*\n[\s\S]*?)(?=\n#{1,3}\s+|$)/i;
+  const headingMatch = currentMarkdown.match(headingTocRegex);
+  if (headingMatch && headingMatch.index !== undefined) {
+    const prefixLen = headingMatch[1].length;
+    const startIndex = headingMatch.index + prefixLen;
+    const matchedContent = headingMatch[2];
+    const endIndex = startIndex + matchedContent.length;
+    const newText = currentMarkdown.slice(0, startIndex) + wrappedTOC + currentMarkdown.slice(endIndex);
+    return {
+      text: newText,
+      start: startIndex,
+      end: startIndex + wrappedTOC.length,
+      updated: true,
+    };
+  }
+
+  // 3. If explicit selection is provided and not at index 0, insert at cursor position
+  const { start, end } = selection;
+  if (typeof start === 'number' && typeof end === 'number' && (start > 0 || end > 0)) {
+    const prefix = start > 0 && currentMarkdown[start - 1] !== '\n' ? '\n\n' : '';
+    const suffix = end < currentMarkdown.length && currentMarkdown[end] !== '\n' ? '\n\n' : '\n';
+    const insertion = `${prefix}${wrappedTOC}${suffix}`;
+    const newText = currentMarkdown.slice(0, start) + insertion + currentMarkdown.slice(end);
+    return {
+      text: newText,
+      start,
+      end: start + insertion.length,
+      updated: false,
+    };
+  }
+
+  // 4. Default placement: If document starts with an H1 title, place right beneath it
+  const h1Match = currentMarkdown.match(/^#[ \t]+[^\r\n]+(?:\r?\n)*/);
+  if (h1Match) {
+    const insertPos = h1Match[0].length;
+    const insertion = `\n${wrappedTOC}\n\n`;
+    const newText = currentMarkdown.slice(0, insertPos) + insertion + currentMarkdown.slice(insertPos);
+    return {
+      text: newText,
+      start: insertPos,
+      end: insertPos + insertion.length,
+      updated: false,
+    };
+  }
+
+  // 5. Fallback: Prepend at the beginning
+  const insertion = `${wrappedTOC}\n\n`;
+  const newText = insertion + currentMarkdown;
+  return {
+    text: newText,
+    start: 0,
+    end: insertion.length,
+    updated: false,
+  };
+}
