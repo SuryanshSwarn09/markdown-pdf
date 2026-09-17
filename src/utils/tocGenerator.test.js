@@ -1,10 +1,14 @@
 import {
   slugifyHeading,
   extractHeadings,
+  generateTOCMarkdown,
+  insertOrUpdateTOC,
+  TOC_START_COMMENT,
+  TOC_END_COMMENT,
 } from './tocGenerator.js';
 import assert from 'node:assert';
 
-console.log('Running test suite for tocGenerator (part 1: slugging & extraction)...');
+console.log('Running test suite for tocGenerator...');
 
 // 1. Heading slugification tests
 assert.strictEqual(slugifyHeading('Hello World'), 'hello-world');
@@ -144,4 +148,134 @@ assert.deepStrictEqual(extractHeadings(''), []);
 assert.deepStrictEqual(extractHeadings(null), []);
 assert.deepStrictEqual(extractHeadings(undefined), []);
 
-console.log('Slugging & extraction tests passed successfully!');
+// 3. TOC Markdown Generation tests
+const testHeadings = [
+  { level: 1, text: 'Introduction', slug: 'introduction' },
+  { level: 2, text: 'Architecture', slug: 'architecture' },
+  { level: 3, text: 'Components', slug: 'components' },
+  { level: 2, text: 'Deployment', slug: 'deployment' },
+];
+
+const tocOutput = generateTOCMarkdown(testHeadings);
+assert.strictEqual(
+  tocOutput,
+  `## Table of Contents
+
+- [Introduction](#introduction)
+  - [Architecture](#architecture)
+    - [Components](#components)
+  - [Deployment](#deployment)
+`
+);
+
+// Without title
+const noTitleToc = generateTOCMarkdown(testHeadings, { title: false });
+assert.strictEqual(
+  noTitleToc,
+  `- [Introduction](#introduction)
+  - [Architecture](#architecture)
+    - [Components](#components)
+  - [Deployment](#deployment)
+`
+);
+
+// Relative indentation when document starts at H2 (no H1)
+const h2Headings = [
+  { level: 2, text: 'Section A', slug: 'section-a' },
+  { level: 3, text: 'Sub A.1', slug: 'sub-a1' },
+];
+const relToc = generateTOCMarkdown(h2Headings, { title: false });
+assert.strictEqual(
+  relToc,
+  `- [Section A](#section-a)
+  - [Sub A.1](#sub-a1)
+`
+);
+
+// Direct markdown string input to generateTOCMarkdown
+const directToc = generateTOCMarkdown('# Direct Title\n## Direct Section');
+assert.strictEqual(
+  directToc,
+  `## Table of Contents
+
+- [Direct Title](#direct-title)
+  - [Direct Section](#direct-section)
+`
+);
+
+// Empty headings returns empty string
+assert.strictEqual(generateTOCMarkdown([]), '');
+assert.strictEqual(generateTOCMarkdown('No headings at all in this text'), '');
+
+// 4. Smart TOC Insertion and Update tests
+assert.strictEqual(TOC_START_COMMENT, '<!-- toc -->');
+assert.strictEqual(TOC_END_COMMENT, '<!-- /toc -->');
+
+const sampleTocText = generateTOCMarkdown(testHeadings);
+
+// Insertion beneath top H1 heading when no cursor selection provided
+const docWithH1 = `# My Document
+
+First paragraph of text.
+
+## Architecture
+Some details.`;
+
+const insertedBeneathH1 = insertOrUpdateTOC(docWithH1, sampleTocText);
+assert.strictEqual(insertedBeneathH1.updated, false);
+assert.ok(insertedBeneathH1.text.startsWith('# My Document\n\n<!-- toc -->\n## Table of Contents'));
+assert.ok(insertedBeneathH1.text.includes('First paragraph of text.'));
+
+// Updating an existing comment-wrapped TOC block
+const docWithExistingCommentToc = `# My Document
+
+<!-- toc -->
+## Table of Contents
+- [Old Title](#old-title)
+<!-- /toc -->
+
+First paragraph of text.
+
+## Architecture`;
+
+const updatedCommentToc = insertOrUpdateTOC(docWithExistingCommentToc, sampleTocText);
+assert.strictEqual(updatedCommentToc.updated, true);
+assert.ok(!updatedCommentToc.text.includes('Old Title'));
+assert.ok(updatedCommentToc.text.includes('- [Introduction](#introduction)'));
+assert.ok(updatedCommentToc.text.includes('First paragraph of text.'));
+
+// Updating an existing heading-based TOC block (without comments)
+const docWithExistingHeadingToc = `# My Document
+
+## Table of Contents
+
+- [Old Title](#old-title)
+- [Old Section](#old-section)
+
+## Architecture
+Content here.`;
+
+const updatedHeadingToc = insertOrUpdateTOC(docWithExistingHeadingToc, sampleTocText);
+assert.strictEqual(updatedHeadingToc.updated, true);
+assert.ok(!updatedHeadingToc.text.includes('Old Title'));
+assert.ok(updatedHeadingToc.text.includes('- [Introduction](#introduction)'));
+assert.ok(updatedHeadingToc.text.includes('## Architecture\nContent here.'));
+
+// Insertion at specific selection range (cursor position)
+const docForCursor = `First line\n\nSecond line`;
+const insertedAtCursor = insertOrUpdateTOC(docForCursor, sampleTocText, { start: 12, end: 12 });
+assert.strictEqual(insertedAtCursor.updated, false);
+assert.ok(insertedAtCursor.text.includes('First line\n\n<!-- toc -->'));
+assert.ok(insertedAtCursor.text.includes('Second line'));
+
+// Insertion when document has no H1 title (prepends at top)
+const docWithoutH1 = `## Section 1\nContent.\n## Section 2`;
+const prependedToc = insertOrUpdateTOC(docWithoutH1, sampleTocText);
+assert.strictEqual(prependedToc.updated, false);
+assert.ok(prependedToc.text.startsWith('<!-- toc -->\n## Table of Contents'));
+
+// Empty TOC string returns original document untouched
+const untouched = insertOrUpdateTOC(docWithH1, '');
+assert.strictEqual(untouched.text, docWithH1);
+
+console.log('All tocGenerator tests passed successfully!');

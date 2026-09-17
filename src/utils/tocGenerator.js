@@ -270,15 +270,16 @@ export function insertOrUpdateTOC(currentMarkdown, tocContent, selection = {}) {
   }
 
   // 4. Default placement: If document starts with an H1 title, place right beneath it
-  const h1Match = currentMarkdown.match(/^#[ \t]+[^\r\n]+(?:\r?\n)*/);
+  const h1Match = currentMarkdown.match(/^#[ \t]+[^\r\n]+/);
   if (h1Match) {
-    const insertPos = h1Match[0].length;
-    const insertion = `\n${wrappedTOC}\n\n`;
-    const newText = currentMarkdown.slice(0, insertPos) + insertion + currentMarkdown.slice(insertPos);
+    const titleHeader = h1Match[0];
+    const insertPos = titleHeader.length;
+    const remainder = currentMarkdown.slice(insertPos).replace(/^\r?\n+/, '');
+    const newText = `${titleHeader}\n\n${wrappedTOC}\n\n${remainder}`;
     return {
       text: newText,
-      start: insertPos,
-      end: insertPos + insertion.length,
+      start: insertPos + 2,
+      end: insertPos + 2 + wrappedTOC.length,
       updated: false,
     };
   }
