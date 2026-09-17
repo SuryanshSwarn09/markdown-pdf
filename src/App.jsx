@@ -29,7 +29,8 @@ import {
   LinkIcon,
   MathIcon,
   CheckCircleIcon, 
-  SyncScrollIcon 
+  SyncScrollIcon,
+  TocIcon
 } from './components/Icons.jsx';
 import PrintModal from './components/PrintModal.jsx';
 import { 
@@ -38,7 +39,12 @@ import {
   generatePrintCSS, 
   PRINT_PRESETS 
 } from './utils/printOptions.js';
-import { slugifyHeading } from './utils/tocGenerator.js';
+import { 
+  slugifyHeading, 
+  generateTOCMarkdown, 
+  insertOrUpdateTOC, 
+  extractHeadings 
+} from './utils/tocGenerator.js';
 import 'katex/dist/katex.min.css';
 
 
@@ -267,6 +273,45 @@ function App() {
     }, 0);
   };
 
+  const handleInsertTOC = () => {
+    const textarea = editorRef.current;
+    const headings = extractHeadings(markdown);
+
+    let tocMarkdown = '';
+    if (headings.length === 0) {
+      tocMarkdown = `## Table of Contents\n\n- [Section 1](#section-1)\n  - [Subsection 1.1](#subsection-11)\n`;
+    } else {
+      tocMarkdown = generateTOCMarkdown(headings);
+    }
+
+    const selection = textarea ? {
+      start: textarea.selectionStart,
+      end: textarea.selectionEnd,
+    } : {};
+
+    const result = insertOrUpdateTOC(markdown, tocMarkdown, selection);
+
+    if (result.updated || !textarea) {
+      setMarkdown(result.text);
+    } else if (textarea.selectionStart > 0 && textarea.selectionStart === result.start) {
+      textarea.focus();
+      const textToInsert = result.text.slice(result.start, result.end);
+      const inserted = document.execCommand ? document.execCommand('insertText', false, textToInsert) : false;
+      if (!inserted) {
+        setMarkdown(result.text);
+      }
+    } else {
+      setMarkdown(result.text);
+    }
+
+    if (textarea) {
+      setTimeout(() => {
+        textarea.focus();
+        textarea.setSelectionRange(result.start, result.end);
+      }, 0);
+    }
+  };
+
   const handleClear = () => {
     if (!markdown.trim()) return;
     setActiveModal('clear');
@@ -432,6 +477,14 @@ function App() {
             </button>
             <button className="format-btn" onClick={() => handleFormat('$$ \n', '\n$$')} title="Math Equation" aria-label="Math Equation">
               <MathIcon size={15} />
+            </button>
+            <button 
+              className="format-btn toc-btn" 
+              onClick={handleInsertTOC} 
+              title="Generate Table of Contents (TOC)" 
+              aria-label="Generate Table of Contents"
+            >
+              <TocIcon size={15} />
             </button>
           </div>
           <div className="divider"></div>
