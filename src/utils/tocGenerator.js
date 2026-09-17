@@ -29,7 +29,8 @@ export function slugifyHeading(text, slugCounts) {
     .toLowerCase()
     .replace(/[^\w\s-]/g, '')
     .trim()
-    .replace(/[\s_-]+/g, '-');
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 
   let baseSlug = cleaned || 'section';
 
