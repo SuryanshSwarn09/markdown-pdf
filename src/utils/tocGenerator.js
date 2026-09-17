@@ -151,3 +151,47 @@ export function extractHeadings(markdown, options = {}) {
 
   return headings;
 }
+
+/**
+ * Generates a formatted, hyperlinked Markdown list for Table of Contents.
+ *
+ * @param {Array<{ level: number, text: string, slug: string }>|string} headingsOrMarkdown
+ * @param {Object} [options]
+ * @param {string|boolean} [options.title='## Table of Contents'] - Header title to prepend.
+ * @param {number} [options.indentSpaces=2] - Spaces per nesting level.
+ * @param {string} [options.bullet='-'] - Markdown list bullet.
+ * @returns {string} Formatted Markdown TOC string.
+ */
+export function generateTOCMarkdown(headingsOrMarkdown, options = {}) {
+  let headings = headingsOrMarkdown;
+  if (typeof headingsOrMarkdown === 'string') {
+    headings = extractHeadings(headingsOrMarkdown, options);
+  }
+
+  if (!Array.isArray(headings) || headings.length === 0) {
+    return '';
+  }
+
+  const {
+    title = '## Table of Contents',
+    indentSpaces = 2,
+    bullet = '-',
+  } = options;
+
+  // Find minimum heading depth to normalize root indentation
+  const minLevel = Math.min(...headings.map(h => h.level));
+
+  const items = headings.map(h => {
+    const indentLevel = Math.max(0, h.level - minLevel);
+    const indent = ' '.repeat(indentLevel * indentSpaces);
+    return `${indent}${bullet} [${h.text}](#${h.slug})`;
+  });
+
+  const listBody = items.join('\n');
+
+  if (title && typeof title === 'string' && title.trim()) {
+    return `${title.trim()}\n\n${listBody}\n`;
+  }
+
+  return `${listBody}\n`;
+}
