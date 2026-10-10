@@ -2,20 +2,14 @@ import React from 'react';
 import { PRINT_PRESETS } from '../utils/printOptions.js';
 import { 
   PrinterIcon, 
-  ColumnsIcon, 
-  LayoutIcon, 
   CheckIcon,
-  HeaderIcon,
-  FooterIcon,
 } from './Icons.jsx';
 
 /**
- * PrintModal component allows users to customize PDF and print settings:
- * - Columns: 1-Column standard vs 2-Column academic
- * - Paper size: Letter vs A4
- * - Margins: Normal vs Compact vs Wide
- * - Heading numbering: Hierarchical CSS counters (1.0, 1.1, 1.2)
- * - Running Header & Footer: Custom text, date stamp, dynamic page numbering
+ * PrintModal component provides a clean, minimalistic layout customizer before printing:
+ * - Quick Presets: Standard, Academic (2-Col), Technical Report
+ * - Page Geometry: Columns, Paper Size, Margins, Numbered Headings
+ * - Running Header & Footer: Custom text, dynamic page numbering, date stamp
  *
  * @param {Object} props
  * @param {boolean} props.isOpen
@@ -63,172 +57,153 @@ export default function PrintModal({
         className="modal-window print-modal-window" 
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Compact Modal Header */}
         <div className="print-modal-header">
-          <div className="print-modal-icon-badge">
-            <PrinterIcon size={22} />
+          <div className="print-modal-header-left">
+            <div className="print-modal-icon-badge">
+              <PrinterIcon size={18} />
+            </div>
+            <h2 id="print-modal-title">Print &amp; PDF Layout</h2>
           </div>
-          <div className="print-modal-title-group">
-            <h2 id="print-modal-title">Print &amp; PDF Layout Options</h2>
-            <p className="print-modal-subtitle">
-              Configure publication geometry, multi-column flow, and section numbering before printing.
-            </p>
-          </div>
+          <button 
+            type="button" 
+            className="print-modal-dismiss-btn" 
+            onClick={onClose}
+            aria-label="Close dialog"
+          >
+            &times;
+          </button>
         </div>
 
-        {/* Quick Presets */}
-        <div className="print-modal-section">
-          <label className="print-section-label">
-            <LayoutIcon size={14} className="section-label-icon" />
-            Quick Presets
-          </label>
-          <div className="print-preset-grid">
-            {Object.entries(PRINT_PRESETS).map(([key, preset]) => {
-              const isSelected = options.preset === key || (
-                options.columns === preset.columns &&
-                options.paperSize === preset.paperSize &&
-                options.margins === preset.margins &&
-                options.numberedHeadings === preset.numberedHeadings &&
-                options.showHeader === preset.showHeader &&
-                options.showFooter === preset.showFooter
-              );
-              return (
+        {/* Quick Presets (Sleek Horizontal Segmented Bar) */}
+        <div className="print-preset-pill-bar" role="group" aria-label="Presets">
+          {Object.entries(PRINT_PRESETS).map(([key, preset]) => {
+            const isSelected = options.preset === key || (
+              options.columns === preset.columns &&
+              options.paperSize === preset.paperSize &&
+              options.margins === preset.margins &&
+              options.numberedHeadings === preset.numberedHeadings &&
+              options.showHeader === preset.showHeader &&
+              options.showFooter === preset.showFooter
+            );
+            return (
+              <button
+                type="button"
+                key={key}
+                className={`preset-pill-btn ${isSelected ? 'active' : ''}`}
+                onClick={() => handlePresetClick(key)}
+                aria-pressed={isSelected}
+              >
+                {isSelected && <CheckIcon size={13} className="preset-pill-check" />}
+                <span>{preset.name}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* 2-Column Responsive Grid */}
+        <div className="print-modal-grid">
+          {/* Column 1: Document Geometry */}
+          <div className="print-modal-col">
+            {/* Columns */}
+            <div className="print-control-group">
+              <label className="print-control-label">Columns</label>
+              <div className="segmented-control" role="group" aria-label="Columns">
                 <button
                   type="button"
-                  key={key}
-                  className={`print-preset-card ${isSelected ? 'selected' : ''}`}
-                  onClick={() => handlePresetClick(key)}
-                  aria-pressed={isSelected}
+                  className={`segment-btn ${options.columns === 1 ? 'active' : ''}`}
+                  onClick={() => handleOptionChange('columns', 1)}
+                  aria-pressed={options.columns === 1}
                 >
-                  <div className="preset-header">
-                    <span className="preset-name">{preset.name}</span>
-                    {isSelected && <CheckIcon size={14} className="preset-check" />}
-                  </div>
-                  <span className="preset-desc">{preset.description}</span>
+                  1 Column
                 </button>
-              );
-            })}
-          </div>
-        </div>
+                <button
+                  type="button"
+                  className={`segment-btn ${options.columns === 2 ? 'active' : ''}`}
+                  onClick={() => handleOptionChange('columns', 2)}
+                  aria-pressed={options.columns === 2}
+                >
+                  2 Columns
+                </button>
+              </div>
+            </div>
 
-        {/* Layout Customizer Controls */}
-        <div className="print-modal-controls">
-          {/* Columns */}
-          <div className="print-control-group">
-            <label className="print-control-label">
-              <ColumnsIcon size={14} className="control-label-icon" />
-              Column Layout
-            </label>
-            <div className="segmented-control" role="group" aria-label="Columns">
+            {/* Paper Size */}
+            <div className="print-control-group">
+              <label className="print-control-label">Paper Size</label>
+              <div className="segmented-control" role="group" aria-label="Paper Size">
+                <button
+                  type="button"
+                  className={`segment-btn ${options.paperSize === 'letter' ? 'active' : ''}`}
+                  onClick={() => handleOptionChange('paperSize', 'letter')}
+                  aria-pressed={options.paperSize === 'letter'}
+                >
+                  Letter
+                </button>
+                <button
+                  type="button"
+                  className={`segment-btn ${options.paperSize === 'a4' ? 'active' : ''}`}
+                  onClick={() => handleOptionChange('paperSize', 'a4')}
+                  aria-pressed={options.paperSize === 'a4'}
+                >
+                  A4
+                </button>
+              </div>
+            </div>
+
+            {/* Margins */}
+            <div className="print-control-group">
+              <label className="print-control-label">Margins</label>
+              <div className="segmented-control" role="group" aria-label="Margins">
+                <button
+                  type="button"
+                  className={`segment-btn ${options.margins === 'normal' ? 'active' : ''}`}
+                  onClick={() => handleOptionChange('margins', 'normal')}
+                  aria-pressed={options.margins === 'normal'}
+                >
+                  Normal
+                </button>
+                <button
+                  type="button"
+                  className={`segment-btn ${options.margins === 'compact' ? 'active' : ''}`}
+                  onClick={() => handleOptionChange('margins', 'compact')}
+                  aria-pressed={options.margins === 'compact'}
+                >
+                  Compact
+                </button>
+                <button
+                  type="button"
+                  className={`segment-btn ${options.margins === 'wide' ? 'active' : ''}`}
+                  onClick={() => handleOptionChange('margins', 'wide')}
+                  aria-pressed={options.margins === 'wide'}
+                >
+                  Wide
+                </button>
+              </div>
+            </div>
+
+            {/* Numbered Headings Toggle */}
+            <div className="print-toggle-row">
+              <span className="print-toggle-label">Numbered Sections</span>
               <button
                 type="button"
-                className={`segment-btn ${options.columns === 1 ? 'active' : ''}`}
-                onClick={() => handleOptionChange('columns', 1)}
-                aria-pressed={options.columns === 1}
+                className={`print-switch-btn ${options.numberedHeadings ? 'checked' : ''}`}
+                onClick={() => handleOptionChange('numberedHeadings', !options.numberedHeadings)}
+                role="switch"
+                aria-checked={options.numberedHeadings}
+                aria-label="Toggle hierarchical section numbering"
               >
-                1 Column (Standard)
-              </button>
-              <button
-                type="button"
-                className={`segment-btn ${options.columns === 2 ? 'active' : ''}`}
-                onClick={() => handleOptionChange('columns', 2)}
-                aria-pressed={options.columns === 2}
-              >
-                2 Columns (Academic)
+                <span className="print-switch-thumb" />
               </button>
             </div>
           </div>
 
-          {/* Paper Size */}
-          <div className="print-control-group">
-            <label className="print-control-label">Paper Size</label>
-            <div className="segmented-control" role="group" aria-label="Paper Size">
-              <button
-                type="button"
-                className={`segment-btn ${options.paperSize === 'letter' ? 'active' : ''}`}
-                onClick={() => handleOptionChange('paperSize', 'letter')}
-                aria-pressed={options.paperSize === 'letter'}
-              >
-                US Letter (8.5 × 11 in)
-              </button>
-              <button
-                type="button"
-                className={`segment-btn ${options.paperSize === 'a4' ? 'active' : ''}`}
-                onClick={() => handleOptionChange('paperSize', 'a4')}
-                aria-pressed={options.paperSize === 'a4'}
-              >
-                A4 (210 × 297 mm)
-              </button>
-            </div>
-          </div>
-
-          {/* Margins */}
-          <div className="print-control-group">
-            <label className="print-control-label">Page Margins</label>
-            <div className="segmented-control" role="group" aria-label="Margins">
-              <button
-                type="button"
-                className={`segment-btn ${options.margins === 'normal' ? 'active' : ''}`}
-                onClick={() => handleOptionChange('margins', 'normal')}
-                aria-pressed={options.margins === 'normal'}
-              >
-                Normal (15mm)
-              </button>
-              <button
-                type="button"
-                className={`segment-btn ${options.margins === 'compact' ? 'active' : ''}`}
-                onClick={() => handleOptionChange('margins', 'compact')}
-                aria-pressed={options.margins === 'compact'}
-              >
-                Compact (10mm)
-              </button>
-              <button
-                type="button"
-                className={`segment-btn ${options.margins === 'wide' ? 'active' : ''}`}
-                onClick={() => handleOptionChange('margins', 'wide')}
-                aria-pressed={options.margins === 'wide'}
-              >
-                Wide (25mm)
-              </button>
-            </div>
-          </div>
-
-          {/* Heading Numbering Toggle */}
-          <div className="print-control-group print-toggle-group">
-            <div className="print-toggle-text">
-              <span className="print-toggle-title">Numbered Headings</span>
-              <span className="print-toggle-subtitle">
-                Hierarchical section counters (e.g. 1.0, 1.1, 1.2) for academic or technical submissions.
-              </span>
-            </div>
-            <button
-              type="button"
-              className={`print-switch-btn ${options.numberedHeadings ? 'checked' : ''}`}
-              onClick={() => handleOptionChange('numberedHeadings', !options.numberedHeadings)}
-              role="switch"
-              aria-checked={options.numberedHeadings}
-              aria-label="Toggle hierarchical heading numbering"
-            >
-              <span className="print-switch-thumb" />
-            </button>
-          </div>
-        </div>
-
-        {/* Running Headers & Footers Section */}
-        <div className="print-modal-section">
-          <label className="print-section-label">
-            <HeaderIcon size={14} className="section-label-icon" />
-            Running Headers &amp; Footers
-          </label>
-          <div className="print-hf-container">
+          {/* Column 2: Running Headers & Footers */}
+          <div className="print-modal-col">
             {/* Header Control */}
-            <div className="print-hf-card">
-              <div className="print-hf-card-header">
-                <div className="print-toggle-text">
-                  <span className="print-toggle-title">Running Header</span>
-                  <span className="print-toggle-subtitle">
-                    Appears across the top margin of every printed page.
-                  </span>
-                </div>
+            <div className="print-hf-compact-card">
+              <div className="print-toggle-row">
+                <span className="print-toggle-label">Running Header</span>
                 <button
                   type="button"
                   className={`print-switch-btn ${options.showHeader ? 'checked' : ''}`}
@@ -241,29 +216,22 @@ export default function PrintModal({
                 </button>
               </div>
               {options.showHeader && (
-                <div className="print-hf-input-wrapper">
-                  <input
-                    type="text"
-                    className="print-text-input"
-                    placeholder="e.g. Antigravity Research Group • Confidential"
-                    value={options.headerText || ''}
-                    maxLength={120}
-                    onChange={(e) => handleOptionChange('headerText', e.target.value)}
-                    aria-label="Running header text"
-                  />
-                </div>
+                <input
+                  type="text"
+                  className="print-text-input"
+                  placeholder="Document Title or Org"
+                  value={options.headerText || ''}
+                  maxLength={120}
+                  onChange={(e) => handleOptionChange('headerText', e.target.value)}
+                  aria-label="Running header text"
+                />
               )}
             </div>
 
             {/* Footer Control */}
-            <div className="print-hf-card">
-              <div className="print-hf-card-header">
-                <div className="print-toggle-text">
-                  <span className="print-toggle-title">Running Footer</span>
-                  <span className="print-toggle-subtitle">
-                    Appears across the bottom margin with page numbers.
-                  </span>
-                </div>
+            <div className="print-hf-compact-card">
+              <div className="print-toggle-row">
+                <span className="print-toggle-label">Running Footer</span>
                 <button
                   type="button"
                   className={`print-switch-btn ${options.showFooter ? 'checked' : ''}`}
@@ -276,75 +244,40 @@ export default function PrintModal({
                 </button>
               </div>
               {options.showFooter && (
-                <div className="print-hf-input-wrapper">
+                <div className="print-hf-footer-body">
                   <input
                     type="text"
                     className="print-text-input"
-                    placeholder="e.g. Confidential & Proprietary"
+                    placeholder="Confidential notice"
                     value={options.footerText || ''}
                     maxLength={120}
                     onChange={(e) => handleOptionChange('footerText', e.target.value)}
                     aria-label="Running footer text"
                   />
-                  <div className="print-hf-suboptions">
-                    <label className="print-checkbox-label">
+                  <div className="print-hf-pills">
+                    <label className="print-pill-checkbox">
                       <input
                         type="checkbox"
                         checked={options.showPageNumbers}
                         onChange={(e) => handleOptionChange('showPageNumbers', e.target.checked)}
                         className="print-checkbox"
                       />
-                      <span>Dynamic Page Numbers (Page X)</span>
+                      <span>Page Numbers</span>
                     </label>
-                    <label className="print-checkbox-label">
+                    <label className="print-pill-checkbox">
                       <input
                         type="checkbox"
                         checked={options.showDate}
                         onChange={(e) => handleOptionChange('showDate', e.target.checked)}
                         className="print-checkbox"
                       />
-                      <span>Print Date Stamp</span>
+                      <span>Date Stamp</span>
                     </label>
                   </div>
                 </div>
               )}
             </div>
           </div>
-        </div>
-
-        {/* Live Summary Bar */}
-        <div className="print-summary-bar">
-          <span className="summary-tag">
-            {options.columns === 2 ? '2-Column Academic' : '1-Column'}
-          </span>
-          <span className="summary-dot">&bull;</span>
-          <span className="summary-tag">
-            {options.paperSize === 'a4' ? 'A4 Paper' : 'Letter Paper'}
-          </span>
-          <span className="summary-dot">&bull;</span>
-          <span className="summary-tag">
-            {options.margins.charAt(0).toUpperCase() + options.margins.slice(1)} Margins
-          </span>
-          <span className="summary-dot">&bull;</span>
-          <span className="summary-tag">
-            {options.numberedHeadings ? 'Numbered Headings ON' : 'Unnumbered Headings'}
-          </span>
-          {options.showHeader && (
-            <>
-              <span className="summary-dot">&bull;</span>
-              <span className="summary-tag">
-                Header: {options.headerText ? `"${options.headerText.slice(0, 18)}${options.headerText.length > 18 ? '...' : ''}"` : 'Active'}
-              </span>
-            </>
-          )}
-          {options.showFooter && (
-            <>
-              <span className="summary-dot">&bull;</span>
-              <span className="summary-tag">
-                Footer {options.showPageNumbers ? '(+ Pages)' : ''}
-              </span>
-            </>
-          )}
         </div>
 
         {/* Modal Actions */}
@@ -362,7 +295,7 @@ export default function PrintModal({
             onClick={onConfirmPrint}
             autoFocus
           >
-            <PrinterIcon size={16} />
+            <PrinterIcon size={15} />
             <span>Print / Save PDF</span>
           </button>
         </div>
