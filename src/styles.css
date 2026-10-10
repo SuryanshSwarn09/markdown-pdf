@@ -325,24 +325,47 @@ body {
   display: none;
 }
 
-/* Primary Action: Print PDF (Luminous Hero CTA) */
+/* Primary Action: Print PDF (Option 3: Crisp Monochrome Hero CTA) */
 .print-btn {
-  background-color: var(--accent);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 14px rgba(10, 132, 255, 0.32), 0 1px 3px rgba(0, 0, 0, 0.12);
+  background-color: #ffffff;
+  color: #0b0f19;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.22), 0 2px 5px rgba(0, 0, 0, 0.25);
   position: relative;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .print-btn:hover {
-  background-color: var(--accent-hover);
-  box-shadow: 0 0 20px rgba(10, 132, 255, 0.48), 0 2px 8px rgba(0, 113, 227, 0.35);
+  background-color: #f3f4f6;
+  color: #000000;
+  box-shadow: 0 0 22px rgba(255, 255, 255, 0.38), 0 3px 8px rgba(0, 0, 0, 0.3);
   transform: translateY(-1px);
 }
 
 .print-btn:active {
   transform: scale(0.97);
-  box-shadow: 0 0 8px rgba(10, 132, 255, 0.25);
+  background-color: #e5e7eb;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.18);
+}
+
+/* Light Theme: Invert to Rich Obsidian Black Hero CTA */
+[data-theme="light"] .print-btn {
+  background-color: #111827;
+  color: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.4);
+  box-shadow: 0 2px 8px rgba(17, 24, 39, 0.22);
+}
+
+[data-theme="light"] .print-btn:hover {
+  background-color: #000000;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(17, 24, 39, 0.32);
+}
+
+[data-theme="light"] .print-btn:active {
+  background-color: #1f2937;
+  box-shadow: 0 1px 4px rgba(17, 24, 39, 0.15);
 }
 
 /* Secondary Actions: Multi-Format Export (.md, .html, Copy) */
