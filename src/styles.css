@@ -230,6 +230,69 @@ body {
   align-items: center;
 }
 
+/* Segmented Export Group (Connected Dual Pill) */
+.export-segmented-group {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  background-color: var(--btn-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 2px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.segmented-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 100%;
+  padding: 0 9px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.81rem;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.segmented-btn svg {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.segmented-btn:hover:not(:disabled) {
+  background-color: var(--btn-hover);
+  color: var(--accent);
+}
+
+.segmented-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.segmented-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.segmented-divider {
+  width: 1px;
+  height: 16px;
+  background-color: var(--glass-border);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
 .action-btn, .print-btn, .clear-btn, .restore-btn {
   display: inline-flex;
   align-items: center;
@@ -262,23 +325,24 @@ body {
   display: none;
 }
 
-/* Primary Action: Print PDF (Minimalistic & Cohesive) */
+/* Primary Action: Print PDF (Luminous Hero CTA) */
 .print-btn {
   background-color: var(--accent);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 14px rgba(10, 132, 255, 0.32), 0 1px 3px rgba(0, 0, 0, 0.12);
+  position: relative;
 }
 
 .print-btn:hover {
   background-color: var(--accent-hover);
-  box-shadow: 0 2px 8px rgba(0, 113, 227, 0.28);
+  box-shadow: 0 0 20px rgba(10, 132, 255, 0.48), 0 2px 8px rgba(0, 113, 227, 0.35);
   transform: translateY(-1px);
 }
 
 .print-btn:active {
   transform: scale(0.97);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 8px rgba(10, 132, 255, 0.25);
 }
 
 /* Secondary Actions: Multi-Format Export (.md, .html, Copy) */
@@ -320,9 +384,9 @@ body {
 }
 
 .clear-btn:hover:not(:disabled) {
-  background-color: rgba(255, 59, 48, 0.12);
-  color: #ff3b30;
-  border-color: rgba(255, 59, 48, 0.3);
+  background-color: rgba(255, 69, 58, 0.1);
+  color: #ff453a;
+  border-color: rgba(255, 69, 58, 0.35);
   transform: translateY(-1px);
 }
 
@@ -1305,6 +1369,16 @@ body {
     gap: 5px;
   }
 
+  .export-segmented-group {
+    height: 30px;
+  }
+
+  .segmented-btn {
+    padding: 0 7px;
+    font-size: 0.76rem;
+    gap: 4px;
+  }
+
   .action-btn, .print-btn, .clear-btn, .restore-btn {
     height: 30px;
     padding: 0 9px;
@@ -1466,6 +1540,30 @@ body {
 
   .action-divider {
     display: none;
+  }
+
+  .export-segmented-group {
+    display: contents;
+  }
+
+  .segmented-divider {
+    display: none;
+  }
+
+  .segmented-btn {
+    width: 100%;
+    height: 36px;
+    padding: 0 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    gap: 5px;
+    justify-content: center;
+    text-align: center;
+    border-radius: 8px;
+    background-color: var(--btn-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   .action-btn, .print-btn, .clear-btn, .restore-btn, .github-nav-btn { 

@@ -552,28 +552,31 @@ function App() {
               <span className="btn-label-short">Undo</span>
             </button>
           )}
-          <button 
-            className="action-btn" 
-            onClick={handleDownloadMarkdown} 
-            title="Download active document as Markdown (.md)"
-            aria-label="Download Markdown (.md)"
-            disabled={!markdown.trim()}
-          >
-            <DownloadIcon size={15} />
-            <span className="btn-label-full">Export .md</span>
-            <span className="btn-label-short">.md</span>
-          </button>
-          <button 
-            className="action-btn" 
-            onClick={handleDownloadHTML} 
-            title="Export standalone self-contained HTML (.html) with KaTeX math"
-            aria-label="Export standalone HTML (.html)"
-            disabled={!markdown.trim()}
-          >
-            <FileCodeIcon size={15} />
-            <span className="btn-label-full">Export .html</span>
-            <span className="btn-label-short">.html</span>
-          </button>
+          {/* Segmented Export Group (Connected Dual Pill) */}
+          <div className="export-segmented-group" role="group" aria-label="Export Document">
+            <button 
+              className="segmented-btn" 
+              onClick={handleDownloadMarkdown} 
+              title="Download active document as Markdown (.md)"
+              aria-label="Export Markdown (.md)"
+              disabled={!markdown.trim()}
+            >
+              <DownloadIcon size={14} />
+              <span>.md</span>
+            </button>
+            <div className="segmented-divider"></div>
+            <button 
+              className="segmented-btn" 
+              onClick={handleDownloadHTML} 
+              title="Export standalone HTML (.html) with KaTeX math"
+              aria-label="Export standalone HTML (.html)"
+              disabled={!markdown.trim()}
+            >
+              <FileCodeIcon size={14} />
+              <span>.html</span>
+            </button>
+          </div>
+
           <button 
             className={`action-btn ${copiedHTML ? 'copy-success' : ''}`}
             onClick={handleCopyHTML} 
@@ -581,7 +584,7 @@ function App() {
             aria-label={copiedHTML ? "Copied HTML to clipboard" : "Copy rich HTML"}
             disabled={!markdown.trim()}
           >
-            {copiedHTML ? <CheckIcon size={15} /> : <CopyIcon size={15} />}
+            {copiedHTML ? <CheckIcon size={14} /> : <CopyIcon size={14} />}
             <span className="btn-label-full">{copiedHTML ? 'Copied!' : 'Copy HTML'}</span>
             <span className="btn-label-short">{copiedHTML ? 'Copied' : 'Copy'}</span>
           </button>
@@ -591,7 +594,7 @@ function App() {
             title="Print or Save as PDF"
             aria-label="Print or Save as PDF"
           >
-            <PrinterIcon size={15} />
+            <PrinterIcon size={14} />
             <span className="btn-label-full">Print PDF</span>
             <span className="btn-label-short">Print</span>
           </button>
@@ -602,7 +605,7 @@ function App() {
             aria-label="Clear Editor"
             disabled={!markdown.trim()}
           >
-            <TrashIcon size={15} />
+            <TrashIcon size={14} />
             <span className="btn-label-full">Clear</span>
             <span className="btn-label-short">Clear</span>
           </button>
