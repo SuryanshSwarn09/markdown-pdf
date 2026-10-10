@@ -527,7 +527,7 @@ function App() {
             </button>
           </div>
           <div className="divider"></div>
-          <div className="toolbar-group" aria-label="Theme & Links">
+          <div className="toolbar-group" aria-label="Theme">
             <button 
               className="theme-toggle-btn format-btn"
               onClick={toggleTheme} 
@@ -536,16 +536,6 @@ function App() {
             >
               {theme === 'dark' ? <SunIcon size={16} /> : <MoonIcon size={16} />}
             </button>
-            <a
-              href="https://github.com/SuryanshSwarn09/markdown-pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="format-btn github-nav-btn"
-              title="View repository on GitHub (SuryanshSwarn09/markdown-pdf)"
-              aria-label="GitHub Repository"
-            >
-              <GithubIcon size={16} />
-            </a>
           </div>
         </div>
         
@@ -616,6 +606,18 @@ function App() {
             <span className="btn-label-full">Clear</span>
             <span className="btn-label-short">Clear</span>
           </button>
+          <div className="action-divider"></div>
+          <a
+            href="https://github.com/SuryanshSwarn09/markdown-pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="github-nav-btn"
+            title="View repository on GitHub (SuryanshSwarn09/markdown-pdf)"
+            aria-label="GitHub Repository"
+          >
+            <GithubIcon size={16} />
+            <span className="btn-label-mobile">GitHub</span>
+          </a>
         </div>
       </div>
 
