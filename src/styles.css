@@ -1183,80 +1183,24 @@ body {
 
 
 
-/* --- GITHUB PROFILE TOOLTIP BUTTON --- */
-.github-profile-wrapper {
-  position: fixed;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2000;
-  pointer-events: auto;
-}
-
-.github-profile-btn {
-  display: flex;
+/* Top Navbar GitHub Repository Link */
+.github-nav-btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-color: rgba(37, 37, 42, 0.8);
-  border: 1px solid rgba(11, 11, 11, 0.35);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  position: relative;
   text-decoration: none;
+  color: var(--text-main);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.github-profile-btn:hover {
-  background-color: rgba(240, 240, 250, 0.2);
+.github-nav-btn:hover {
+  background: var(--btn-hover);
+  color: var(--accent);
+  transform: translateY(-1px);
 }
 
-.github-profile-btn img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.github-profile-tooltip {
-  position: absolute;
-  bottom: 64px;
-  left: 50%;
-  /* This centers the tooltip and pushes it down slightly for the animation */
-  transform: translateX(-50%) translateY(8px);
-  padding: 8px 16px;
-  background-color: rgba(37, 37, 42, 0.95);
-  border: 1px solid rgba(240, 240, 250, 0.2);
-  border-radius: 4px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  opacity: 0;
-  transition: all 0.3s ease;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-.github-profile-tooltip p {
-  font-size: 11px;
-  font-weight: bold;
-  letter-spacing: 1.17px;
-  color: #f0f0fa;
-  margin: 0;
-}
-
-/* The Hover Animation Trigger */
-.github-profile-btn:hover .github-profile-tooltip {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* Hide it when printing! */
-@media print {
-  .github-profile-wrapper { display: none !important; }
+.github-nav-btn:active {
+  transform: scale(0.95);
 }
 
 /* --- RESPONSIVE LAYOUT ENGINE --- */
@@ -1509,8 +1453,7 @@ body {
   .preview-pane .pane-header, 
   .floating-signature, 
   .footer-links, 
-  .modal-overlay,
-  .github-profile-wrapper { 
+  .modal-overlay { 
     display: none !important; 
   }
 
