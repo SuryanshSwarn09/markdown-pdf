@@ -30,7 +30,8 @@ import {
   MathIcon,
   CheckCircleIcon, 
   SyncScrollIcon,
-  TocIcon
+  TocIcon,
+  GithubIcon
 } from './components/Icons.jsx';
 import PrintModal from './components/PrintModal.jsx';
 import { 
@@ -526,7 +527,7 @@ function App() {
             </button>
           </div>
           <div className="divider"></div>
-          <div className="toolbar-group" aria-label="Theme">
+          <div className="toolbar-group" aria-label="Theme & Links">
             <button 
               className="theme-toggle-btn format-btn"
               onClick={toggleTheme} 
@@ -535,6 +536,16 @@ function App() {
             >
               {theme === 'dark' ? <SunIcon size={16} /> : <MoonIcon size={16} />}
             </button>
+            <a
+              href="https://github.com/SuryanshSwarn09/markdown-pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="format-btn github-nav-btn"
+              title="View repository on GitHub (SuryanshSwarn09/markdown-pdf)"
+              aria-label="GitHub Repository"
+            >
+              <GithubIcon size={16} />
+            </a>
           </div>
         </div>
         
@@ -691,26 +702,6 @@ function App() {
         <button onClick={() => setActiveModal('terms')}>Terms & Conditions</button>
       </div>
 
-      {/* GitHub Profile Button */}
-      <div className="github-profile-wrapper">
-        <a
-          href="https://github.com/SuryanshSwarn09"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="github-profile-btn"
-        >
-          {/* My pfp Icon */}
-          <img
-            src="pfp.png" 
-            alt="GitHub Profile"
-          />
-
-          {/* Tooltip / Label */}
-          <div className="github-profile-tooltip">
-            <p>CODED BY SURYANSH</p>
-          </div>
-        </a>
-      </div>
 
       {/* The Modal Overlay System */}
       {activeModal && activeModal !== 'print' && (
