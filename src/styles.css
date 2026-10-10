@@ -113,9 +113,9 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 16px 24px;
-  gap: 12px;
-  max-width: 1280px;
+  padding: 24px 32px;
+  gap: 24px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
@@ -125,9 +125,9 @@ body {
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur); /* For Safari support */
   border: 1px solid var(--glass-border);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  border-radius: 12px;
-  transition: all 0.3s ease;
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius);
+  transition: all 0.4s ease;
 }
 
 /* --- TOP BAR & TOOLBAR --- */
@@ -135,33 +135,33 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 14px;
-  gap: 10px;
+  padding: 10px 18px;
+  gap: 16px;
 }
 
 .toolbar {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
 }
 
 .toolbar-group {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
 }
 
 .format-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   padding: 0;
   background-color: var(--btn-bg);
   color: var(--text-main);
   border: 1px solid transparent;
-  border-radius: 6px;
+  border-radius: 7px;
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
@@ -175,7 +175,7 @@ body {
 
 .format-btn-text {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: -0.2px;
 }
@@ -200,24 +200,24 @@ body {
 
 .divider {
   width: 1px;
-  height: 16px;
+  height: 20px;
   background-color: var(--glass-border);
-  margin: 0 3px;
+  margin: 0 4px;
   flex-shrink: 0;
 }
 
 .action-divider {
   width: 1px;
-  height: 16px;
+  height: 20px;
   background-color: var(--glass-border);
-  margin: 0 3px;
+  margin: 0 4px;
   flex-shrink: 0;
 }
 
 /* --- ACTION BUTTONS & HIERARCHY --- */
 .action-buttons {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   align-items: center;
 }
 
@@ -225,12 +225,12 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  height: 30px;
-  padding: 0 9px;
-  border-radius: 7px;
+  gap: 7px;
+  height: 36px;
+  padding: 0 13px;
+  border-radius: 9px;
   font-family: inherit;
-  font-size: 0.79rem;
+  font-size: 0.84rem;
   font-weight: 600;
   line-height: 1;
   cursor: pointer;
@@ -351,7 +351,7 @@ body {
 .split-layout {
   display: flex;
   flex: 1;
-  gap: 14px;
+  gap: 24px;
   min-height: 0;
 }
 
@@ -366,11 +366,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 7px 16px;
-  font-size: 0.74rem;
+  padding: 12px 24px;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.2px;
-  text-transform: none;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
   color: var(--text-muted);
   border-bottom: 1px solid var(--glass-border);
   background: rgba(0, 0, 0, 0.02);
@@ -379,7 +379,7 @@ body {
 .pane-title-group {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
 .save-status-pill {
@@ -387,12 +387,12 @@ body {
   align-items: center;
   gap: 4px;
   color: #34c759;
-  font-size: 0.69rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0;
   text-transform: none;
-  padding: 1px 6px;
-  border-radius: 5px;
+  padding: 2px 7px;
+  border-radius: 6px;
   background: rgba(52, 199, 89, 0.12);
   border: 1px solid rgba(52, 199, 89, 0.25);
 }
@@ -400,12 +400,12 @@ body {
 .sync-scroll-btn {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 1px 7px;
-  height: 20px;
-  border-radius: 5px;
+  gap: 5px;
+  padding: 2px 8px;
+  height: 22px;
+  border-radius: 6px;
   font-family: inherit;
-  font-size: 0.69rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0;
   text-transform: none;
@@ -455,17 +455,17 @@ body {
 
 .doc-stats {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   align-items: center;
   text-transform: none;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 500;
 }
 
 .stat-pill {
   background: var(--btn-bg);
-  padding: 1px 6px;
-  border-radius: 5px;
+  padding: 2px 8px;
+  border-radius: 6px;
   color: var(--text-muted);
   border: 1px solid var(--glass-border);
   letter-spacing: 0;
@@ -474,25 +474,25 @@ body {
 .editor-input {
   flex: 1;
   width: 100%;
-  padding: 18px 22px;
+  padding: 24px;
   background-color: transparent;
   color: var(--text-main);
   border: none;
   resize: none;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.94rem;
-  line-height: 1.65;
+  font-size: 1rem;
+  line-height: 1.6;
   outline: none;
 }
 
 .preview-output {
   flex: 1;
-  padding: 18px 24px;
+  padding: 24px 32px;
   overflow-y: auto;
   scroll-behavior: smooth;
-  line-height: 1.68;
+  line-height: 1.7;
   color: var(--text-main);
-  font-size: 0.98rem;
+  font-size: 1.05rem;
 }
 
 /* --- TYPOGRAPHY & RENDERED HTML --- */
@@ -649,16 +649,9 @@ body {
 /* --- FOOTER LINKS --- */
 .footer-links {
   display: flex;
-  gap: 20px;
-  padding: 0 4px;
-  margin-top: -4px;
-  justify-content: flex-start;
-  opacity: 0.6;
-  transition: opacity 0.2s ease;
-}
-
-.footer-links:hover {
-  opacity: 0.9;
+  gap: 24px;
+  padding-left: 8px;
+  margin-top: -8px; 
 }
 
 .footer-links button {
@@ -667,7 +660,7 @@ body {
   color: var(--text-muted);
   cursor: pointer;
   font-family: inherit;
-  font-size: 0.76rem;
+  font-size: 0.85rem;
   transition: color 0.2s ease;
 }
 
@@ -1203,10 +1196,10 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   padding: 0;
-  border-radius: 7px;
+  border-radius: 9px;
   background-color: var(--btn-bg);
   border: 1px solid var(--glass-border);
   color: var(--text-main);
@@ -1245,25 +1238,24 @@ body {
 /* Tier 2: Compact Desktop & Landscape Tablet (880px - 1200px) */
 @media (max-width: 1200px) and (min-width: 880px) {
   .app-container {
-    padding: 14px 18px;
-    gap: 10px;
-    max-width: 100%;
+    padding: 18px 24px;
+    gap: 18px;
   }
 
   .top-bar {
-    padding: 5px 12px;
-    gap: 8px;
+    padding: 8px 14px;
+    gap: 10px;
   }
 
   .action-buttons {
-    gap: 5px;
+    gap: 6px;
   }
 
   .action-btn, .print-btn, .clear-btn, .restore-btn {
-    height: 29px;
-    padding: 0 8px;
-    font-size: 0.77rem;
-    gap: 4px;
+    height: 34px;
+    padding: 0 10px;
+    font-size: 0.81rem;
+    gap: 5px;
   }
 
   /* Switch from full labels ("Export .html", "Copy HTML") to compact labels (".html", "Copy") */
@@ -1276,13 +1268,13 @@ body {
   }
 
   .format-btn {
-    width: 27px;
-    height: 27px;
+    width: 30px;
+    height: 30px;
   }
 
   .github-nav-btn {
-    width: 29px;
-    height: 29px;
+    width: 34px;
+    height: 34px;
   }
 
   .divider, .action-divider {
@@ -1299,15 +1291,15 @@ body {
   .app-container {
     height: auto;
     min-height: 100vh;
-    padding: 14px 16px;
-    gap: 12px;
+    padding: 16px;
+    gap: 16px;
   }
 
   .top-bar {
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     align-items: stretch;
-    padding: 10px 14px;
+    padding: 12px 16px;
   }
 
   .toolbar {
@@ -1321,17 +1313,17 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px;
     width: 100%;
   }
 
   .action-btn, .print-btn, .clear-btn, .restore-btn {
     flex: 1 1 auto;
-    min-width: 75px;
-    max-width: 150px;
-    height: 32px;
-    padding: 0 8px;
-    font-size: 0.78rem;
+    min-width: 80px;
+    max-width: 160px;
+    height: 36px;
+    padding: 0 10px;
+    font-size: 0.82rem;
   }
 
   .action-divider {
@@ -1339,8 +1331,8 @@ body {
   }
 
   .github-nav-btn {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     flex: 0 0 auto;
   }
 
@@ -1355,7 +1347,7 @@ body {
   .split-layout {
     flex-direction: column;
     height: auto;
-    gap: 12px;
+    gap: 16px;
   }
 
   .pane {
@@ -1373,16 +1365,16 @@ body {
   .app-container { 
     height: auto; 
     min-height: 100vh; 
-    padding: 10px;
-    gap: 10px;
+    padding: 12px;
+    gap: 12px;
   }
 
   .top-bar { 
     flex-direction: column; 
-    gap: 8px; 
+    gap: 10px; 
     align-items: stretch;
-    padding: 8px 10px;
-    border-radius: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
   }
 
   /* Smooth horizontal scroll ribbon for toolbar */
@@ -1390,7 +1382,7 @@ body {
     overflow-x: auto; 
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding: 2px;
+    padding: 2px 2px 4px 2px;
     width: 100%;
     flex-wrap: nowrap;
     justify-content: flex-start;
@@ -1405,8 +1397,8 @@ body {
   }
 
   .format-btn {
-    min-width: 28px;
-    height: 28px;
+    min-width: 32px;
+    height: 32px;
     flex-shrink: 0;
   }
 
@@ -1414,7 +1406,7 @@ body {
   .action-buttons { 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
+    gap: 6px;
     width: 100%;
   }
 
@@ -1424,10 +1416,10 @@ body {
 
   .action-btn, .print-btn, .clear-btn, .restore-btn, .github-nav-btn { 
     width: 100%;
-    height: 32px;
-    padding: 0 5px;
-    font-size: 0.74rem;
-    gap: 4px;
+    height: 36px;
+    padding: 0 6px;
+    font-size: 0.78rem;
+    gap: 5px;
     justify-content: center;
     text-align: center;
     font-weight: 600;
@@ -1454,20 +1446,20 @@ body {
   .split-layout { 
     flex-direction: column; 
     height: auto; 
-    gap: 10px;
+    gap: 12px;
   }
 
   .pane { 
     min-height: 48vh; 
     flex: none;
-    border-radius: 10px;
+    border-radius: 12px;
   }
 
   .pane-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
-    padding: 8px 12px;
+    gap: 8px;
+    padding: 10px 14px;
   }
 
   .pane-title-group {
@@ -1475,23 +1467,23 @@ body {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
   }
 
   .doc-stats {
     flex-wrap: wrap;
     gap: 4px;
-    font-size: 0.68rem;
+    font-size: 0.7rem;
   }
 
   .editor-input {
-    padding: 14px 16px;
-    font-size: 0.90rem;
+    padding: 16px;
+    font-size: 0.95rem;
   }
 
   .preview-output {
-    padding: 14px 16px;
-    font-size: 0.92rem;
+    padding: 16px 20px;
+    font-size: 0.98rem;
   }
 }
 
