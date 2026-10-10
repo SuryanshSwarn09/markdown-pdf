@@ -710,63 +710,128 @@ function App() {
 
       {/* The Modal Overlay System */}
       {activeModal && activeModal !== 'print' && (
-        <div className="modal-overlay" onClick={() => setActiveModal(null)}>
-          <div className="modal-window" onClick={(e) => e.stopPropagation()}>
-            
-            {activeModal === 'privacy' && (
-              <>
-                <h2>Privacy Policy</h2>
-                <p><strong>Last Updated:</strong> April 2026</p>
-                <br/>
-                <p><strong>1. Data Collection:</strong> This Markdown Previewer is a client-side application. We do not collect, store, or transmit any personal data, text, or documents you write within this application. All text processing and rendering happens locally on your device within your web browser.</p>
-                <br/>
-                <p><strong>2. Cookies and Tracking:</strong> This application does not use cookies, web beacons, or any third-party tracking software to monitor your behavior.</p>
-                <br/>
-                <p><strong>3. Hosting Provider:</strong> This application is hosted on Vercel. While the app itself collects no data, the hosting provider may collect basic, anonymous access logs (such as IP addresses and browser types) strictly necessary for serving the website securely. Please refer to Vercel's privacy policy for more information.</p>
-              </>
-            )}
-
-            {activeModal === 'terms' && (
-              <>
-                <h2>Terms and Conditions</h2>
-                <p><strong>Last Updated:</strong> April 2026</p>
-                <br/>
-                <p><strong>1. Acceptance of Terms:</strong> By accessing and using this Markdown Previewer, you accept and agree to be bound by the terms and provision of this agreement.</p>
-                <br/>
-                <p><strong>2. Use of the Application:</strong> This tool is provided completely free of charge for personal or commercial use. You may use it to draft, format, and print Markdown and LaTeX documents.</p>
-                <br/>
-                <p><strong>3. Content Ownership:</strong> You retain 100% ownership and copyright of any text, code, or equations you write using this tool. Because the app does not save your work to a server, it is solely your responsibility to save, print, or backup your work before closing the browser tab. We are not responsible for any lost data.</p>
-                <br/>
-                <p><strong>4. Limitation of Liability:</strong> In no event shall the creator of this application be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in any way connected with the use of this application.</p>
-              </>
-            )}
-
-            {activeModal === 'clear' && (
-              <>
-                <h2>Clear Document?</h2>
-                <p>Are you sure you want to clear your current document? All unprinted or uncopied text in the editor will be removed.</p>
-                <br/>
-                <div className="modal-actions">
-                  <button 
-                    className="modal-danger-btn" 
-                    onClick={() => handleConfirmClear(false)}
-                  >
-                    Clear Everything
-                  </button>
-                  <button 
-                    className="modal-secondary-btn" 
-                    onClick={() => handleConfirmClear(true)}
-                  >
-                    Reset to Default Example
-                  </button>
+        <div 
+          className="modal-overlay" 
+          onClick={() => setActiveModal(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          {activeModal === 'clear' ? (
+            <div 
+              className="modal-window clear-modal-window" 
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header with Icon Badge + Title + Top-Right Dismiss '×' */}
+              <div className="modal-header clear-modal-header">
+                <div className="modal-header-left">
+                  <div className="clear-modal-icon-badge">
+                    <TrashIcon size={18} />
+                  </div>
+                  <h2 id="clear-modal-title">Clear Document?</h2>
                 </div>
-              </>
-            )}
+                <button 
+                  type="button" 
+                  className="modal-dismiss-btn" 
+                  onClick={() => setActiveModal(null)}
+                  aria-label="Close dialog"
+                >
+                  &times;
+                </button>
+              </div>
 
-            <button className="modal-close-btn" onClick={() => setActiveModal(null)}>
-              {activeModal === 'clear' ? 'Cancel' : 'Close'}
-            </button>
-          </div>
+              {/* Body with Descriptive Notice & Frosted Tip Card */}
+              <div className="clear-modal-body">
+                <p className="clear-modal-description">
+                  Are you sure you want to clear your current document? All unprinted or uncopied text in the editor will be removed.
+                </p>
+                <div className="clear-modal-tip-card">
+                  <UndoIcon size={14} className="clear-tip-icon" />
+                  <span>Don&apos;t worry — you can immediately restore your text with <strong>↩ Undo Clear</strong> if you change your mind.</span>
+                </div>
+              </div>
+
+              {/* Actions: Cancel + Reset Example + Clear All */}
+              <div className="modal-actions clear-modal-actions">
+                <button 
+                  type="button"
+                  className="modal-secondary-btn" 
+                  onClick={() => setActiveModal(null)}
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="button"
+                  className="modal-secondary-btn" 
+                  onClick={() => handleConfirmClear(true)}
+                >
+                  Reset Example
+                </button>
+                <button 
+                  type="button"
+                  className="modal-danger-btn clear-confirm-btn" 
+                  onClick={() => handleConfirmClear(false)}
+                  autoFocus
+                >
+                  <TrashIcon size={14} />
+                  <span>Clear All</span>
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="modal-window" onClick={(e) => e.stopPropagation()}>
+              {activeModal === 'privacy' && (
+                <>
+                  <div className="modal-header">
+                    <h2>Privacy Policy</h2>
+                    <button 
+                      type="button" 
+                      className="modal-dismiss-btn" 
+                      onClick={() => setActiveModal(null)}
+                      aria-label="Close dialog"
+                    >
+                      &times;
+                    </button>
+                  </div>
+                  <p><strong>Last Updated:</strong> April 2026</p>
+                  <br/>
+                  <p><strong>1. Data Collection:</strong> This Markdown Previewer is a client-side application. We do not collect, store, or transmit any personal data, text, or documents you write within this application. All text processing and rendering happens locally on your device within your web browser.</p>
+                  <br/>
+                  <p><strong>2. Cookies and Tracking:</strong> This application does not use cookies, web beacons, or any third-party tracking software to monitor your behavior.</p>
+                  <br/>
+                  <p><strong>3. Hosting Provider:</strong> This application is hosted on Vercel. While the app itself collects no data, the hosting provider may collect basic, anonymous access logs (such as IP addresses and browser types) strictly necessary for serving the website securely. Please refer to Vercel&apos;s privacy policy for more information.</p>
+                </>
+              )}
+
+              {activeModal === 'terms' && (
+                <>
+                  <div className="modal-header">
+                    <h2>Terms and Conditions</h2>
+                    <button 
+                      type="button" 
+                      className="modal-dismiss-btn" 
+                      onClick={() => setActiveModal(null)}
+                      aria-label="Close dialog"
+                    >
+                      &times;
+                    </button>
+                  </div>
+                  <p><strong>Last Updated:</strong> April 2026</p>
+                  <br/>
+                  <p><strong>1. Acceptance of Terms:</strong> By accessing and using this Markdown Previewer, you accept and agree to be bound by the terms and provision of this agreement.</p>
+                  <br/>
+                  <p><strong>2. Use of the Application:</strong> This tool is provided completely free of charge for personal or commercial use. You may use it to draft, format, and print Markdown and LaTeX documents.</p>
+                  <br/>
+                  <p><strong>3. Content Ownership:</strong> You retain 100% ownership and copyright of any text, code, or equations you write using this tool. Because the app does not save your work to a server, it is solely your responsibility to save, print, or backup your work before closing the browser tab. We are not responsible for any lost data.</p>
+                  <br/>
+                  <p><strong>4. Limitation of Liability:</strong> In no event shall the creator of this application be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in any way connected with the use of this application.</p>
+                </>
+              )}
+
+              <button className="modal-close-btn" onClick={() => setActiveModal(null)}>
+                Close
+              </button>
+            </div>
+          )}
         </div>
       )}
 
