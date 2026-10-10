@@ -867,25 +867,44 @@ body {
   margin: 0;
   padding: 0;
   border: none;
-  font-size: 1.1rem;
+  font-size: 1.12rem;
   font-weight: 700;
-  color: var(--text-main);
+  color: #1d1d1f;
   letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] .modal-header h2 {
+  color: #ffffff;
 }
 
 .modal-window > h2 {
   margin-bottom: 20px;
-  color: var(--text-main);
+  color: #1d1d1f;
   border-bottom: 1px solid var(--glass-border);
   padding-bottom: 12px;
 }
 
-.modal-window p {
-  line-height: 1.6;
-  color: var(--text-muted);
+[data-theme="dark"] .modal-window > h2 {
+  color: #ffffff;
 }
 
-.modal-window strong { color: var(--text-main); }
+.modal-window p {
+  line-height: 1.65;
+  color: #2c2c2e;
+}
+
+[data-theme="dark"] .modal-window p {
+  color: #d8d8dd;
+}
+
+.modal-window strong { 
+  color: #111111; 
+  font-weight: 650;
+}
+
+[data-theme="dark"] .modal-window strong { 
+  color: #ffffff; 
+}
 
 /* Circular Dismiss Button (used across modals) */
 .modal-dismiss-btn {
@@ -893,8 +912,8 @@ body {
   height: 28px;
   border-radius: 50%;
   border: none;
-  background: rgba(0, 0, 0, 0.05);
-  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.06);
+  color: #48484a;
   font-size: 1.25rem;
   line-height: 1;
   cursor: pointer;
@@ -906,18 +925,18 @@ body {
 }
 
 [data-theme="dark"] .modal-dismiss-btn {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.1);
+  color: #c7c7cc;
 }
 
 .modal-dismiss-btn:hover {
-  background: rgba(0, 0, 0, 0.1);
-  color: var(--text-main);
+  background: rgba(0, 0, 0, 0.12);
+  color: #000000;
 }
 
 [data-theme="dark"] .modal-dismiss-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 }
 
 .modal-actions {
@@ -959,22 +978,27 @@ body {
 
 .modal-secondary-btn {
   background-color: rgba(0, 0, 0, 0.05);
-  color: var(--text-main);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #1d1d1f;
+  border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 [data-theme="dark"] .modal-secondary-btn {
-  background-color: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background-color: rgba(255, 255, 255, 0.09);
+  color: #f5f5f7;
+  border: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .modal-secondary-btn:hover { 
   background-color: rgba(0, 0, 0, 0.09); 
+  color: #000000;
+  border-color: rgba(0, 0, 0, 0.2);
   transform: translateY(-1px); 
 }
 
 [data-theme="dark"] .modal-secondary-btn:hover { 
-  background-color: rgba(255, 255, 255, 0.15); 
+  background-color: rgba(255, 255, 255, 0.16); 
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 .modal-secondary-btn:active {
@@ -985,8 +1009,8 @@ body {
   margin-top: 16px;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.05);
-  color: var(--text-main);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #1d1d1f;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   height: 38px;
   padding: 0 16px;
   border-radius: 10px;
@@ -1000,17 +1024,22 @@ body {
 }
 
 [data-theme="dark"] .modal-close-btn {
-  background-color: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background-color: rgba(255, 255, 255, 0.09);
+  color: #f5f5f7;
+  border: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .modal-close-btn:hover { 
   background-color: rgba(0, 0, 0, 0.09); 
+  color: #000000;
+  border-color: rgba(0, 0, 0, 0.2);
   transform: translateY(-1px); 
 }
 
 [data-theme="dark"] .modal-close-btn:hover { 
-  background-color: rgba(255, 255, 255, 0.15); 
+  background-color: rgba(255, 255, 255, 0.16); 
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 .modal-close-btn:active { transform: scale(0.98); }
@@ -1045,10 +1074,15 @@ body {
 }
 
 .clear-modal-description {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   line-height: 1.55;
-  color: var(--text-muted);
+  color: #1d1d1f;
   margin: 0;
+  font-weight: 500;
+}
+
+[data-theme="dark"] .clear-modal-description {
+  color: #f5f5f7;
 }
 
 .clear-modal-tip-card {
@@ -1057,22 +1091,36 @@ body {
   gap: 9px;
   padding: 10px 12px;
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.035);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  font-size: 0.8rem;
+  background: rgba(0, 0, 0, 0.045);
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  font-size: 0.82rem;
   line-height: 1.45;
-  color: var(--text-muted);
+  color: #2c2c2e;
 }
 
 [data-theme="dark"] .clear-modal-tip-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #e5e5ea;
+}
+
+.clear-modal-tip-card strong {
+  color: #111111;
+  font-weight: 650;
+}
+
+[data-theme="dark"] .clear-modal-tip-card strong {
+  color: #ffffff;
 }
 
 .clear-tip-icon {
   flex-shrink: 0;
-  margin-top: 1px;
-  color: var(--accent);
+  margin-top: 2px;
+  color: #0071e3;
+}
+
+[data-theme="dark"] .clear-tip-icon {
+  color: #5ac8fa;
 }
 
 .clear-modal-actions {
@@ -1203,31 +1251,39 @@ body {
   height: 30px;
   padding: 0 8px;
   font-size: 0.78rem;
-  font-weight: 500;
+  font-weight: 550;
   border: none;
   border-radius: 6px;
   background: transparent;
-  color: var(--text-muted);
+  color: #48484a;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
 }
 
+[data-theme="dark"] .preset-pill-btn {
+  color: #c7c7cc;
+}
+
 .preset-pill-btn:hover {
-  color: var(--text-main);
+  color: #000000;
+}
+
+[data-theme="dark"] .preset-pill-btn:hover {
+  color: #ffffff;
 }
 
 .preset-pill-btn.active {
   background: #ffffff;
   color: var(--accent);
-  font-weight: 600;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-weight: 650;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 [data-theme="dark"] .preset-pill-btn.active {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.2);
   color: #ffffff;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 
 .preset-pill-check {
@@ -1255,10 +1311,14 @@ body {
 
 .print-control-label {
   font-size: 0.74rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--text-muted);
+  color: #48484a;
+}
+
+[data-theme="dark"] .print-control-label {
+  color: #b0b0b8;
 }
 
 .segmented-control {
@@ -1279,32 +1339,40 @@ body {
   flex: 1;
   padding: 5px 6px;
   font-size: 0.78rem;
-  font-weight: 500;
+  font-weight: 550;
   border: none;
   border-radius: 6px;
   background: transparent;
-  color: var(--text-muted);
+  color: #48484a;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
   text-align: center;
 }
 
+[data-theme="dark"] .segment-btn {
+  color: #c7c7cc;
+}
+
 .segment-btn:hover {
-  color: var(--text-main);
+  color: #000000;
+}
+
+[data-theme="dark"] .segment-btn:hover {
+  color: #ffffff;
 }
 
 .segment-btn.active {
   background: #ffffff;
   color: #000000;
-  font-weight: 600;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-weight: 650;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 [data-theme="dark"] .segment-btn.active {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.22);
   color: #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* Numbered Section and Header Toggle Rows */
@@ -1316,9 +1384,13 @@ body {
 }
 
 .print-toggle-label {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  color: var(--text-main);
+  color: #1d1d1f;
+}
+
+[data-theme="dark"] .print-toggle-label {
+  color: #f5f5f7;
 }
 
 /* iOS-style toggle switch */
@@ -1382,17 +1454,25 @@ body {
   font-size: 0.79rem;
   font-family: inherit;
   border-radius: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.16);
   background: #ffffff;
-  color: var(--text-main);
+  color: #1d1d1f;
   outline: none;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
+.print-text-input::placeholder {
+  color: #8e8e93;
+}
+
 [data-theme="dark"] .print-text-input {
-  background: rgba(0, 0, 0, 0.3);
-  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.18);
   color: #f5f5f7;
+}
+
+[data-theme="dark"] .print-text-input::placeholder {
+  color: #98989d;
 }
 
 .print-text-input:focus {
@@ -1415,15 +1495,23 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 0.74rem;
-  font-weight: 500;
-  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 550;
+  color: #3a3a3c;
   cursor: pointer;
   user-select: none;
 }
 
+[data-theme="dark"] .print-pill-checkbox {
+  color: #d1d1d6;
+}
+
 .print-pill-checkbox:hover {
-  color: var(--text-main);
+  color: #000000;
+}
+
+[data-theme="dark"] .print-pill-checkbox:hover {
+  color: #ffffff;
 }
 
 .print-checkbox {
