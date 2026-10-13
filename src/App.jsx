@@ -759,15 +759,11 @@ function App() {
                 </button>
               </div>
 
-              {/* Body with Descriptive Notice & Frosted Tip Card */}
+              {/* Body with Concise Confirmation Notice */}
               <div className="clear-modal-body">
                 <p className="clear-modal-description">
                   Are you sure you want to clear your current document? All unprinted or uncopied text in the editor will be removed.
                 </p>
-                <div className="clear-modal-tip-card">
-                  <UndoIcon size={14} className="clear-tip-icon" />
-                  <span>Don&apos;t worry — you can immediately restore your text with <strong>Undo Clear</strong> if you change your mind.</span>
-                </div>
               </div>
 
               {/* Actions: Cancel + Reset Example + Clear All */}
