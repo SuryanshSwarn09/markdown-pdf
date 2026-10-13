@@ -33,7 +33,7 @@ import {
   TocIcon,
   GithubIcon,
   EyeIcon,
-  ChevronDownIcon
+  MoreHorizontalIcon
 } from './components/Icons.jsx';
 import PrintModal from './components/PrintModal.jsx';
 import { 
@@ -109,7 +109,8 @@ function App() {
   const [saveStatus, setSaveStatus] = useState('Saved');
   const [theme, setTheme] = useState(getInitialTheme);
   const [copiedHTML, setCopiedHTML] = useState(false);
-  const [isMobilePreviewOpen, setIsMobilePreviewOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef(null);
   
   // State to track which modal is currently open ('privacy', 'terms', 'clear', 'print', or null)
   const [activeModal, setActiveModal] = useState(null);
@@ -162,6 +163,23 @@ function App() {
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
   }, [activeModal]);
+
+  // Click outside to close mobile overflow menu
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+      document.addEventListener('touchstart', handleOutsideClick);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('touchstart', handleOutsideClick);
+    };
+  }, [isMobileMenuOpen]);
 
   // Auto-save draft to localStorage whenever markdown changes (debounced)
   useEffect(() => {
@@ -624,12 +642,68 @@ function App() {
             <GithubIcon size={16} />
             <span className="btn-label-mobile">GitHub</span>
           </a>
+
+          {/* Mobile Overflow Menu (•••) */}
+          <div className="mobile-more-menu-wrapper" ref={mobileMenuRef}>
+            <button
+              type="button"
+              className={`mobile-more-btn ${isMobileMenuOpen ? 'active' : ''}`}
+              onClick={() => setIsMobileMenuOpen(prev => !prev)}
+              title="More actions"
+              aria-label="More actions"
+              aria-expanded={isMobileMenuOpen}
+            >
+              <MoreHorizontalIcon size={16} />
+            </button>
+
+            {isMobileMenuOpen && (
+              <div className="mobile-more-dropdown" role="menu">
+                <button
+                  type="button"
+                  className="mobile-dropdown-item"
+                  onClick={() => { handleDownloadMarkdown(); setIsMobileMenuOpen(false); }}
+                  disabled={!markdown.trim()}
+                >
+                  <DownloadIcon size={14} />
+                  <span>Download Markdown (.md)</span>
+                </button>
+                <button
+                  type="button"
+                  className="mobile-dropdown-item"
+                  onClick={() => { handleDownloadHTML(); setIsMobileMenuOpen(false); }}
+                  disabled={!markdown.trim()}
+                >
+                  <FileCodeIcon size={14} />
+                  <span>Export HTML (.html)</span>
+                </button>
+                <button
+                  type="button"
+                  className="mobile-dropdown-item"
+                  onClick={() => { handleCopyHTML(); setIsMobileMenuOpen(false); }}
+                  disabled={!markdown.trim()}
+                >
+                  {copiedHTML ? <CheckIcon size={14} /> : <CopyIcon size={14} />}
+                  <span>{copiedHTML ? 'Copied HTML!' : 'Copy Rich HTML'}</span>
+                </button>
+                <a
+                  href="https://github.com/SuryanshSwarn09/markdown-pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mobile-dropdown-item"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <GithubIcon size={14} />
+                  <span>GitHub Repository</span>
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
       <div className="split-layout">
         <div className="pane editor-pane">
-          <div className="pane-header">
+          <div className="pane-header editor-pane-header">
             <div className="pane-title-group">
               <span className="pane-title">Markdown Editor</span>
               <span className="save-status-pill" title="Saved locally in browser storage">
@@ -649,8 +723,8 @@ function App() {
               </button>
             </div>
             <div className="doc-stats">
-              <span className="stat-pill" title="Word count">{stats.words} words</span>
-              <span className="stat-pill" title="Character count">{stats.characters} chars</span>
+              <span className="stat-pill stat-words" title="Word count">{stats.words} words</span>
+              <span className="stat-pill stat-chars" title="Character count">{stats.characters} chars</span>
               <span className="stat-pill stat-time" title="Estimated reading time">{stats.readingTime}</span>
             </div>
           </div>
@@ -665,23 +739,11 @@ function App() {
           />
         </div>
 
-        <div className={`pane preview-pane ${isMobilePreviewOpen ? 'mobile-preview-expanded' : 'mobile-preview-collapsed'}`}>
-          <div 
-            className="pane-header preview-pane-header"
-            onClick={() => setIsMobilePreviewOpen(prev => !prev)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsMobilePreviewOpen(prev => !prev); } }}
-            aria-expanded={isMobilePreviewOpen}
-            aria-label="Toggle Live Preview on mobile"
-          >
+        <div className="pane preview-pane">
+          <div className="pane-header preview-pane-header">
             <div className="preview-header-left">
               <EyeIcon size={14} className="preview-header-icon" />
               <span className="pane-title">Live Preview</span>
-            </div>
-            <div className="mobile-accordion-toggle">
-              <span className="mobile-toggle-label">{isMobilePreviewOpen ? 'Collapse' : 'Tap to expand'}</span>
-              <ChevronDownIcon size={14} className={`mobile-toggle-chevron ${isMobilePreviewOpen ? 'open' : ''}`} />
             </div>
           </div>
 
