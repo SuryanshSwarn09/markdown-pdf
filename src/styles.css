@@ -138,6 +138,8 @@ body {
 
 /* --- TOP BAR & TOOLBAR --- */
 .top-bar {
+  position: relative;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -448,6 +450,7 @@ body {
 .mobile-more-menu-wrapper {
   position: relative;
   display: none;
+  z-index: 110;
 }
 
 .mobile-more-btn {
@@ -485,6 +488,7 @@ body {
   right: 0;
   z-index: 1200;
   min-width: 215px;
+  max-width: calc(100vw - 24px);
   padding: 6px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.94);
@@ -539,6 +543,8 @@ body {
 
 /* --- SPLIT PANES (Strict 50/50 Equal Split) --- */
 .split-layout {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
@@ -1934,6 +1940,8 @@ body {
   }
 
   .top-bar { 
+    position: relative;
+    z-index: 100;
     flex-direction: column; 
     gap: 8px; 
     align-items: stretch;
@@ -2024,6 +2032,8 @@ body {
   }
 
   .split-layout { 
+    position: relative;
+    z-index: 1;
     grid-template-columns: 1fr; 
     height: auto; 
     gap: 12px;
