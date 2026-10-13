@@ -31,7 +31,9 @@ import {
   CheckCircleIcon, 
   SyncScrollIcon,
   TocIcon,
-  GithubIcon
+  GithubIcon,
+  EyeIcon,
+  ChevronDownIcon
 } from './components/Icons.jsx';
 import PrintModal from './components/PrintModal.jsx';
 import { 
@@ -107,6 +109,7 @@ function App() {
   const [saveStatus, setSaveStatus] = useState('Saved');
   const [theme, setTheme] = useState(getInitialTheme);
   const [copiedHTML, setCopiedHTML] = useState(false);
+  const [isMobilePreviewOpen, setIsMobilePreviewOpen] = useState(false);
   
   // State to track which modal is currently open ('privacy', 'terms', 'clear', 'print', or null)
   const [activeModal, setActiveModal] = useState(null);
@@ -662,42 +665,59 @@ function App() {
           />
         </div>
 
-        <div className="pane preview-pane">
-          <div className="pane-header">
-            <span className="pane-title">Live Preview</span>
+        <div className={`pane preview-pane ${isMobilePreviewOpen ? 'mobile-preview-expanded' : 'mobile-preview-collapsed'}`}>
+          <div 
+            className="pane-header preview-pane-header"
+            onClick={() => setIsMobilePreviewOpen(prev => !prev)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsMobilePreviewOpen(prev => !prev); } }}
+            aria-expanded={isMobilePreviewOpen}
+            aria-label="Toggle Live Preview on mobile"
+          >
+            <div className="preview-header-left">
+              <EyeIcon size={14} className="preview-header-icon" />
+              <span className="pane-title">Live Preview</span>
+            </div>
+            <div className="mobile-accordion-toggle">
+              <span className="mobile-toggle-label">{isMobilePreviewOpen ? 'Collapse' : 'Tap to expand'}</span>
+              <ChevronDownIcon size={14} className={`mobile-toggle-chevron ${isMobilePreviewOpen ? 'open' : ''}`} />
+            </div>
           </div>
 
-          {/* Running Print Header */}
-          {printOptions.showHeader && (
-            <div className="print-running-header" aria-hidden="true">
-              <span className="print-header-text">{printOptions.headerText || 'Document'}</span>
-              {printOptions.showDate && (
-                <span className="print-header-date">
-                  {new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
-                </span>
-              )}
-            </div>
-          )}
+          <div className="preview-body-container">
+            {/* Running Print Header */}
+            {printOptions.showHeader && (
+              <div className="print-running-header" aria-hidden="true">
+                <span className="print-header-text">{printOptions.headerText || 'Document'}</span>
+                {printOptions.showDate && (
+                  <span className="print-header-date">
+                    {new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
+                  </span>
+                )}
+              </div>
+            )}
 
-          <div 
-            ref={previewRef}
-            className="preview-output" 
-            onScroll={handlePreviewScroll}
-            onClick={handlePreviewClick}
-            dangerouslySetInnerHTML={{ __html: parsedHTML }} 
-          />
+            <div 
+              ref={previewRef}
+              className="preview-output" 
+              onScroll={handlePreviewScroll}
+              onClick={handlePreviewClick}
+              dangerouslySetInnerHTML={{ __html: parsedHTML }} 
+            />
 
-          {/* Running Print Footer */}
-          {printOptions.showFooter && (
-            <div className="print-running-footer" aria-hidden="true">
-              <span className="print-footer-text">{printOptions.footerText}</span>
-              {printOptions.showPageNumbers && (
-                <span className="print-footer-page">
-                  Page <span className="print-page-counter" />
-                </span>
-              )}
-            </div>
-          )}
+            {/* Running Print Footer */}
+            {printOptions.showFooter && (
+              <div className="print-running-footer" aria-hidden="true">
+                <span className="print-footer-text">{printOptions.footerText}</span>
+                {printOptions.showPageNumbers && (
+                  <span className="print-footer-page">
+                    Page <span className="print-page-counter" />
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -746,26 +766,28 @@ function App() {
                 </p>
                 <div className="clear-modal-tip-card">
                   <UndoIcon size={14} className="clear-tip-icon" />
-                  <span>Don&apos;t worry — you can immediately restore your text with <strong>↩ Undo Clear</strong> if you change your mind.</span>
+                  <span>Don&apos;t worry — you can immediately restore your text with <strong>Undo Clear</strong> if you change your mind.</span>
                 </div>
               </div>
 
               {/* Actions: Cancel + Reset Example + Clear All */}
               <div className="modal-actions clear-modal-actions">
-                <button 
-                  type="button"
-                  className="modal-secondary-btn" 
-                  onClick={() => setActiveModal(null)}
-                >
-                  Cancel
-                </button>
-                <button 
-                  type="button"
-                  className="modal-secondary-btn" 
-                  onClick={() => handleConfirmClear(true)}
-                >
-                  Reset Example
-                </button>
+                <div className="clear-modal-actions-secondary">
+                  <button 
+                    type="button"
+                    className="modal-secondary-btn" 
+                    onClick={() => setActiveModal(null)}
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="button"
+                    className="modal-secondary-btn clear-reset-btn" 
+                    onClick={() => handleConfirmClear(true)}
+                  >
+                    Reset Example
+                  </button>
+                </div>
                 <button 
                   type="button"
                   className="modal-danger-btn clear-confirm-btn" 

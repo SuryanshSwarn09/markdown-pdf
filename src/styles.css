@@ -477,6 +477,28 @@ body {
   background: rgba(0, 0, 0, 0.02);
 }
 
+.preview-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preview-header-icon {
+  color: var(--accent);
+}
+
+.mobile-accordion-toggle {
+  display: none;
+}
+
+.preview-body-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .pane-title-group {
   display: flex;
   align-items: center;
@@ -1129,6 +1151,10 @@ body {
   margin-top: 4px;
 }
 
+.clear-modal-actions-secondary {
+  display: contents;
+}
+
 .clear-modal-actions .modal-secondary-btn,
 .clear-modal-actions .modal-danger-btn {
   flex: 1;
@@ -1561,11 +1587,32 @@ body {
   .print-modal-window,
   .clear-modal-window {
     padding: 16px;
-    gap: 12px;
+    gap: 14px;
     max-width: 94vw;
   }
   .clear-modal-actions {
+    display: flex;
     flex-direction: column;
+    gap: 9px;
+    width: 100%;
+  }
+  .clear-modal-actions-secondary {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+  .clear-modal-actions-secondary .modal-secondary-btn {
+    flex: 1;
+    height: 40px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .clear-modal-actions .clear-confirm-btn {
+    width: 100%;
+    height: 42px;
+    font-size: 0.88rem;
+    font-weight: 650;
+    justify-content: center;
   }
   .print-modal-grid {
     grid-template-columns: 1fr;
@@ -1747,14 +1794,113 @@ body {
   }
 
   .split-layout {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     height: auto;
     gap: 16px;
   }
 
   .pane {
-    min-height: 45vh;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .editor-pane {
+    min-height: 52vh;
     flex: none;
+  }
+
+  .editor-input {
+    min-height: 42vh;
+  }
+
+  /* Accordion Header for Live Preview on mobile */
+  .preview-pane-header {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 16px;
+    background: rgba(0, 0, 0, 0.03);
+    transition: background-color 0.2s ease;
+  }
+
+  [data-theme="dark"] .preview-pane-header {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .preview-pane-header:hover {
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  [data-theme="dark"] .preview-pane-header:hover {
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .preview-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .preview-header-icon {
+    color: var(--accent);
+  }
+
+  .mobile-accordion-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: var(--btn-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-toggle-chevron {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .mobile-toggle-chevron.open {
+    transform: rotate(180deg);
+  }
+
+  .preview-pane.mobile-preview-collapsed {
+    min-height: auto;
+    height: auto;
+    flex: none;
+  }
+
+  .preview-pane.mobile-preview-collapsed .preview-body-container {
+    display: none;
+  }
+
+  .preview-pane.mobile-preview-expanded {
+    min-height: auto;
+    flex: none;
+  }
+
+  .preview-pane.mobile-preview-expanded .preview-pane-header {
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .preview-pane.mobile-preview-expanded .preview-body-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 48vh;
+    max-height: 72vh;
+    overflow-y: auto;
+  }
+
+  .preview-pane.mobile-preview-expanded .preview-output {
+    min-height: 44vh;
   }
 }
 
@@ -1870,22 +2016,29 @@ body {
   }
 
   .split-layout { 
-    flex-direction: column; 
+    grid-template-columns: 1fr; 
     height: auto; 
     gap: 12px;
   }
 
   .pane { 
-    min-height: 48vh; 
-    flex: none;
-    border-radius: 12px;
+    width: 100%;
+    min-height: auto;
+    border-radius: 14px;
   }
 
-  .pane-header {
+  .editor-pane .pane-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
     padding: 10px 14px;
+  }
+
+  .preview-pane-header {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100%;
   }
 
   .pane-title-group {
