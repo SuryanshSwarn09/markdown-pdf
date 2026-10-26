@@ -2283,6 +2283,7 @@ body {
     font-size: 9.5pt !important; 
     line-height: 1.45 !important; 
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+    color: #1e293b !important;
   }
 
   /* Inline Code */
@@ -2318,6 +2319,16 @@ body {
     border-collapse: collapse !important;
     margin: 10pt 0 !important;
     font-size: 9.5pt !important;
+    background-color: #ffffff !important;
+    color: #1e293b !important;
+  }
+
+  .preview-output thead {
+    background-color: #f1f5f9 !important;
+  }
+
+  .preview-output tr {
+    background-color: #ffffff !important;
   }
 
   .preview-output th,
@@ -2329,7 +2340,13 @@ body {
 
   .preview-output th {
     background-color: #f1f5f9 !important;
+    color: #0f172a !important;
     font-weight: 600 !important;
+  }
+
+  .preview-output td {
+    background-color: #ffffff !important;
+    color: #1e293b !important;
   }
 
   /* KaTeX Math Equations in print */

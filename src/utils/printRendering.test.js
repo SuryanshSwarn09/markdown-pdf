@@ -6,6 +6,7 @@ import {
   getComputedMargins 
 } from './printOptions.js';
 import assert from 'node:assert';
+import fs from 'node:fs';
 
 console.log('Running test suite for print layout rendering & media queries...');
 
@@ -58,5 +59,10 @@ assert.strictEqual(getComputedMargins('compact', true, true), '18mm 10mm 18mm 10
 
 assert.strictEqual(getComputedMargins('wide', false, false), '25mm 25mm 25mm 25mm');
 assert.strictEqual(getComputedMargins('wide', true, true), '30mm 25mm 32mm 25mm');
+
+// 6. Verify print stylesheet table contrast
+const stylesCSS = fs.readFileSync(new URL('../styles.css', import.meta.url), 'utf-8');
+assert.ok(stylesCSS.includes('color: #0f172a !important;'), 'Print styles must enforce dark text for table headers');
+assert.ok(stylesCSS.includes('color: #1e293b !important;'), 'Print styles must enforce dark text for table cells');
 
 console.log('All print layout rendering tests passed successfully!');
