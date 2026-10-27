@@ -2243,7 +2243,9 @@ body {
     color: #222222 !important;
   }
 
-  /* Avoid orphaned headings at the bottom of pages */
+  /* Avoid orphaned headings at the bottom of pages:
+   * Keep heading connected with the subsequent block to prevent isolated titles at page bottoms.
+   */
   .preview-output h1,
   .preview-output h2,
   .preview-output h3,
@@ -2252,13 +2254,16 @@ body {
   .preview-output h6 {
     page-break-after: avoid !important;
     break-after: avoid !important;
+    break-after: avoid-page !important;
   }
 
-  /* Prevent awkward breaks inside atomic elements */
+  /* Prevent awkward breaks inside atomic elements:
+   * Note: Tables are excluded here (configured with break-inside: auto below) so long multi-unit
+   * tables can paginate row-by-row across pages/columns rather than causing empty blank pages.
+   */
   .preview-output pre,
   .preview-output code,
   .preview-output img,
-  .preview-output table,
   .preview-output tr,
   .preview-output blockquote,
   .preview-output figure,
@@ -2313,7 +2318,14 @@ body {
     text-decoration: underline !important;
   }
 
-  /* Tables in print */
+  /* Tables in print:
+   * 1. break-inside: auto enables long tables (e.g. course syllabi) to break between rows across
+   *    pages and columns instead of being pushed entirely away and leaving blank sheets.
+   * 2. tr { break-inside: avoid } guarantees individual rows never get split across page breaks.
+   * 3. column-span: all ensures wide tables in 2-column academic layouts span both columns cleanly.
+   * 4. thead { display: table-header-group } repeats table header rows at the top of each page.
+   * 5. word-break & overflow-wrap prevent long text strings or URLs from overflowing cell bounds.
+   */
   .preview-output table {
     width: 100% !important;
     border-collapse: collapse !important;
@@ -2321,14 +2333,21 @@ body {
     font-size: 9.5pt !important;
     background-color: #ffffff !important;
     color: #1e293b !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+    column-span: all !important;
+    -webkit-column-span: all !important;
   }
 
   .preview-output thead {
+    display: table-header-group !important;
     background-color: #f1f5f9 !important;
   }
 
   .preview-output tr {
     background-color: #ffffff !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   .preview-output th,
@@ -2336,6 +2355,8 @@ body {
     border: 1px solid #cbd5e1 !important;
     padding: 6pt 8pt !important;
     text-align: left !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
   }
 
   .preview-output th {
@@ -2388,18 +2409,22 @@ body {
     margin-right: 6px;
   }
 
-  /* Running Header & Footer for Multi-Page Print Output */
+  /* Running Header & Footer for Multi-Page Print Output:
+   * Positioned inside the reserved @page margins via negative offset matching the margin allowance.
+   * This ensures the running header and footer never collide with document headings, titles,
+   * tables, or paragraphs on any page of the printed output.
+   */
   .print-running-header {
     position: fixed !important;
-    top: 0 !important;
+    top: -13mm !important;
     left: 0 !important;
     right: 0 !important;
-    height: 14mm !important;
+    height: 9mm !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
     border-bottom: 0.5pt solid #cbd5e1 !important;
-    padding: 0 1mm 2mm 1mm !important;
+    padding: 0 1mm 1.5mm 1mm !important;
     font-size: 8.5pt !important;
     line-height: 1 !important;
     color: #64748b !important;
@@ -2423,15 +2448,15 @@ body {
 
   .print-running-footer {
     position: fixed !important;
-    bottom: 0 !important;
+    bottom: -13mm !important;
     left: 0 !important;
     right: 0 !important;
-    height: 12mm !important;
+    height: 9mm !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
     border-top: 0.5pt solid #cbd5e1 !important;
-    padding: 2mm 1mm 0 1mm !important;
+    padding: 1.5mm 1mm 0 1mm !important;
     font-size: 8.5pt !important;
     line-height: 1 !important;
     color: #64748b !important;

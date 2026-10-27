@@ -60,9 +60,16 @@ assert.strictEqual(getComputedMargins('compact', true, true), '18mm 10mm 18mm 10
 assert.strictEqual(getComputedMargins('wide', false, false), '25mm 25mm 25mm 25mm');
 assert.strictEqual(getComputedMargins('wide', true, true), '30mm 25mm 32mm 25mm');
 
-// 6. Verify print stylesheet table contrast
+// 6. Verify print stylesheet table contrast, pagination, and running header offsets
 const stylesCSS = fs.readFileSync(new URL('../styles.css', import.meta.url), 'utf-8');
 assert.ok(stylesCSS.includes('color: #0f172a !important;'), 'Print styles must enforce dark text for table headers');
 assert.ok(stylesCSS.includes('color: #1e293b !important;'), 'Print styles must enforce dark text for table cells');
+assert.ok(stylesCSS.includes('page-break-inside: auto !important;'), 'Print styles must allow tables to paginate across pages');
+assert.ok(stylesCSS.includes('column-span: all !important;'), 'Print styles must allow tables to span columns in multi-column layouts');
+assert.ok(stylesCSS.includes('display: table-header-group !important;'), 'Print styles must repeat table thead on each page');
+assert.ok(stylesCSS.includes('break-after: avoid-page !important;'), 'Print styles must avoid heading orphans across pages');
+assert.ok(stylesCSS.includes('top: -13mm !important;'), 'Print running header must be offset into the top margin');
+assert.ok(stylesCSS.includes('bottom: -13mm !important;'), 'Print running footer must be offset into the bottom margin');
 
 console.log('All print layout rendering tests passed successfully!');
+
